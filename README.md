@@ -60,7 +60,7 @@ def control_loop():    # 제어 — 안 바뀜
 | 주제 | 라벨 | 담당 |
 |---|---|---|
 | LLM 기반 패스 플래닝 | `topic-llm-planning` | 박준우, 조희호 , 손혜성|
-| 단안 다중뷰 비전 이동 | `topic-mono-vision` | 김다인, 안정현 |
+| 단안 다중뷰 비전 이동 | `topic-mono-vision` | 김다인, 안정현 , 조희호|
 
 
 
