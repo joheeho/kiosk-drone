@@ -104,8 +104,7 @@ pip install -r requirements.txt
 
 ```bash
 # PX4 SITL — make 쓰지 말 것 (메모리 터짐)
-cd ~/PX4-Autopilot
-PX4_GZ_WORLD=kiosk PX4_SIM_MODEL=gz_x500_depth ./build/px4_sitl_default/bin/px4
+cd ~/kiosk_drone_ws && venv/bin/python fly_to_marker_and_capture.py
 
 # 다른 터미널에서 비행
 cd ~/kiosk-drone
