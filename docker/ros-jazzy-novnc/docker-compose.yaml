@@ -1,0 +1,14 @@
+services:
+  ros-jazzy-novnc:
+    container_name: ros-jazzy-novnc
+    image: cire21st/ros-jazzy-full:latest 
+    privileged: true
+    ipc: host
+    pid: host
+    ports:
+      - 8080:80
+    volumes:
+      - ./workspace:/home/ubuntu/Desktop
+    stdin_open: true
+    tty: true
+    platform: linux/amd64
