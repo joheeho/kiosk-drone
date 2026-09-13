@@ -90,7 +90,7 @@ LLM 패스 플래닝 → agent/, 브랜치 agent/llm-path-planning
 - PX4 SITL + Gazebo 8.14
 - Python 3.12
 
-### 설치
+## 설치
 
 ```bash
 git clone https://github.com/<본인계정>/kiosk-drone.git
@@ -100,17 +100,24 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 시뮬 실행
+## 시뮬 실행
 
-pkill -9 px4; pkill -9 -f "gz sim"; pkill -9 ruby; sleep 3
+```bash
+pkill -9 px4
+pkill -9 -f "gz sim"
+pkill -9 ruby
+sleep 3
 cd ~/PX4-Autopilot
 PX4_GZ_WORLD=kiosk PX4_SIM_MODEL=gz_x500_depth ./build/px4_sitl_default/bin/px4
-
-# 다른 터미널에서 비행
-cd ~/kiosk_drone_ws && venv/bin/python fly_to_marker_and_capture.py
 ```
 
----
+## 다른 터미널에서 비행
+
+```bash
+cd ~/kiosk_drone_ws
+source venv/bin/activate
+python fly_to_marker_and_capture.py
+```
 
 ## 기여하기
 
