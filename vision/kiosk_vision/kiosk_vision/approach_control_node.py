@@ -22,7 +22,6 @@ from px4_msgs.msg import (
     VehicleLocalPosition, VehicleAttitude,
 )
 from geometry_msgs.msg import PoseStamped
-from std_msgs.msg import Bool
 
 from kiosk_vision.wall_geometry import quat_to_rotmat, yaw_err_from_R
 
@@ -43,7 +42,6 @@ class ApproachControlNode(Node):
         super().__init__('approach_control_node')
         self.declare_parameter('bringup_level', LOG_ONLY)
         self.declare_parameter('pose_topic', '/target/pose')
-        self.declare_parameter('visible_topic', '/target/visible')
         self.declare_parameter('standoff', 0.6)
         self.declare_parameter('search_yaw_rate_deg', 20.0)
         self.declare_parameter('approach_gain', 0.3)
@@ -52,7 +50,9 @@ class ApproachControlNode(Node):
         self.declare_parameter('tol_lateral', 0.06)
         self.declare_parameter('tol_yaw_deg', 3.0)
         self.declare_parameter('takeoff_alt', 1.5)  # m (NED z = -takeoff_alt)
-        self.declare_parameter('target_lost_timeout', 1.0)  # s
+        # 실측 카메라 프레임 간격이 5Hz 스펙보다 불규칙(WSL 렌더링, 최대 약 2.0s 공백
+        # 관측됨)해서 여유를 두고 2.5s로 설정 (docs/PROGRESS.md 참고).
+        self.declare_parameter('target_lost_timeout', 2.5)  # s
 
         self.level = int(self.get_parameter('bringup_level').value)
         self.standoff = float(self.get_parameter('standoff').value)
@@ -80,15 +80,12 @@ class ApproachControlNode(Node):
                                   self.on_attitude, px4_qos)
 
         pose_topic = self.get_parameter('pose_topic').value
-        visible_topic = self.get_parameter('visible_topic').value
         self.create_subscription(PoseStamped, pose_topic, self.on_target_pose, 10)
-        self.create_subscription(Bool, visible_topic, self.on_target_visible, 10)
 
         self.vlp = None
         self.att = None
         self.last_target_pose = None
         self.last_target_time = None
-        self.target_visible = False
 
         self.state = 'SEARCH'
         self.search_ned = None
@@ -114,16 +111,17 @@ class ApproachControlNode(Node):
         self.last_target_pose = msg
         self.last_target_time = self.get_clock().now()
 
-    def on_target_visible(self, msg):
-        self.target_visible = msg.data
-
     # ---- helpers ----
     def current_yaw(self):
         w, x, y, z = self.att.q  # Hamilton, FRD body -> NED, order (w,x,y,z)
         return math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
 
     def target_lost(self):
-        if not self.target_visible or self.last_target_time is None:
+        # 프레임 단위 순간 미검출(self.target_visible=False)만으로 즉시 SEARCH로 튀지
+        # 않도록, "마지막으로 pose를 받은 시각"만 기준으로 판단한다 (target_lost_timeout
+        # 동안은 마지막 pose를 유지). 카메라 프레임 간격이 불규칙(WSL 렌더링)해서
+        # self.target_visible을 직접 쓰면 수백ms 공백마다 SEARCH<->APPROACH가 토글됨.
+        if self.last_target_time is None:
             return True
         age = (self.get_clock().now() - self.last_target_time).nanoseconds * 1e-9
         return age > self.target_lost_timeout
