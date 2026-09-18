@@ -46,3 +46,36 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
 2. `decide()` 규칙판
 3. 제어 루프 연결 → 비전 이동 완성
 4. 커밋 & 푸시
+
+## 2026-09-18 — 4벽 탐색·타겟 정렬 접근 (SCRUM-25) — LOG_ONLY 검증
+
+### 결과
+- `sim/worlds/kiosk_4walls.sdf`: 원점 사방 3m에 4벽(북0-3/동4-7/남8-11/서12-15), 각 벽이
+  원점을 향하도록 yaw 계산해서 배치 (북0°/동-90°/남180°/서90°, gz ENU 기준)
+- `aruco_pnp_node.py` 확장: 검출 마커를 ID로 벽별 그룹핑 → 벽별 통합 solvePnP,
+  `target_wall` 파라미터(기본 '동')로 타겟 벽만 `/target/pose`+`/target/visible` 발행
+- `approach_control_node.py` 신설: px4_msgs 오프보드 SEARCH/APPROACH/HOLD 상태머신,
+  `bringup_level` 0~4단계 게이팅, 속도캡(0.3m/s, 틱당 rate-limit)
+- **LOG_ONLY(레벨0) 실행 결과** (기체는 스폰 위치 그대로, 오프보드 미발행/미arm):
+  - 스폰 기본 yaw가 이미 동쪽(+X)을 향함 → 별도 회전 없이 동 벽(id 4-7) 검출됨
+  - `aruco_pnp_node`: `fwd 2.924m | lat -0.003 | yaw +0.0deg | reproj 0.67px`
+    (동 벽이 실제로 x=3m 근처, reproj<2px 기준 충족)
+  - `approach_control_node`: APPROACH 상태에서 raw_target_ned(속도캡 전) ≈
+    (N -0.01~-0.05, E +0.65~0.71, -1.5) — standoff(0.6m) 보정된 전진오차(gain 0.3)가
+    거의 전부 +E(동쪽) 성분으로 변환됨 → FRD→NED 회전 변환이 동 벽 방향을 정확히 가리킴
+  - clamped target은 실제 현재 위치 기준 0.015m/tick(=0.3m/s*50ms) 이내로만 이동 지시
+    → 기체는 실측상 계속 원점 근방(±5cm)에 머묾, 실제로 움직이지 않음을 확인
+
+### 알려진 이슈
+- 타겟 가시성이 간헐적으로 튐(`타겟 미검출/유실 -> SEARCH 복귀`가 수백ms 간격으로 발생) —
+  카메라 프레임 도착 간격이 5Hz 스펙보다 불규칙(WSL 렌더링) 한 것으로 보임.
+  `target_lost_timeout`(현 1.0s) 조정 여지 있음. HOVER_HOLD 이후 단계에서 재확인 필요.
+- PX4 기본 스폰 yaw가 이미 동쪽이라(gz ENU에서 body +X = world +X = East) LOG_ONLY
+  검증에 별도 조치가 필요 없었음 — 다른 벽을 타겟으로 검증할 때는 `PX4_GZ_MODEL_POSE`로
+  스폰 yaw를 돌려야 함 (예: 북쪽 확인 시 `PX4_GZ_MODEL_POSE="0,0,0,0,0,1.570796"`로 이미
+  검증 — 이때는 북 벽 id=3이 잡힘, gz ENU 기준 yaw는 +X축에서 CCW로 측정됨에 주의).
+
+### 다음 (사용자 확인 후 진행)
+1. HOVER_HOLD(레벨1) — arm+offboard 제자리 유지만 확인
+2. YAW(2) → YAW_LATERAL(3) → FULL(4) 순서로 단계적 검증
+3. 전 구간 성공 시 커밋 & 푸시 & PR
