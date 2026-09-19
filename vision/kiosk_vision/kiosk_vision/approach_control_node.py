@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """제어부: SEARCH(제자리 yaw 회전 탐색) -> APPROACH(P제어 정렬·접근) -> HOLD
-상태머신. px4_msgs 오프보드로 명령한다.
+상태머신. px4_msgs 오프보드로 명령한다. APPROACH/HOLD에서 타겟을 놓치면 곧바로
+SEARCH(전체 회전)로 튀지 않고 REACQUIRE(제자리 대기 -> 좁은 스윕 -> 그래도
+안되면 SEARCH 승격)를 거친다 (_handle_lost 참고).
 
 안전 브링업 단계는 bringup_level 파라미터로 순서대로 검증한다:
   0 LOG_ONLY     : 오프보드 미발행/미arm. 변환된 목표 NED만 로그 (변환 검증).
@@ -62,8 +64,15 @@ class ApproachControlNode(Node):
         self.declare_parameter('tol_yaw_deg', 3.0)
         self.declare_parameter('takeoff_alt', 1.5)  # m (NED z = -takeoff_alt)
         # 실측 카메라 프레임 간격이 5Hz 스펙보다 불규칙(WSL 렌더링, 최대 약 2.0s 공백
-        # 관측됨)해서 여유를 두고 2.5s로 설정 (docs/PROGRESS.md 참고).
-        self.declare_parameter('target_lost_timeout', 2.5)  # s
+        # 관측됨)해서 여유를 두고 3.0s로 설정 (미세 드롭이 REACQUIRE로 안 튀도록 소폭 상향).
+        self.declare_parameter('target_lost_timeout', 3.0)  # s
+        # REACQUIRE(재포착): 락을 막 놓쳤을 때 곧바로 반대 방향 전체 SEARCH로 튀지
+        # 않기 위한 3단계 — ①grace(제자리 대기) ②좁은 스윕(마지막 방향 근방) ③그래도
+        # 못 찾으면 전체 SEARCH로 승격.
+        self.declare_parameter('reacquire_grace_s', 1.75)
+        self.declare_parameter('reacquire_sweep_deg', 40.0)
+        self.declare_parameter('reacquire_sweep_rate_deg', 9.0)
+        self.declare_parameter('reacquire_sweep_max_s', 15.0)
 
         self.level = int(self.get_parameter('bringup_level').value)
         self.standoff = float(self.get_parameter('standoff').value)
@@ -78,6 +87,10 @@ class ApproachControlNode(Node):
         self.tol_yaw = math.radians(float(self.get_parameter('tol_yaw_deg').value))
         self.takeoff_alt = float(self.get_parameter('takeoff_alt').value)
         self.target_lost_timeout = float(self.get_parameter('target_lost_timeout').value)
+        self.reacquire_grace_s = float(self.get_parameter('reacquire_grace_s').value)
+        self.reacquire_sweep = math.radians(float(self.get_parameter('reacquire_sweep_deg').value))
+        self.reacquire_sweep_rate = math.radians(float(self.get_parameter('reacquire_sweep_rate_deg').value))
+        self.reacquire_sweep_max_s = float(self.get_parameter('reacquire_sweep_max_s').value)
 
         px4_qos = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,
@@ -109,6 +122,11 @@ class ApproachControlNode(Node):
         self.target_ned = None
         self.target_yaw = None
         self.offboard_setpoint_counter = 0
+
+        self._reacquire_since = None
+        self._reacquire_center_yaw = None
+        self._reacquire_hold_ned = None
+        self._reacquire_sweep_dir = 1.0
 
         self.create_timer(DT, self.on_timer)
         self.get_logger().info(
@@ -214,13 +232,50 @@ class ApproachControlNode(Node):
             f'[{LEVEL_NAMES[self.level]}][{self.state}] target_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
             f'target_yaw={math.degrees(target_yaw):+.1f}deg', throttle_duration_sec=0.5)
 
+    def _handle_lost(self):
+        """타겟 유실 시 곧바로 전체 SEARCH로 튀지 않고 REACQUIRE 3단계를 거친다:
+        ①grace(제자리 대기) ②마지막 방향 근방 좁은 스윕 ③그래도 못 찾으면 전체 SEARCH."""
+        now = self.get_clock().now()
+
+        if self.state in ('APPROACH', 'HOLD'):
+            self.state = 'REACQUIRE'
+            self._reacquire_since = now
+            self._reacquire_center_yaw = self.target_yaw
+            self._reacquire_hold_ned = self.target_ned
+            self._reacquire_sweep_dir = 1.0
+            self.yaw_ref = self.target_yaw
+            self.get_logger().info('타겟 유실 -> REACQUIRE(제자리 대기) 진입')
+
+        if self.state == 'REACQUIRE':
+            elapsed = (now - self._reacquire_since).nanoseconds * 1e-9
+            if elapsed <= self.reacquire_grace_s:
+                return self._reacquire_hold_ned, self._reacquire_center_yaw  # ① grace: 제자리 대기
+
+            if elapsed <= self.reacquire_grace_s + self.reacquire_sweep_max_s:
+                # ② 마지막 방향 기준 좁은 스윕 (느린 속도로 왕복)
+                step = self.reacquire_sweep_rate * DT * self._reacquire_sweep_dir
+                candidate = wrap_pi(self.yaw_ref + step)
+                offset = wrap_pi(candidate - self._reacquire_center_yaw)
+                if offset > self.reacquire_sweep:
+                    candidate = wrap_pi(self._reacquire_center_yaw + self.reacquire_sweep)
+                    self._reacquire_sweep_dir = -1.0
+                elif offset < -self.reacquire_sweep:
+                    candidate = wrap_pi(self._reacquire_center_yaw - self.reacquire_sweep)
+                    self._reacquire_sweep_dir = 1.0
+                self.yaw_ref = candidate
+                return self._reacquire_hold_ned, self.yaw_ref
+
+            # ③ 좁은 스윕도 실패 -> 전체 SEARCH로 승격 (기존 동작, search_ned로 복귀)
+            self.get_logger().info('REACQUIRE 실패(좁은 스윕 시간초과) -> 전체 SEARCH 회전으로 전환')
+            self.state = 'SEARCH'
+            self.yaw_ref = self.target_yaw
+
+        self.yaw_ref = wrap_pi(self.yaw_ref + self.search_yaw_rate * DT)
+        return self.search_ned, self.yaw_ref
+
     def run_state_machine(self, cur_n, cur_e, cur_yaw):
         if self.target_lost():
-            if self.state != 'SEARCH':
-                self.get_logger().info('타겟 미검출/유실 -> SEARCH 복귀')
-            self.state = 'SEARCH'
-            self.yaw_ref = wrap_pi(self.yaw_ref + self.search_yaw_rate * DT)
-            return self.search_ned, self.yaw_ref
+            return self._handle_lost()
 
         forward = self.last_target_pose.pose.position.z  # forward는 스무딩 없이 원값 사용
         lateral = self.ema_lateral

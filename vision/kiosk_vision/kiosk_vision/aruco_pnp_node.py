@@ -20,7 +20,11 @@ from kiosk_vision.wall_geometry import (
 
 ARUCO_DICT = cv2.aruco.DICT_4X4_50
 REPROJ_ERR_WARN = 2.0
-REQUIRED_MARKERS = 4  # 벽 하나(16점 통합) 전부 보일 때만 pose 채택 (판단부 게이트 a)
+# 4(벽 전부) -> 3: flip 방어는 이제 solvePnPGeneric 시간적 일관성(a5f025c)이 소스에서
+# 담당하므로, 마커 수 게이트의 원래 목적(flip 방지)은 이미 달성됨. 3마커도 넓은
+# baseline(코너 배치)이라 pose가 충분히 안정적 -- 미세 자세 흔들림으로 마커 1개가
+# 프레임 경계를 넘나들 때마다 락이 깨지는 것을 줄이기 위해 완화.
+REQUIRED_MARKERS = 3
 
 # 연속성(점프) 게이트 (b): 직전 채택 pose 대비 이만큼 넘게 튀면 solvePnP의 평면
 # pose ambiguity(거울 해)로 간주하고 버린다 — reproj_err가 낮아도 버림.
@@ -199,9 +203,17 @@ class ArucoPnPNode(Node):
         ps.pose.orientation.w = qw
         self.pose_pub.publish(ps)
 
-        lvl = self.get_logger().warn if target['reproj_err'] > REPROJ_ERR_WARN else self.get_logger().info
-        lvl(f"[PnP target={self.target_wall}] {target['n_markers']}mk | fwd {target['forward']:.3f}m "
-            f"| lat {target['lateral']:+.3f} | yaw {target['yaw_err']:+.1f}deg | reproj {target['reproj_err']:.2f}px")
+        # 주의: get_logger().warn/.info를 변수에 담아뒀다 호출하면("lvl = ... ; lvl(msg)")
+        # 같은 콜사이트에서 severity가 달라져 rclpy가 ValueError("Logger severity cannot
+        # be changed between calls")를 던지며 노드가 죽는다 (실측: reproj_err가 처음
+        # 2.0px를 넘은 순간 크래시, docs/PROGRESS.md 참고). if/else로 분기해 각각 고정
+        # severity로 직접 호출한다.
+        msg = (f"[PnP target={self.target_wall}] {target['n_markers']}mk | fwd {target['forward']:.3f}m "
+               f"| lat {target['lateral']:+.3f} | yaw {target['yaw_err']:+.1f}deg | reproj {target['reproj_err']:.2f}px")
+        if target['reproj_err'] > REPROJ_ERR_WARN:
+            self.get_logger().warn(msg)
+        else:
+            self.get_logger().info(msg)
 
     def get_pose(self):
         return self.latest_pose
