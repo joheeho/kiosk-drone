@@ -60,8 +60,10 @@ class ApproachControlNode(Node):
         self.declare_parameter('yaw_rate_limit_deg', 15.0)
         self.declare_parameter('max_speed', 0.3)  # m/s
         self.declare_parameter('tol_forward', 0.06)
-        self.declare_parameter('tol_lateral', 0.06)
-        self.declare_parameter('tol_yaw_deg', 3.0)
+        # 6cm -> 12cm: approach_align 실측 lateral 노이즈 바닥이 약 3~12cm라 6cm는
+        # 노이즈보다 빡빡해서 HOLD<->APPROACH가 계속 토글됐음 (docs/PROGRESS.md).
+        self.declare_parameter('tol_lateral', 0.12)
+        self.declare_parameter('tol_yaw_deg', 3.0)  # 실측 yaw 진동폭(~±2deg)이 이미 여유 있어 유지
         self.declare_parameter('takeoff_alt', 1.5)  # m (NED z = -takeoff_alt)
         # 실측 카메라 프레임 간격이 5Hz 스펙보다 불규칙(WSL 렌더링, 최대 약 2.0s 공백
         # 관측됨)해서 여유를 두고 3.0s로 설정 (미세 드롭이 REACQUIRE로 안 튀도록 소폭 상향).
