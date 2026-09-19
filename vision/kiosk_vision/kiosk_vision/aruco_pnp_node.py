@@ -41,6 +41,10 @@ class ArucoPnPNode(Node):
         self.declare_parameter('pose_topic', '/target/pose')
         self.declare_parameter('visible_topic', '/target/visible')
         self.declare_parameter('target_wall', '동')  # 북/동/남/서
+        # 지상 정적 진단(부호 확인 등)에서 임시로 낮춰 쓸 수 있게 파라미터화.
+        # 기본값은 REQUIRED_MARKERS(3) 그대로.
+        self.declare_parameter('required_markers', REQUIRED_MARKERS)
+        self.required_markers = int(self.get_parameter('required_markers').value)
         img_topic = self.get_parameter('image_topic').value
         info_topic = self.get_parameter('camera_info_topic').value
         pose_topic = self.get_parameter('pose_topic').value
@@ -170,9 +174,9 @@ class ArucoPnPNode(Node):
         target = results.get(self.target_wall)
 
         # (a) 마커 수 게이트: 벽 하나(4마커, 16점) 전부 보일 때만 pose 후보로 인정.
-        if target is not None and target['n_markers'] < REQUIRED_MARKERS:
+        if target is not None and target['n_markers'] < self.required_markers:
             self.get_logger().info(
-                f"[gate] target={self.target_wall} {target['n_markers']}mk < {REQUIRED_MARKERS}mk -> 보류(마지막 pose 유지)",
+                f"[gate] target={self.target_wall} {target['n_markers']}mk < {self.required_markers}mk -> 보류(마지막 pose 유지)",
                 throttle_duration_sec=1.0)
             target = None
 

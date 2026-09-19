@@ -82,9 +82,15 @@ def quat_to_rotmat(x, y, z, w):
 
 
 def yaw_err_from_R(R):
-    """벽 법선(로컬 +Z)을 카메라 프레임으로 회전 후 정면=0deg 부호로 yaw 오차[deg] 계산."""
+    """벽 법선(로컬 +Z)을 카메라 프레임으로 회전 후 정면=0deg 부호로 yaw 오차[deg] 계산.
+    부호는 "target_yaw = cur_yaw + gain*yaw_err가 정렬 방향인가"로 정적 진단 검증됨
+    (2026-09-19, 동 벽 +15deg 오프셋 스폰: cur_yaw 80.4deg, 기준(정면) ~95deg,
+    필요 보정 +14.7deg인데 atan2(nx,-nz)는 -15.7deg를 내놓아 부호가 반대였음 ->
+    atan2(-nx,-nz)로 수정, docs/PROGRESS.md 참고). 기존 "atan2(nx,-nz)"는 SCRUM-23
+    때 정지 상태에서 "정면=0"으로만 확인됐고 실제 폐루프 보정 방향으로는 검증된 적이
+    없었음."""
     normal = R @ np.array([0.0, 0.0, 1.0])
-    return float(np.degrees(np.arctan2(normal[0], -normal[2])))
+    return float(np.degrees(np.arctan2(-normal[0], -normal[2])))
 
 
 def wrap_deg_diff(a, b):
