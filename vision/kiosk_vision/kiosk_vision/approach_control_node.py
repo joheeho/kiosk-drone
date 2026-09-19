@@ -49,15 +49,13 @@ class ApproachControlNode(Node):
         # 않도록 여유를 둠.
         self.declare_parameter('standoff', 1.0)
         self.declare_parameter('search_yaw_rate_deg', 20.0)
-        self.declare_parameter('approach_gain', 0.3)
-        # yaw도 다른 축처럼 P제어로: "전량 적용"은 과단순화였음 (단일 프레임 노이즈가
-        # 감쇠 없이 그대로 명령에 반영되어 진동의 원인이 됐음, docs/PROGRESS.md 참고).
-        self.declare_parameter('yaw_gain', 0.3)
+        # 목표점을 "비전 프레임마다 그 시점 위치 기준으로 한 번" 앵커링하는 구조로
+        # 바뀌면서(불변 목표 + 속도캡이 감속을 담당) 부분 스텝(0.3)일 이유가 없어짐 ->
+        # 1.0(전체 보정)이 기본. 필요시 낮춰서 프레임 간 미세보정을 더 완만하게 할 수 있음.
+        self.declare_parameter('approach_gain', 1.0)
+        self.declare_parameter('yaw_gain', 1.0)
         # solvePnP 거울해(flip) 사이 chatter 완화용 EMA 저역통과.
         self.declare_parameter('ema_alpha', 0.3)
-        # yaw 명령 자체도 급변 못 하게 rate-limit (탐색 회전의 search_yaw_rate_deg와는
-        # 별개 — 이건 APPROACH/HOLD의 비전 기반 yaw 보정에만 적용).
-        self.declare_parameter('yaw_rate_limit_deg', 15.0)
         self.declare_parameter('max_speed', 0.3)  # m/s
         self.declare_parameter('tol_forward', 0.06)
         # 6cm -> 12cm: approach_align 실측 lateral 노이즈 바닥이 약 3~12cm라 6cm는
@@ -82,7 +80,6 @@ class ApproachControlNode(Node):
         self.gain = float(self.get_parameter('approach_gain').value)
         self.yaw_gain = float(self.get_parameter('yaw_gain').value)
         self.ema_alpha = float(self.get_parameter('ema_alpha').value)
-        self.yaw_rate_limit = math.radians(float(self.get_parameter('yaw_rate_limit_deg').value))
         self.max_speed = float(self.get_parameter('max_speed').value)
         self.tol_forward = float(self.get_parameter('tol_forward').value)
         self.tol_lateral = float(self.get_parameter('tol_lateral').value)
@@ -118,6 +115,15 @@ class ApproachControlNode(Node):
         self.ema_lateral = None
         self.ema_yaw_err_deg = None
 
+        # 비전 프레임마다 한 번씩만 갱신되는 앵커 목표(그 사이엔 그대로 유지) —
+        # "매 제어 틱마다 현재위치+오차로 재계산"하면 실제 속도로 움직일 때 오차 갱신이
+        # 못 따라가서 목표가 계속 도망가듯 밀리는 문제가 있었음 (docs/PROGRESS.md).
+        self.anchor_ned = None
+        self.anchor_yaw = None
+        self._last_forward_err = None
+        self._last_lateral_err = None
+        self._last_yaw_err = None
+
         self.state = 'SEARCH'
         self.search_ned = None
         self.yaw_ref = None
@@ -135,8 +141,7 @@ class ApproachControlNode(Node):
         self.get_logger().info(
             f'approach_control_node start bringup_level={self.level}({LEVEL_NAMES[self.level]}) '
             f'standoff={self.standoff}m gain={self.gain} yaw_gain={self.yaw_gain} '
-            f'yaw_rate_limit={math.degrees(self.yaw_rate_limit):.0f}deg/s ema_alpha={self.ema_alpha} '
-            f'max_speed={self.max_speed}m/s')
+            f'ema_alpha={self.ema_alpha} max_speed={self.max_speed}m/s')
 
     # ---- subscriptions ----
     def on_local_position(self, msg):
@@ -151,6 +156,7 @@ class ApproachControlNode(Node):
         self.last_target_time = self.get_clock().now()
 
         raw_lateral = msg.pose.position.x
+        raw_forward = msg.pose.position.z
         R = quat_to_rotmat(msg.pose.orientation.x, msg.pose.orientation.y,
                             msg.pose.orientation.z, msg.pose.orientation.w)
         raw_yaw_err_deg = yaw_err_from_R(R)
@@ -162,6 +168,36 @@ class ApproachControlNode(Node):
             self.ema_lateral = a * raw_lateral + (1.0 - a) * self.ema_lateral
             # 각도는 선형 평균하면 ±180deg 경계에서 깨짐 -> wrap된 델타로 갱신
             self.ema_yaw_err_deg += a * wrap_deg_diff(raw_yaw_err_deg, self.ema_yaw_err_deg)
+
+        self._update_anchor(raw_forward)
+
+    def _update_anchor(self, forward):
+        """비전 프레임 도착 시점(pos_at_frame, yaw_at_frame) 기준으로 절대 목표를 한 번
+        계산해 고정한다. 다음 프레임이 올 때까지 이 앵커를 그대로 유지 -> 기체는 고정된
+        지점으로 날아가 속도캡에 따라 자연 감속·정지, 다음 프레임이 미세보정한다."""
+        if self.vlp is None or self.att is None:
+            return  # 아직 위치/자세를 모름 -> 이 프레임으로는 앵커링 불가, 다음 프레임 대기
+
+        pos_n, pos_e = self.vlp.x, self.vlp.y
+        yaw_at_frame = self.current_yaw()
+
+        forward_err = forward - self.standoff
+        lateral_err = self.ema_lateral
+        yaw_err = math.radians(self.ema_yaw_err_deg)
+
+        gate_level = FULL if self.level == LOG_ONLY else self.level
+        active_forward = forward_err if gate_level >= FULL else 0.0
+        active_lateral = lateral_err if gate_level >= YAW_LATERAL else 0.0
+
+        dn = active_forward * math.cos(yaw_at_frame) - active_lateral * math.sin(yaw_at_frame)
+        de = active_forward * math.sin(yaw_at_frame) + active_lateral * math.cos(yaw_at_frame)
+        z = self.search_ned[2] if self.search_ned is not None else -self.takeoff_alt
+
+        self.anchor_ned = (pos_n + self.gain * dn, pos_e + self.gain * de, z)
+        self.anchor_yaw = wrap_pi(yaw_at_frame + self.yaw_gain * yaw_err)
+        self._last_forward_err = forward_err
+        self._last_lateral_err = lateral_err
+        self._last_yaw_err = yaw_err
 
     # ---- helpers ----
     def current_yaw(self):
@@ -177,20 +213,6 @@ class ApproachControlNode(Node):
             return True
         age = (self.get_clock().now() - self.last_target_time).nanoseconds * 1e-9
         return age > self.target_lost_timeout
-
-    def clamp_step(self, cur_n, cur_e, tgt_n, tgt_e, dt):
-        """LOG_ONLY 로깅 전용(변환 검증용 "다음 위치" 시각화). 실비행 속도캡은
-        velocity_xy_toward()가 담당 — PX4 position 컨트롤러에 "현재+아주 작은 델타"를
-        매 틱 새로 먹이면 포지션 P게인만큼만 반응해서(델타/dt가 아니라 델타*P게인) 실제
-        속도가 캡보다 훨씬 낮게 나옴(실측: 0.3m/s 캡인데 ~0.01~0.05m/s만 나옴,
-        docs/PROGRESS.md). 그래서 실비행은 속도 자체를 커맨드한다."""
-        dn, de = tgt_n - cur_n, tgt_e - cur_e
-        dist = math.hypot(dn, de)
-        max_step = self.max_speed * dt
-        if dist > max_step and dist > 1e-9:
-            k = max_step / dist
-            return cur_n + dn * k, cur_e + de * k
-        return tgt_n, tgt_e
 
     def velocity_xy_toward(self, cur_n, cur_e, tgt_n, tgt_e, dt):
         """목표 지점으로 향하는 속도벡터, max_speed로 캡. 남은 거리가 max_speed*dt보다
@@ -232,18 +254,17 @@ class ApproachControlNode(Node):
             self.state = 'SEARCH'
             target_ned, target_yaw = self.search_ned, self.yaw_ref
         else:
-            target_ned, target_yaw = self.run_state_machine(cur_n, cur_e, cur_yaw, dt)
+            target_ned, target_yaw = self.run_state_machine(dt)
 
         raw_target_ned = target_ned  # run_state_machine이 낸 목표 위치(감쇠 전 개념적 목표)
         self.target_ned, self.target_yaw = raw_target_ned, target_yaw
 
         if self.level == LOG_ONLY:
-            clamped_n, clamped_e = self.clamp_step(cur_n, cur_e, target_ned[0], target_ned[1], dt)
+            vx, vy = self.velocity_xy_toward(cur_n, cur_e, target_ned[0], target_ned[1], dt)
             self.get_logger().info(
                 f'[LOG_ONLY][{self.state}] cur_ned=({cur_n:.3f},{cur_e:.3f},{cur_d:.3f}) yaw={math.degrees(cur_yaw):+.1f}deg '
-                f'-> raw_target_ned(속도캡 전)=({raw_target_ned[0]:.3f},{raw_target_ned[1]:.3f},{raw_target_ned[2]:.3f}) '
-                f'clamped_target_ned=({clamped_n:.3f},{clamped_e:.3f},{target_ned[2]:.3f}) '
-                f'target_yaw={math.degrees(target_yaw):+.1f}deg',
+                f'-> anchor_ned=({raw_target_ned[0]:.3f},{raw_target_ned[1]:.3f},{raw_target_ned[2]:.3f}) '
+                f'anchor_yaw={math.degrees(target_yaw):+.1f}deg would_vel=({vx:+.3f},{vy:+.3f})',
                 throttle_duration_sec=0.5)
             return  # 오프보드 발행/arm 없음 — 드론은 움직이지 않는다
 
@@ -304,46 +325,21 @@ class ApproachControlNode(Node):
         self.yaw_ref = wrap_pi(self.yaw_ref + self.search_yaw_rate * dt)
         return self.search_ned, self.yaw_ref
 
-    def run_state_machine(self, cur_n, cur_e, cur_yaw, dt):
-        if self.target_lost():
+    def run_state_machine(self, dt):
+        if self.target_lost() or self.anchor_ned is None:
             return self._handle_lost(dt)
 
-        forward = self.last_target_pose.pose.position.z  # forward는 스무딩 없이 원값 사용
-        lateral = self.ema_lateral
-        yaw_err = math.radians(self.ema_yaw_err_deg)
-
-        forward_err = forward - self.standoff
-        lateral_err = lateral
-
-        # LOG_ONLY는 실제로는 아무것도 안 움직이지만 변환식 검증을 위해 항상
-        # FULL 기준으로 계산한다(로그만 남기고 오프보드는 발행하지 않음).
+        # 앵커는 on_target_pose(_update_anchor)에서 비전 프레임 도착 시 이미 계산해
+        # 고정해뒀다 — 여기서는 그걸 그대로 목표로 쓰고, 허용오차 판정만 한다.
         gate_level = FULL if self.level == LOG_ONLY else self.level
-        active_forward = forward_err if gate_level >= FULL else 0.0
-        active_lateral = lateral_err if gate_level >= YAW_LATERAL else 0.0
-
-        dn = active_forward * math.cos(cur_yaw) - active_lateral * math.sin(cur_yaw)
-        de = active_forward * math.sin(cur_yaw) + active_lateral * math.cos(cur_yaw)
-        candidate_ned = (cur_n + self.gain * dn, cur_e + self.gain * de, self.search_ned[2])
-        yaw_step = self.yaw_gain * yaw_err
-        max_yaw_step = self.yaw_rate_limit * dt
-        yaw_step = max(-max_yaw_step, min(max_yaw_step, yaw_step))
-        candidate_yaw = wrap_pi(cur_yaw + yaw_step)
-
-        checks = [abs(yaw_err) < self.tol_yaw]
+        checks = [abs(self._last_yaw_err) < self.tol_yaw]
         if gate_level >= YAW_LATERAL:
-            checks.append(abs(lateral_err) < self.tol_lateral)
+            checks.append(abs(self._last_lateral_err) < self.tol_lateral)
         if gate_level >= FULL:
-            checks.append(abs(forward_err) < self.tol_forward)
-        within_tol = all(checks)
+            checks.append(abs(self._last_forward_err) < self.tol_forward)
 
-        if within_tol:
-            if self.state != 'HOLD':
-                self.state = 'HOLD'
-                self.target_ned, self.target_yaw = candidate_ned, candidate_yaw
-            return self.target_ned, self.target_yaw
-
-        self.state = 'APPROACH'
-        return candidate_ned, candidate_yaw
+        self.state = 'HOLD' if all(checks) else 'APPROACH'
+        return self.anchor_ned, self.anchor_yaw
 
     # ---- px4 command helpers (offboard_control.py 예제와 동일 패턴) ----
     def publish_offboard_heartbeat(self):
