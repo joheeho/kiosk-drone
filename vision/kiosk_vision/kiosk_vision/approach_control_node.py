@@ -42,7 +42,10 @@ class ApproachControlNode(Node):
         super().__init__('approach_control_node')
         self.declare_parameter('bringup_level', LOG_ONLY)
         self.declare_parameter('pose_topic', '/target/pose')
-        self.declare_parameter('standoff', 0.6)
+        # 0.6m -> 1.0m: 1m 벽 패널 기준으로도 접근 끝(정지 지점)에서 4마커가 화각에
+        # 남아 aruco_pnp_node의 마커 수 게이트(REQUIRED_MARKERS=4)가 막판에 끊기지
+        # 않도록 여유를 둠.
+        self.declare_parameter('standoff', 1.0)
         self.declare_parameter('search_yaw_rate_deg', 20.0)
         self.declare_parameter('approach_gain', 0.3)
         self.declare_parameter('max_speed', 0.3)  # m/s

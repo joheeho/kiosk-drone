@@ -85,3 +85,8 @@ def yaw_err_from_R(R):
     """벽 법선(로컬 +Z)을 카메라 프레임으로 회전 후 정면=0deg 부호로 yaw 오차[deg] 계산."""
     normal = R @ np.array([0.0, 0.0, 1.0])
     return float(np.degrees(np.arctan2(normal[0], -normal[2])))
+
+
+def wrap_deg_diff(a, b):
+    """a-b를 [-180,180] 범위로 wrap (각도 불연속 경계에서의 거짓 점프 방지)."""
+    return (a - b + 180.0) % 360.0 - 180.0

@@ -15,11 +15,18 @@ from cv_bridge import CvBridge
 
 from kiosk_vision.wall_geometry import (
     MARKER_SIZE, CORNER_LAYOUT, WALL_ID_BASE,
-    marker_id_to_wall, marker_corners_3d, rotmat_to_quat, yaw_err_from_R,
+    marker_id_to_wall, marker_corners_3d, rotmat_to_quat, yaw_err_from_R, wrap_deg_diff,
 )
 
 ARUCO_DICT = cv2.aruco.DICT_4X4_50
 REPROJ_ERR_WARN = 2.0
+REQUIRED_MARKERS = 4  # 벽 하나(16점 통합) 전부 보일 때만 pose 채택 (판단부 게이트 a)
+
+# 연속성(점프) 게이트 (b): 직전 채택 pose 대비 이만큼 넘게 튀면 solvePnP의 평면
+# pose ambiguity(거울 해)로 간주하고 버린다 — reproj_err가 낮아도 버림.
+JUMP_GATE_YAW_DEG = 30.0
+JUMP_GATE_LATERAL_M = 0.5
+JUMP_GATE_RESET_S = 2.0  # 이만큼 공백이 있었으면 재포착으로 보고 게이트 없이 수용
 
 
 class ArucoPnPNode(Node):
@@ -53,6 +60,7 @@ class ArucoPnPNode(Node):
         self.pose_pub = self.create_publisher(PoseStamped, pose_topic, 10)
         self.visible_pub = self.create_publisher(Bool, visible_topic, 10)
         self.latest_pose = None
+        self.last_accepted = None  # {'yaw_err','lateral','time'} — 점프 게이트 기준점
         self.get_logger().info(
             f'aruco_pnp_node start img={img_topic} info={info_topic} target_wall={self.target_wall}')
 
@@ -103,6 +111,17 @@ class ArucoPnPNode(Node):
             n_markers=len(obj_pts) // 4, R=R, tv=tv,
         )
 
+    def _passes_jump_gate(self, candidate):
+        """(b) 연속성 게이트: 직전 채택 pose 대비 비물리적으로 큰 점프면 flip으로 보고 버림."""
+        if self.last_accepted is None:
+            return True
+        age = (self.get_clock().now() - self.last_accepted['time']).nanoseconds * 1e-9
+        if age > JUMP_GATE_RESET_S:
+            return True  # 한참 끊겼다 재포착 -> 기준점이 낡음, 게이트 없이 새 기준으로 수용
+        dyaw = abs(wrap_deg_diff(candidate['yaw_err'], self.last_accepted['yaw_err']))
+        dlat = abs(candidate['lateral'] - self.last_accepted['lateral'])
+        return dyaw <= JUMP_GATE_YAW_DEG and dlat <= JUMP_GATE_LATERAL_M
+
     def on_image(self, msg):
         if self.K is None:
             return
@@ -126,11 +145,28 @@ class ArucoPnPNode(Node):
             self.get_logger().info(f'[walls seen] {seen}')
 
         target = results.get(self.target_wall)
+
+        # (a) 마커 수 게이트: 벽 하나(4마커, 16점) 전부 보일 때만 pose 후보로 인정.
+        if target is not None and target['n_markers'] < REQUIRED_MARKERS:
+            self.get_logger().info(
+                f"[gate] target={self.target_wall} {target['n_markers']}mk < {REQUIRED_MARKERS}mk -> 보류(마지막 pose 유지)",
+                throttle_duration_sec=1.0)
+            target = None
+
+        # (b) 점프 게이트: 마커 수 조건은 통과했지만 직전 채택값 대비 비물리적으로 튀면 버림.
+        if target is not None and not self._passes_jump_gate(target):
+            self.get_logger().warn(
+                f"[gate] target={self.target_wall} yaw/lateral 점프 감지(flip 의심) -> 이 프레임 버림 "
+                f"(yaw {target['yaw_err']:+.1f}deg, lat {target['lateral']:+.3f}m)")
+            target = None
+
         self.visible_pub.publish(Bool(data=bool(target)))
         if target is None:
             return
 
         self.latest_pose = target
+        self.last_accepted = dict(yaw_err=target['yaw_err'], lateral=target['lateral'],
+                                   time=self.get_clock().now())
         ps = PoseStamped()
         ps.header = msg.header
         ps.header.frame_id = f'wall_{self.target_wall}'
