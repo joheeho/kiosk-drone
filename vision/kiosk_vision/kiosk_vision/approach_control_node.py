@@ -23,7 +23,7 @@ from px4_msgs.msg import (
 )
 from geometry_msgs.msg import PoseStamped
 
-from kiosk_vision.wall_geometry import quat_to_rotmat, yaw_err_from_R
+from kiosk_vision.wall_geometry import quat_to_rotmat, yaw_err_from_R, wrap_deg_diff
 
 LOG_ONLY, HOVER_HOLD, YAW, YAW_LATERAL, FULL = range(5)
 LEVEL_NAMES = ['LOG_ONLY', 'HOVER_HOLD', 'YAW', 'YAW_LATERAL', 'FULL']
@@ -48,6 +48,14 @@ class ApproachControlNode(Node):
         self.declare_parameter('standoff', 1.0)
         self.declare_parameter('search_yaw_rate_deg', 20.0)
         self.declare_parameter('approach_gain', 0.3)
+        # yaw도 다른 축처럼 P제어로: "전량 적용"은 과단순화였음 (단일 프레임 노이즈가
+        # 감쇠 없이 그대로 명령에 반영되어 진동의 원인이 됐음, docs/PROGRESS.md 참고).
+        self.declare_parameter('yaw_gain', 0.3)
+        # solvePnP 거울해(flip) 사이 chatter 완화용 EMA 저역통과.
+        self.declare_parameter('ema_alpha', 0.3)
+        # yaw 명령 자체도 급변 못 하게 rate-limit (탐색 회전의 search_yaw_rate_deg와는
+        # 별개 — 이건 APPROACH/HOLD의 비전 기반 yaw 보정에만 적용).
+        self.declare_parameter('yaw_rate_limit_deg', 15.0)
         self.declare_parameter('max_speed', 0.3)  # m/s
         self.declare_parameter('tol_forward', 0.06)
         self.declare_parameter('tol_lateral', 0.06)
@@ -61,6 +69,9 @@ class ApproachControlNode(Node):
         self.standoff = float(self.get_parameter('standoff').value)
         self.search_yaw_rate = math.radians(float(self.get_parameter('search_yaw_rate_deg').value))
         self.gain = float(self.get_parameter('approach_gain').value)
+        self.yaw_gain = float(self.get_parameter('yaw_gain').value)
+        self.ema_alpha = float(self.get_parameter('ema_alpha').value)
+        self.yaw_rate_limit = math.radians(float(self.get_parameter('yaw_rate_limit_deg').value))
         self.max_speed = float(self.get_parameter('max_speed').value)
         self.tol_forward = float(self.get_parameter('tol_forward').value)
         self.tol_lateral = float(self.get_parameter('tol_lateral').value)
@@ -89,6 +100,8 @@ class ApproachControlNode(Node):
         self.att = None
         self.last_target_pose = None
         self.last_target_time = None
+        self.ema_lateral = None
+        self.ema_yaw_err_deg = None
 
         self.state = 'SEARCH'
         self.search_ned = None
@@ -100,7 +113,9 @@ class ApproachControlNode(Node):
         self.create_timer(DT, self.on_timer)
         self.get_logger().info(
             f'approach_control_node start bringup_level={self.level}({LEVEL_NAMES[self.level]}) '
-            f'standoff={self.standoff}m gain={self.gain} max_speed={self.max_speed}m/s')
+            f'standoff={self.standoff}m gain={self.gain} yaw_gain={self.yaw_gain} '
+            f'yaw_rate_limit={math.degrees(self.yaw_rate_limit):.0f}deg/s ema_alpha={self.ema_alpha} '
+            f'max_speed={self.max_speed}m/s')
 
     # ---- subscriptions ----
     def on_local_position(self, msg):
@@ -113,6 +128,19 @@ class ApproachControlNode(Node):
     def on_target_pose(self, msg):
         self.last_target_pose = msg
         self.last_target_time = self.get_clock().now()
+
+        raw_lateral = msg.pose.position.x
+        R = quat_to_rotmat(msg.pose.orientation.x, msg.pose.orientation.y,
+                            msg.pose.orientation.z, msg.pose.orientation.w)
+        raw_yaw_err_deg = yaw_err_from_R(R)
+        if self.ema_lateral is None:
+            self.ema_lateral = raw_lateral
+            self.ema_yaw_err_deg = raw_yaw_err_deg
+        else:
+            a = self.ema_alpha
+            self.ema_lateral = a * raw_lateral + (1.0 - a) * self.ema_lateral
+            # 각도는 선형 평균하면 ±180deg 경계에서 깨짐 -> wrap된 델타로 갱신
+            self.ema_yaw_err_deg += a * wrap_deg_diff(raw_yaw_err_deg, self.ema_yaw_err_deg)
 
     # ---- helpers ----
     def current_yaw(self):
@@ -194,10 +222,9 @@ class ApproachControlNode(Node):
             self.yaw_ref = wrap_pi(self.yaw_ref + self.search_yaw_rate * DT)
             return self.search_ned, self.yaw_ref
 
-        pose = self.last_target_pose.pose
-        forward, lateral = pose.position.z, pose.position.x
-        R = quat_to_rotmat(pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w)
-        yaw_err = math.radians(yaw_err_from_R(R))
+        forward = self.last_target_pose.pose.position.z  # forward는 스무딩 없이 원값 사용
+        lateral = self.ema_lateral
+        yaw_err = math.radians(self.ema_yaw_err_deg)
 
         forward_err = forward - self.standoff
         lateral_err = lateral
@@ -211,7 +238,10 @@ class ApproachControlNode(Node):
         dn = active_forward * math.cos(cur_yaw) - active_lateral * math.sin(cur_yaw)
         de = active_forward * math.sin(cur_yaw) + active_lateral * math.cos(cur_yaw)
         candidate_ned = (cur_n + self.gain * dn, cur_e + self.gain * de, self.search_ned[2])
-        candidate_yaw = wrap_pi(cur_yaw + yaw_err)
+        yaw_step = self.yaw_gain * yaw_err
+        max_yaw_step = self.yaw_rate_limit * DT
+        yaw_step = max(-max_yaw_step, min(max_yaw_step, yaw_step))
+        candidate_yaw = wrap_pi(cur_yaw + yaw_step)
 
         checks = [abs(yaw_err) < self.tol_yaw]
         if gate_level >= YAW_LATERAL:
