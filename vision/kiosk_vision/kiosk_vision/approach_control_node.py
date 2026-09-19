@@ -129,6 +129,7 @@ class ApproachControlNode(Node):
         self._reacquire_center_yaw = None
         self._reacquire_hold_ned = None
         self._reacquire_sweep_dir = 1.0
+        self._last_tick_time = None
 
         self.create_timer(DT, self.on_timer)
         self.get_logger().info(
@@ -177,10 +178,10 @@ class ApproachControlNode(Node):
         age = (self.get_clock().now() - self.last_target_time).nanoseconds * 1e-9
         return age > self.target_lost_timeout
 
-    def clamp_step(self, cur_n, cur_e, tgt_n, tgt_e):
+    def clamp_step(self, cur_n, cur_e, tgt_n, tgt_e, dt):
         dn, de = tgt_n - cur_n, tgt_e - cur_e
         dist = math.hypot(dn, de)
-        max_step = self.max_speed * DT
+        max_step = self.max_speed * dt
         if dist > max_step and dist > 1e-9:
             k = max_step / dist
             return cur_n + dn * k, cur_e + de * k
@@ -190,6 +191,17 @@ class ApproachControlNode(Node):
     def on_timer(self):
         if self.vlp is None or self.att is None:
             return
+
+        now = self.get_clock().now()
+        # 콜백이 이론상 20Hz(DT)지만 WSL에서 시스템 부하로 실제 간격이 늘어날 수 있음
+        # (실측: gz 렌더링/비전 처리로 인해 몇 배까지 지연됨, docs/PROGRESS.md 참고).
+        # 고정 DT로 속도캡/회전율을 계산하면 실제로는 그보다 훨씬 느리게 움직이게 되므로
+        # 매 틱 실측 경과시간을 사용한다.
+        if self._last_tick_time is None:
+            dt = DT
+        else:
+            dt = max((now - self._last_tick_time).nanoseconds * 1e-9, 1e-3)
+        self._last_tick_time = now
 
         cur_n, cur_e, cur_d = self.vlp.x, self.vlp.y, self.vlp.z
         cur_yaw = self.current_yaw()
@@ -204,11 +216,11 @@ class ApproachControlNode(Node):
             self.state = 'SEARCH'
             target_ned, target_yaw = self.search_ned, self.yaw_ref
         else:
-            target_ned, target_yaw = self.run_state_machine(cur_n, cur_e, cur_yaw)
+            target_ned, target_yaw = self.run_state_machine(cur_n, cur_e, cur_yaw, dt)
 
         raw_target_ned = target_ned  # 속도캡 적용 전 (실비행 시 여러 틱에 걸쳐 이 방향으로 수렴)
-        # 급가속 방지: 실제 현재 위치 기준으로 한 틱당 이동을 max_speed*DT로 제한
-        clamped_n, clamped_e = self.clamp_step(cur_n, cur_e, target_ned[0], target_ned[1])
+        # 급가속 방지: 실제 현재 위치 기준으로 한 틱당 이동을 max_speed*dt로 제한
+        clamped_n, clamped_e = self.clamp_step(cur_n, cur_e, target_ned[0], target_ned[1], dt)
         target_ned = (clamped_n, clamped_e, target_ned[2])
         self.target_ned, self.target_yaw = target_ned, target_yaw
 
@@ -234,7 +246,7 @@ class ApproachControlNode(Node):
             f'[{LEVEL_NAMES[self.level]}][{self.state}] target_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
             f'target_yaw={math.degrees(target_yaw):+.1f}deg', throttle_duration_sec=0.5)
 
-    def _handle_lost(self):
+    def _handle_lost(self, dt):
         """타겟 유실 시 곧바로 전체 SEARCH로 튀지 않고 REACQUIRE 3단계를 거친다:
         ①grace(제자리 대기) ②마지막 방향 근방 좁은 스윕 ③그래도 못 찾으면 전체 SEARCH."""
         now = self.get_clock().now()
@@ -255,7 +267,7 @@ class ApproachControlNode(Node):
 
             if elapsed <= self.reacquire_grace_s + self.reacquire_sweep_max_s:
                 # ② 마지막 방향 기준 좁은 스윕 (느린 속도로 왕복)
-                step = self.reacquire_sweep_rate * DT * self._reacquire_sweep_dir
+                step = self.reacquire_sweep_rate * dt * self._reacquire_sweep_dir
                 candidate = wrap_pi(self.yaw_ref + step)
                 offset = wrap_pi(candidate - self._reacquire_center_yaw)
                 if offset > self.reacquire_sweep:
@@ -272,12 +284,12 @@ class ApproachControlNode(Node):
             self.state = 'SEARCH'
             self.yaw_ref = self.target_yaw
 
-        self.yaw_ref = wrap_pi(self.yaw_ref + self.search_yaw_rate * DT)
+        self.yaw_ref = wrap_pi(self.yaw_ref + self.search_yaw_rate * dt)
         return self.search_ned, self.yaw_ref
 
-    def run_state_machine(self, cur_n, cur_e, cur_yaw):
+    def run_state_machine(self, cur_n, cur_e, cur_yaw, dt):
         if self.target_lost():
-            return self._handle_lost()
+            return self._handle_lost(dt)
 
         forward = self.last_target_pose.pose.position.z  # forward는 스무딩 없이 원값 사용
         lateral = self.ema_lateral
@@ -296,7 +308,7 @@ class ApproachControlNode(Node):
         de = active_forward * math.sin(cur_yaw) + active_lateral * math.cos(cur_yaw)
         candidate_ned = (cur_n + self.gain * dn, cur_e + self.gain * de, self.search_ned[2])
         yaw_step = self.yaw_gain * yaw_err
-        max_yaw_step = self.yaw_rate_limit * DT
+        max_yaw_step = self.yaw_rate_limit * dt
         yaw_step = max(-max_yaw_step, min(max_yaw_step, yaw_step))
         candidate_yaw = wrap_pi(cur_yaw + yaw_step)
 
