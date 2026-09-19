@@ -91,33 +91,52 @@ class ArucoPnPNode(Node):
             img_pts += list(cn.reshape(4, 2))
         return groups
 
+    def _last_accepted_age(self):
+        """last_accepted가 없거나 너무 낡았으면 None (재포착 취급 기준 공용)."""
+        if self.last_accepted is None:
+            return None
+        age = (self.get_clock().now() - self.last_accepted['time']).nanoseconds * 1e-9
+        return age if age <= JUMP_GATE_RESET_S else None
+
     def _solve_wall(self, wall_name, obj_pts, img_pts):
         if len(obj_pts) < 4:
             return None
         obj_pts = np.array(obj_pts, dtype=np.float32)
         img_pts = np.array(img_pts, dtype=np.float32)
-        ok, rvec, tvec = cv2.solvePnP(obj_pts, img_pts, self.K, self.D, flags=cv2.SOLVEPNP_IPPE)
-        if not ok:
+        # solvePnP(단일해) 대신 solvePnPGeneric 사용: 평면 마커(IPPE)는 근본적으로
+        # 두 개의 유사-타당 거울 해를 반환할 수 있다 -- 그중 하나를 reprojection
+        # error만으로 고르면 애매한 프레임에서 flip이 난다. 직전 채택 pose(같은 벽)와
+        # yaw가 가장 가까운 해를 골라 시간적 일관성으로 flip을 소스에서 제거한다.
+        n_sol, rvecs, tvecs, errs = cv2.solvePnPGeneric(obj_pts, img_pts, self.K, self.D,
+                                                          flags=cv2.SOLVEPNP_IPPE)
+        if n_sol < 1:
             self.get_logger().warn(f'[{wall_name}] solvePnP failed')
             return None
-        proj, _ = cv2.projectPoints(obj_pts, rvec, tvec, self.K, self.D)
-        reproj_err = float(np.mean(np.linalg.norm(proj.reshape(-1, 2) - img_pts, axis=1)))
-        tv = tvec.flatten()
-        R, _ = cv2.Rodrigues(rvec)
-        yaw_err = yaw_err_from_R(R)
-        return dict(
-            wall=wall_name, forward=float(tv[2]), lateral=float(tv[0]), vertical=float(tv[1]),
-            dist=float(np.linalg.norm(tv)), yaw_err=yaw_err, reproj_err=reproj_err,
-            n_markers=len(obj_pts) // 4, R=R, tv=tv,
-        )
+
+        candidates = []
+        for rvec, tvec in zip(rvecs, tvecs):
+            proj, _ = cv2.projectPoints(obj_pts, rvec, tvec, self.K, self.D)
+            reproj_err = float(np.mean(np.linalg.norm(proj.reshape(-1, 2) - img_pts, axis=1)))
+            tv = tvec.flatten()
+            R, _ = cv2.Rodrigues(rvec)
+            candidates.append(dict(
+                wall=wall_name, forward=float(tv[2]), lateral=float(tv[0]), vertical=float(tv[1]),
+                dist=float(np.linalg.norm(tv)), yaw_err=yaw_err_from_R(R), reproj_err=reproj_err,
+                n_markers=len(obj_pts) // 4, R=R, tv=tv,
+            ))
+
+        if len(candidates) == 1:
+            return candidates[0]
+
+        ref = self.last_accepted if (wall_name == self.target_wall and self._last_accepted_age() is not None) else None
+        if ref is not None:
+            return min(candidates, key=lambda c: abs(wrap_deg_diff(c['yaw_err'], ref['yaw_err'])))
+        return min(candidates, key=lambda c: c['reproj_err'])  # 기준점 없음(첫 검출 등) -> 기본값
 
     def _passes_jump_gate(self, candidate):
-        """(b) 연속성 게이트: 직전 채택 pose 대비 비물리적으로 큰 점프면 flip으로 보고 버림."""
-        if self.last_accepted is None:
+        """(b) 연속성 게이트: temporal disambiguation을 뚫고 나온 잔여 튐을 잡는 2차 방어선."""
+        if self._last_accepted_age() is None:
             return True
-        age = (self.get_clock().now() - self.last_accepted['time']).nanoseconds * 1e-9
-        if age > JUMP_GATE_RESET_S:
-            return True  # 한참 끊겼다 재포착 -> 기준점이 낡음, 게이트 없이 새 기준으로 수용
         dyaw = abs(wrap_deg_diff(candidate['yaw_err'], self.last_accepted['yaw_err']))
         dlat = abs(candidate['lateral'] - self.last_accepted['lateral'])
         return dyaw <= JUMP_GATE_YAW_DEG and dlat <= JUMP_GATE_LATERAL_M
