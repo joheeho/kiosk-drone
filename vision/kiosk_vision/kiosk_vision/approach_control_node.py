@@ -179,6 +179,11 @@ class ApproachControlNode(Node):
         return age > self.target_lost_timeout
 
     def clamp_step(self, cur_n, cur_e, tgt_n, tgt_e, dt):
+        """LOG_ONLY 로깅 전용(변환 검증용 "다음 위치" 시각화). 실비행 속도캡은
+        velocity_xy_toward()가 담당 — PX4 position 컨트롤러에 "현재+아주 작은 델타"를
+        매 틱 새로 먹이면 포지션 P게인만큼만 반응해서(델타/dt가 아니라 델타*P게인) 실제
+        속도가 캡보다 훨씬 낮게 나옴(실측: 0.3m/s 캡인데 ~0.01~0.05m/s만 나옴,
+        docs/PROGRESS.md). 그래서 실비행은 속도 자체를 커맨드한다."""
         dn, de = tgt_n - cur_n, tgt_e - cur_e
         dist = math.hypot(dn, de)
         max_step = self.max_speed * dt
@@ -186,6 +191,17 @@ class ApproachControlNode(Node):
             k = max_step / dist
             return cur_n + dn * k, cur_e + de * k
         return tgt_n, tgt_e
+
+    def velocity_xy_toward(self, cur_n, cur_e, tgt_n, tgt_e, dt):
+        """목표 지점으로 향하는 속도벡터, max_speed로 캡. 남은 거리가 max_speed*dt보다
+        작으면 그만큼만 내서(dist/dt) 오버슈트 없이 자연스럽게 감속·정지한다."""
+        dn, de = tgt_n - cur_n, tgt_e - cur_e
+        dist = math.hypot(dn, de)
+        if dist < 1e-6:
+            return 0.0, 0.0
+        speed = min(self.max_speed, dist / dt)
+        k = speed / dist
+        return dn * k, de * k
 
     # ---- main loop ----
     def on_timer(self):
@@ -218,23 +234,24 @@ class ApproachControlNode(Node):
         else:
             target_ned, target_yaw = self.run_state_machine(cur_n, cur_e, cur_yaw, dt)
 
-        raw_target_ned = target_ned  # 속도캡 적용 전 (실비행 시 여러 틱에 걸쳐 이 방향으로 수렴)
-        # 급가속 방지: 실제 현재 위치 기준으로 한 틱당 이동을 max_speed*dt로 제한
-        clamped_n, clamped_e = self.clamp_step(cur_n, cur_e, target_ned[0], target_ned[1], dt)
-        target_ned = (clamped_n, clamped_e, target_ned[2])
-        self.target_ned, self.target_yaw = target_ned, target_yaw
+        raw_target_ned = target_ned  # run_state_machine이 낸 목표 위치(감쇠 전 개념적 목표)
+        self.target_ned, self.target_yaw = raw_target_ned, target_yaw
 
         if self.level == LOG_ONLY:
+            clamped_n, clamped_e = self.clamp_step(cur_n, cur_e, target_ned[0], target_ned[1], dt)
             self.get_logger().info(
                 f'[LOG_ONLY][{self.state}] cur_ned=({cur_n:.3f},{cur_e:.3f},{cur_d:.3f}) yaw={math.degrees(cur_yaw):+.1f}deg '
                 f'-> raw_target_ned(속도캡 전)=({raw_target_ned[0]:.3f},{raw_target_ned[1]:.3f},{raw_target_ned[2]:.3f}) '
-                f'clamped_target_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
+                f'clamped_target_ned=({clamped_n:.3f},{clamped_e:.3f},{target_ned[2]:.3f}) '
                 f'target_yaw={math.degrees(target_yaw):+.1f}deg',
                 throttle_duration_sec=0.5)
             return  # 오프보드 발행/arm 없음 — 드론은 움직이지 않는다
 
+        # XY는 속도, Z는 위치로 커맨드 (PX4는 축별 NaN 믹스를 지원). 목표 지점으로
+        # 향하는 속도를 max_speed로 캡 — 남은 거리가 작으면 자연 감속.
+        vx, vy = self.velocity_xy_toward(cur_n, cur_e, target_ned[0], target_ned[1], dt)
         self.publish_offboard_heartbeat()
-        self.publish_trajectory_setpoint(target_ned, target_yaw)
+        self.publish_trajectory_setpoint(vx, vy, target_ned[2], target_yaw)
 
         if self.offboard_setpoint_counter == ARM_TICK:
             self.engage_offboard_mode()
@@ -244,7 +261,7 @@ class ApproachControlNode(Node):
 
         self.get_logger().info(
             f'[{LEVEL_NAMES[self.level]}][{self.state}] target_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
-            f'target_yaw={math.degrees(target_yaw):+.1f}deg', throttle_duration_sec=0.5)
+            f'vel=({vx:+.3f},{vy:+.3f}) target_yaw={math.degrees(target_yaw):+.1f}deg', throttle_duration_sec=0.5)
 
     def _handle_lost(self, dt):
         """타겟 유실 시 곧바로 전체 SEARCH로 튀지 않고 REACQUIRE 3단계를 거친다:
@@ -331,17 +348,19 @@ class ApproachControlNode(Node):
     # ---- px4 command helpers (offboard_control.py 예제와 동일 패턴) ----
     def publish_offboard_heartbeat(self):
         msg = OffboardControlMode()
-        msg.position = True
-        msg.velocity = False
+        msg.position = True  # z(고도)
+        msg.velocity = True  # x,y (속도캡을 실제로 관철시키기 위해 XY는 속도로 커맨드)
         msg.acceleration = False
         msg.attitude = False
         msg.body_rate = False
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.offboard_mode_pub.publish(msg)
 
-    def publish_trajectory_setpoint(self, ned, yaw):
+    def publish_trajectory_setpoint(self, vx, vy, z, yaw):
+        """XY는 속도, Z는 위치로 커맨드 (PX4는 NaN인 축을 다른 필드로 대체 제어)."""
         msg = TrajectorySetpoint()
-        msg.position = [float(ned[0]), float(ned[1]), float(ned[2])]
+        msg.position = [math.nan, math.nan, float(z)]
+        msg.velocity = [float(vx), float(vy), math.nan]
         msg.yaw = float(yaw)
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_pub.publish(msg)
