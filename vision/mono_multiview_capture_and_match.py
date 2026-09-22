@@ -30,12 +30,27 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "outputs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 ALT = -1.5           # NED z for 1.5m altitude
-# Chosen from mono_multiview_position_sweep.py's ORB keypoint-count-vs-distance
-# measurement (north<=0.8m: wall out of frame, 0 keypoints; peak ~609kp at 1.6m):
-# 1.4m and 2.0m both land solidly in the well-framed range (450kp / 335kp).
-APPROACH_NORTH = 1.4
-BASELINE_NORTH = 0.6  # frame A -> frame B forward step [m], hardcoded for this test
-SETTLE_SEC = 4
+# Chosen to keep the whole wall (all 4 markers) in frame for BOTH captures.
+# north=1.4m was already borderline -- visually confirmed frame A (1.47m) has
+# all 4 markers but frame B (2.04m, closer) only has the top 2: the bottom
+# pair fell outside the FOV as the wall filled more of the frame. That shrunk
+# the two frames' shared visible area to a single small cluster, which is what
+# made the plane-fit yaw unreliable (see SPREAD_MIN_M). Staying farther back
+# (1.0m/1.3m) keeps both frames comfortably inside the "full wall visible"
+# range from the position sweep (1.0m: 334-349kp, well above the 0kp cutoff at
+# <=0.8m) without ever crossing into the crops-the-wall territory near 2.0m.
+APPROACH_NORTH = 0.3  # wall is at world y=3 (kiosk.sdf), spawn ~= world (0,0),
+                      # so this is ~2.7m from the wall -- testing whether the
+                      # true "far" end of the movement zone is visible now
+                      # that the stability-wait fix is in (earlier low-north
+                      # readings showing 0 keypoints predate that fix and may
+                      # have just caught the vehicle mid-transit, not a real
+                      # visibility limit).
+BASELINE_NORTH = 0.3  # frame A -> frame B forward step [m], hardcoded for this test
+SETTLE_SEC = 10  # max wait for wait_until_stable(); PX4's offboard position
+                 # controller in this sim regularly takes longer than 4s to
+                 # converge on a new setpoint (observed repeatedly), so 4s was
+                 # timing out on almost every waypoint
 
 
 def capture_frame(tag):
@@ -95,13 +110,44 @@ def detect_and_match(img_a, img_b):
     print(f"saved {OUT_DIR / 'mono_matches.png'}")
 
     print(f"MATCH_SUCCESS={inlier_count >= 20}")
-    return inlier_matches
+    inlier_pts_a = pts_a[mask.ravel() == 1]
+    inlier_pts_b = pts_b[mask.ravel() == 1]
+    return inlier_matches, inlier_pts_a, inlier_pts_b
+
+
+async def wait_until_stable(drone, target_north, target_east, target_down,
+                             pos_tolerance=0.1, vel_threshold=0.1, timeout=8.0):
+    """Poll position+velocity until the vehicle has both ARRIVED at the target
+    and STOPPED, or timeout.
+
+    Velocity alone is not enough: it reads near-zero both when the vehicle has
+    settled at the target AND in the instant right after a new setpoint is
+    issued, before the controller has started accelerating toward it. A first
+    version that checked only velocity got fooled by the second case and
+    captured frames at north=0.01m while the commanded target was 1.4m/2.0m --
+    the vehicle had barely left its previous position. Checking position error
+    too rules that out.
+    """
+    start = asyncio.get_event_loop().time()
+    async for pv in drone.telemetry.position_velocity_ned():
+        pos_err = ((pv.position.north_m - target_north) ** 2
+                   + (pv.position.east_m - target_east) ** 2
+                   + (pv.position.down_m - target_down) ** 2) ** 0.5
+        speed = (pv.velocity.north_m_s ** 2 + pv.velocity.east_m_s ** 2
+                 + pv.velocity.down_m_s ** 2) ** 0.5
+        if pos_err < pos_tolerance and speed < vel_threshold:
+            return
+        if asyncio.get_event_loop().time() - start > timeout:
+            print(f"  !! wait_until_stable timed out after {timeout}s "
+                  f"(pos_err={pos_err:.3f}m, speed={speed:.3f}m/s), proceeding anyway")
+            return
 
 
 async def goto(drone, north, east, yaw, label, hold):
     print(f"-- {label}")
     await drone.offboard.set_position_ned(PositionNedYaw(north, east, ALT, yaw))
-    await asyncio.sleep(hold)
+    await asyncio.sleep(1.0)  # let the controller start responding before polling stability
+    await wait_until_stable(drone, north, east, ALT, timeout=hold)
 
 
 async def run():
@@ -169,7 +215,7 @@ async def run():
     print("-- Done")
 
     print("-- Matching frame A/B")
-    detect_and_match(frame_a, frame_b)
+    detect_and_match(frame_a, frame_b)  # returns (matches, pts_a, pts_b); see mono_multiview_pose_estimate.py
 
 
 if __name__ == "__main__":

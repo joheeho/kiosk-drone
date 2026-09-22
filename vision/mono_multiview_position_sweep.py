@@ -26,7 +26,7 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "outputs" / "sweep"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 ALT = -1.5
-SWEEP_NORTH = [0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2]
+SWEEP_NORTH = [0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4]
 SETTLE_SEC = 3
 
 
