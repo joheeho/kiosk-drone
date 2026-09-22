@@ -5,6 +5,15 @@
 SEARCH(전체 회전)로 튀지 않고 REACQUIRE(제자리 대기 -> 좁은 스윕 -> 그래도
 안되면 SEARCH 승격)를 거친다 (_handle_lost 참고).
 
+목표는 "위치"로 커맨드하고(NaN 아닌 position, velocity는 NaN) 감속·정지는 PX4
+온보드 위치 컨트롤러에 맡긴다 — 외부에서 속도를 직접 만들면 우리 쪽 루프 주기에
+그 매끄러움이 통째로 종속되는데, 이 루프는 비전 프레임 처리 부하 등으로 주기가
+들쭉날쭉해질 수 있음(20Hz 목표가 실측 ~2Hz까지 저하된 적 있음, docs/PROGRESS.md).
+접근 속도 상한은 PX4 파라미터(MPC_XY_VEL_MAX/MPC_XY_CRUISE, sim/gcs_keepalive.py가
+설정)로 건다. 오프보드 setpoint 스트림(on_setpoint_timer)은 상태 판단 로직
+(on_timer)과 분리된 별도 타이머 + MultiThreadedExecutor로 돌려서, 로직 쪽이
+느려져도 PX4가 요구하는 안정적인 스트림(>2Hz)은 항상 유지한다.
+
 안전 브링업 단계는 bringup_level 파라미터로 순서대로 검증한다:
   0 LOG_ONLY     : 오프보드 미발행/미arm. 변환된 목표 NED만 로그 (변환 검증).
   1 HOVER_HOLD   : arm+offboard, 제자리 유지만 (탐색/접근 비활성).
@@ -17,6 +26,8 @@ SEARCH(전체 회전)로 튀지 않고 REACQUIRE(제자리 대기 -> 좁은 스�
 import math
 
 import rclpy
+from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import ExternalShutdownException, MultiThreadedExecutor
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
 from px4_msgs.msg import (
@@ -32,7 +43,19 @@ LEVEL_NAMES = ['LOG_ONLY', 'HOVER_HOLD', 'YAW', 'YAW_LATERAL', 'FULL']
 
 CONTROL_HZ = 20.0
 DT = 1.0 / CONTROL_HZ
+# 오프보드 setpoint 스트림 주기. PX4는 오프보드 유지에 >2Hz를 요구하는데, 상태 판단
+# 로직(on_timer)은 비전 처리 부하로 그 아래까지 느려진 적이 있어 스트림만 떼어낸다.
+SETPOINT_HZ = 20.0
+SETPOINT_DT = 1.0 / SETPOINT_HZ
 ARM_TICK = 10  # 예제(offboard_control.py)와 동일하게 setpoint 10회 스트리밍 후 arm
+
+# 카메라 마운트고 vs 마커 중심고 (docs/PROGRESS.md 2026-09-22 '카메라 마운트고 정렬' 참고).
+# takeoff_alt 기본값을 이 둘로부터 유도한다 — 비행 고도를 마커 중심고와 그대로 맞추면
+# 카메라가 mount_offset만큼 위에서 내려다보게 되어, standoff 근접 시 마커 패턴 아래쪽
+# 행이 화각 밖으로 잘려나간다(실측: 1.0m 거리에서 3마커 게이트 통과율 0%).
+MARKER_CENTER_HEIGHT = 1.5  # m — 벽 마커 패턴 중심 높이 (sim/worlds/kiosk_4walls.sdf 벽 pose z)
+CAMERA_MOUNT_OFFSET = 0.242  # m — base_link 위 카메라 장착고
+# (PX4-Autopilot/Tools/simulation/gz/models/x500_depth/model.sdf CameraJoint pose z)
 
 
 def wrap_pi(a):
@@ -50,19 +73,25 @@ class ApproachControlNode(Node):
         self.declare_parameter('standoff', 1.0)
         self.declare_parameter('search_yaw_rate_deg', 20.0)
         # 목표점을 "비전 프레임마다 그 시점 위치 기준으로 한 번" 앵커링하는 구조로
-        # 바뀌면서(불변 목표 + 속도캡이 감속을 담당) 부분 스텝(0.3)일 이유가 없어짐 ->
+        # 바뀌면서(불변 목표 + PX4 위치 컨트롤러가 가감속 담당) 부분 스텝(0.3)일 이유가 없어짐 ->
         # 1.0(전체 보정)이 기본. 필요시 낮춰서 프레임 간 미세보정을 더 완만하게 할 수 있음.
         self.declare_parameter('approach_gain', 1.0)
         self.declare_parameter('yaw_gain', 1.0)
         # solvePnP 거울해(flip) 사이 chatter 완화용 EMA 저역통과.
         self.declare_parameter('ema_alpha', 0.3)
-        self.declare_parameter('max_speed', 0.3)  # m/s
         self.declare_parameter('tol_forward', 0.06)
         # 6cm -> 12cm: approach_align 실측 lateral 노이즈 바닥이 약 3~12cm라 6cm는
         # 노이즈보다 빡빡해서 HOLD<->APPROACH가 계속 토글됐음 (docs/PROGRESS.md).
         self.declare_parameter('tol_lateral', 0.12)
         self.declare_parameter('tol_yaw_deg', 3.0)  # 실측 yaw 진동폭(~±2deg)이 이미 여유 있어 유지
-        self.declare_parameter('takeoff_alt', 1.5)  # m (NED z = -takeoff_alt)
+        # 실기 마운트나 마커 높이가 바뀌면 두 파라미터를 오버라이드 — takeoff_alt 기본값이
+        # 따라간다(바로 아래).
+        self.declare_parameter('marker_center_height', MARKER_CENTER_HEIGHT)
+        self.declare_parameter('camera_mount_offset', CAMERA_MOUNT_OFFSET)
+        default_takeoff_alt = (float(self.get_parameter('marker_center_height').value)
+                                - float(self.get_parameter('camera_mount_offset').value))
+        # 카메라 광축을 마커 중심고에 맞춰 근접 시 전체 마커 가시성 확보.
+        self.declare_parameter('takeoff_alt', default_takeoff_alt)  # m (NED z = -takeoff_alt)
         # 실측 카메라 프레임 간격이 5Hz 스펙보다 불규칙(WSL 렌더링, 최대 약 2.0s 공백
         # 관측됨)해서 여유를 두고 3.0s로 설정 (미세 드롭이 REACQUIRE로 안 튀도록 소폭 상향).
         self.declare_parameter('target_lost_timeout', 3.0)  # s
@@ -80,16 +109,23 @@ class ApproachControlNode(Node):
         self.gain = float(self.get_parameter('approach_gain').value)
         self.yaw_gain = float(self.get_parameter('yaw_gain').value)
         self.ema_alpha = float(self.get_parameter('ema_alpha').value)
-        self.max_speed = float(self.get_parameter('max_speed').value)
         self.tol_forward = float(self.get_parameter('tol_forward').value)
         self.tol_lateral = float(self.get_parameter('tol_lateral').value)
         self.tol_yaw = math.radians(float(self.get_parameter('tol_yaw_deg').value))
+        self.marker_center_height = float(self.get_parameter('marker_center_height').value)
+        self.camera_mount_offset = float(self.get_parameter('camera_mount_offset').value)
         self.takeoff_alt = float(self.get_parameter('takeoff_alt').value)
         self.target_lost_timeout = float(self.get_parameter('target_lost_timeout').value)
         self.reacquire_grace_s = float(self.get_parameter('reacquire_grace_s').value)
         self.reacquire_sweep = math.radians(float(self.get_parameter('reacquire_sweep_deg').value))
         self.reacquire_sweep_rate = math.radians(float(self.get_parameter('reacquire_sweep_rate_deg').value))
         self.reacquire_sweep_max_s = float(self.get_parameter('reacquire_sweep_max_s').value)
+
+        # 모든 콜백(구독 + 두 타이머)을 하나의 재진입 가능 그룹에 묶고
+        # MultiThreadedExecutor(main() 참고)로 돌려서, on_timer(상태판단 로직,
+        # 비전 콜백 처리 등으로 느려질 수 있음)가 on_setpoint_timer(PX4 오프보드
+        # 스트림)를 굶기지 않게 한다.
+        cb_group = ReentrantCallbackGroup()
 
         px4_qos = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,
@@ -101,12 +137,12 @@ class ApproachControlNode(Node):
         self.trajectory_pub = self.create_publisher(TrajectorySetpoint, '/fmu/in/trajectory_setpoint', px4_qos)
         self.vehicle_command_pub = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', px4_qos)
         self.create_subscription(VehicleLocalPosition, '/fmu/out/vehicle_local_position_v1',
-                                  self.on_local_position, px4_qos)
+                                  self.on_local_position, px4_qos, callback_group=cb_group)
         self.create_subscription(VehicleAttitude, '/fmu/out/vehicle_attitude',
-                                  self.on_attitude, px4_qos)
+                                  self.on_attitude, px4_qos, callback_group=cb_group)
 
         pose_topic = self.get_parameter('pose_topic').value
-        self.create_subscription(PoseStamped, pose_topic, self.on_target_pose, 10)
+        self.create_subscription(PoseStamped, pose_topic, self.on_target_pose, 10, callback_group=cb_group)
 
         self.vlp = None
         self.att = None
@@ -118,11 +154,12 @@ class ApproachControlNode(Node):
         # 비전 프레임마다 한 번씩만 갱신되는 앵커 목표(그 사이엔 그대로 유지) —
         # "매 제어 틱마다 현재위치+오차로 재계산"하면 실제 속도로 움직일 때 오차 갱신이
         # 못 따라가서 목표가 계속 도망가듯 밀리는 문제가 있었음 (docs/PROGRESS.md).
-        self.anchor_ned = None
-        self.anchor_yaw = None
-        self._last_forward_err = None
-        self._last_lateral_err = None
-        self._last_yaw_err = None
+        # (ned, yaw, forward_err, lateral_err, yaw_err)를 한 튜플로 묶어 통째로 교체한다 —
+        # 비전 콜백과 on_timer가 다른 스레드에서 도니까, 필드를 따로 두면 앵커는 새 프레임
+        # 건데 오차는 이전 프레임 값인 조합으로 HOLD 판정이 날 수 있다.
+        self.anchor = None
+        # on_timer가 만들고 on_setpoint_timer가 읽는 최신 목표 (n, e, z, yaw).
+        self.cmd = None
 
         self.state = 'SEARCH'
         self.search_ned = None
@@ -137,11 +174,13 @@ class ApproachControlNode(Node):
         self._reacquire_sweep_dir = 1.0
         self._last_tick_time = None
 
-        self.create_timer(DT, self.on_timer)
+        self.create_timer(DT, self.on_timer, callback_group=cb_group)
+        self.create_timer(SETPOINT_DT, self.on_setpoint_timer, callback_group=cb_group)
         self.get_logger().info(
             f'approach_control_node start bringup_level={self.level}({LEVEL_NAMES[self.level]}) '
-            f'standoff={self.standoff}m gain={self.gain} yaw_gain={self.yaw_gain} '
-            f'ema_alpha={self.ema_alpha} max_speed={self.max_speed}m/s')
+            f'standoff={self.standoff}m takeoff_alt={self.takeoff_alt}m '
+            f'(marker_center_height={self.marker_center_height}m - camera_mount_offset={self.camera_mount_offset}m) '
+            f'gain={self.gain} yaw_gain={self.yaw_gain} ema_alpha={self.ema_alpha}')
 
     # ---- subscriptions ----
     def on_local_position(self, msg):
@@ -193,11 +232,11 @@ class ApproachControlNode(Node):
         de = active_forward * math.sin(yaw_at_frame) + active_lateral * math.cos(yaw_at_frame)
         z = self.search_ned[2] if self.search_ned is not None else -self.takeoff_alt
 
-        self.anchor_ned = (pos_n + self.gain * dn, pos_e + self.gain * de, z)
-        self.anchor_yaw = wrap_pi(yaw_at_frame + self.yaw_gain * yaw_err)
-        self._last_forward_err = forward_err
-        self._last_lateral_err = lateral_err
-        self._last_yaw_err = yaw_err
+        self.anchor = (
+            (pos_n + self.gain * dn, pos_e + self.gain * de, z),
+            wrap_pi(yaw_at_frame + self.yaw_gain * yaw_err),
+            forward_err, lateral_err, yaw_err,
+        )
 
     # ---- helpers ----
     def current_yaw(self):
@@ -214,17 +253,6 @@ class ApproachControlNode(Node):
         age = (self.get_clock().now() - self.last_target_time).nanoseconds * 1e-9
         return age > self.target_lost_timeout
 
-    def velocity_xy_toward(self, cur_n, cur_e, tgt_n, tgt_e, dt):
-        """목표 지점으로 향하는 속도벡터, max_speed로 캡. 남은 거리가 max_speed*dt보다
-        작으면 그만큼만 내서(dist/dt) 오버슈트 없이 자연스럽게 감속·정지한다."""
-        dn, de = tgt_n - cur_n, tgt_e - cur_e
-        dist = math.hypot(dn, de)
-        if dist < 1e-6:
-            return 0.0, 0.0
-        speed = min(self.max_speed, dist / dt)
-        k = speed / dist
-        return dn * k, de * k
-
     # ---- main loop ----
     def on_timer(self):
         if self.vlp is None or self.att is None:
@@ -233,8 +261,8 @@ class ApproachControlNode(Node):
         now = self.get_clock().now()
         # 콜백이 이론상 20Hz(DT)지만 WSL에서 시스템 부하로 실제 간격이 늘어날 수 있음
         # (실측: gz 렌더링/비전 처리로 인해 몇 배까지 지연됨, docs/PROGRESS.md 참고).
-        # 고정 DT로 속도캡/회전율을 계산하면 실제로는 그보다 훨씬 느리게 움직이게 되므로
-        # 매 틱 실측 경과시간을 사용한다.
+        # 고정 DT로 회전율(SEARCH/REACQUIRE 스윕)을 적분하면 실제로는 그보다 훨씬
+        # 느리게 돌게 되므로 매 틱 실측 경과시간을 사용한다.
         if self._last_tick_time is None:
             dt = DT
         else:
@@ -256,33 +284,43 @@ class ApproachControlNode(Node):
         else:
             target_ned, target_yaw = self.run_state_machine(dt)
 
-        raw_target_ned = target_ned  # run_state_machine이 낸 목표 위치(감쇠 전 개념적 목표)
-        self.target_ned, self.target_yaw = raw_target_ned, target_yaw
+        self.target_ned, self.target_yaw = target_ned, target_yaw
 
         if self.level == LOG_ONLY:
-            vx, vy = self.velocity_xy_toward(cur_n, cur_e, target_ned[0], target_ned[1], dt)
             self.get_logger().info(
                 f'[LOG_ONLY][{self.state}] cur_ned=({cur_n:.3f},{cur_e:.3f},{cur_d:.3f}) yaw={math.degrees(cur_yaw):+.1f}deg '
-                f'-> anchor_ned=({raw_target_ned[0]:.3f},{raw_target_ned[1]:.3f},{raw_target_ned[2]:.3f}) '
-                f'anchor_yaw={math.degrees(target_yaw):+.1f}deg would_vel=({vx:+.3f},{vy:+.3f})',
+                f'-> anchor_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
+                f'anchor_yaw={math.degrees(target_yaw):+.1f}deg',
                 throttle_duration_sec=0.5)
             return  # 오프보드 발행/arm 없음 — 드론은 움직이지 않는다
 
-        # XY는 속도, Z는 위치로 커맨드 (PX4는 축별 NaN 믹스를 지원). 목표 지점으로
-        # 향하는 속도를 max_speed로 캡 — 남은 거리가 작으면 자연 감속.
-        vx, vy = self.velocity_xy_toward(cur_n, cur_e, target_ned[0], target_ned[1], dt)
+        # 실제 발행은 on_setpoint_timer가 전담한다 — 여기서는 목표 스냅샷만 통째로 교체
+        # (튜플 하나를 바꾸므로 스트림 쪽이 반쯤 갱신된 목표를 읽는 일이 없다).
+        self.cmd = (target_ned[0], target_ned[1], target_ned[2], target_yaw)
+
+        self.get_logger().info(
+            f'[{LEVEL_NAMES[self.level]}][{self.state}] cur_ned=({cur_n:.3f},{cur_e:.3f}) '
+            f'target_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
+            f'target_yaw={math.degrees(target_yaw):+.1f}deg dt={dt:.3f}s', throttle_duration_sec=0.5)
+
+    def on_setpoint_timer(self):
+        """오프보드 스트림 전담(on_timer와 별도 타이머·스레드). 최신 목표 스냅샷을 그대로
+        재발행하기만 하므로, 상태 판단 로직이 느려져도 스트림 주기는 흔들리지 않는다."""
+        if self.level == LOG_ONLY:
+            return
+        cmd = self.cmd
+        if cmd is None:
+            return  # 아직 위치/자세 미수신 -> 발행할 목표 없음
+
+        n, e, z, yaw = cmd
         self.publish_offboard_heartbeat()
-        self.publish_trajectory_setpoint(vx, vy, target_ned[2], target_yaw)
+        self.publish_trajectory_setpoint(n, e, z, yaw)
 
         if self.offboard_setpoint_counter == ARM_TICK:
             self.engage_offboard_mode()
             self.arm()
         if self.offboard_setpoint_counter <= ARM_TICK:
             self.offboard_setpoint_counter += 1
-
-        self.get_logger().info(
-            f'[{LEVEL_NAMES[self.level]}][{self.state}] target_ned=({target_ned[0]:.3f},{target_ned[1]:.3f},{target_ned[2]:.3f}) '
-            f'vel=({vx:+.3f},{vy:+.3f}) target_yaw={math.degrees(target_yaw):+.1f}deg', throttle_duration_sec=0.5)
 
     def _handle_lost(self, dt):
         """타겟 유실 시 곧바로 전체 SEARCH로 튀지 않고 REACQUIRE 3단계를 거친다:
@@ -326,37 +364,40 @@ class ApproachControlNode(Node):
         return self.search_ned, self.yaw_ref
 
     def run_state_machine(self, dt):
-        if self.target_lost() or self.anchor_ned is None:
+        anchor = self.anchor  # 비전 콜백이 다른 스레드에서 갈아끼우므로 한 번만 읽어 쓴다
+        if self.target_lost() or anchor is None:
             return self._handle_lost(dt)
 
         # 앵커는 on_target_pose(_update_anchor)에서 비전 프레임 도착 시 이미 계산해
         # 고정해뒀다 — 여기서는 그걸 그대로 목표로 쓰고, 허용오차 판정만 한다.
+        anchor_ned, anchor_yaw, forward_err, lateral_err, yaw_err = anchor
         gate_level = FULL if self.level == LOG_ONLY else self.level
-        checks = [abs(self._last_yaw_err) < self.tol_yaw]
+        checks = [abs(yaw_err) < self.tol_yaw]
         if gate_level >= YAW_LATERAL:
-            checks.append(abs(self._last_lateral_err) < self.tol_lateral)
+            checks.append(abs(lateral_err) < self.tol_lateral)
         if gate_level >= FULL:
-            checks.append(abs(self._last_forward_err) < self.tol_forward)
+            checks.append(abs(forward_err) < self.tol_forward)
 
         self.state = 'HOLD' if all(checks) else 'APPROACH'
-        return self.anchor_ned, self.anchor_yaw
+        return anchor_ned, anchor_yaw
 
     # ---- px4 command helpers (offboard_control.py 예제와 동일 패턴) ----
     def publish_offboard_heartbeat(self):
         msg = OffboardControlMode()
-        msg.position = True  # z(고도)
-        msg.velocity = True  # x,y (속도캡을 실제로 관철시키기 위해 XY는 속도로 커맨드)
+        msg.position = True
+        msg.velocity = False
         msg.acceleration = False
         msg.attitude = False
         msg.body_rate = False
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.offboard_mode_pub.publish(msg)
 
-    def publish_trajectory_setpoint(self, vx, vy, z, yaw):
-        """XY는 속도, Z는 위치로 커맨드 (PX4는 NaN인 축을 다른 필드로 대체 제어)."""
+    def publish_trajectory_setpoint(self, n, e, z, yaw):
+        """목표를 위치로 커맨드 — velocity는 NaN으로 두고 가감속은 PX4 위치 컨트롤러에
+        맡긴다. 속도 상한은 MPC_XY_VEL_MAX/MPC_XY_CRUISE(sim/gcs_keepalive.py)."""
         msg = TrajectorySetpoint()
-        msg.position = [math.nan, math.nan, float(z)]
-        msg.velocity = [float(vx), float(vy), math.nan]
+        msg.position = [float(n), float(e), float(z)]
+        msg.velocity = [math.nan, math.nan, math.nan]
         msg.yaw = float(yaw)
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_pub.publish(msg)
@@ -391,13 +432,17 @@ class ApproachControlNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = ApproachControlNode()
+    # 로직 타이머와 setpoint 스트림 타이머가 서로를 굶기지 않도록 멀티스레드로 돈다.
+    executor = MultiThreadedExecutor()
+    executor.add_node(node)
     try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
+        executor.spin()
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
     finally:
+        executor.remove_node(node)
         node.destroy_node()
-        rclpy.shutdown()
+        rclpy.try_shutdown()
 
 
 if __name__ == '__main__':
