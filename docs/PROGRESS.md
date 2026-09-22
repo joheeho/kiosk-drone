@@ -79,3 +79,70 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
 1. HOVER_HOLD(레벨1) — arm+offboard 제자리 유지만 확인
 2. YAW(2) → YAW_LATERAL(3) → FULL(4) 순서로 단계적 검증
 3. 전 구간 성공 시 커밋 & 푸시 & PR
+
+## 2026-09-22 — 위치 setpoint 전환 + 카메라 마운트고 정렬 (SCRUM-25) — HOLD 도달
+
+### 핵심 교훈: 카메라 마운트고 vs 마커고 정렬이 근접 마커 가시성을 좌우
+`takeoff_alt`(비행 고도)를 벽 마커 패턴 중심고(1.5m)와 그대로 맞췄더니, OakD-Lite가
+`base_link` 위 +0.242m에 장착돼 있어(x500_depth/model.sdf CameraJoint) 카메라가 항상
+마커 중심보다 24cm 위에서 내려다봄. 원거리에서는 여유 FOV로 안 보였지만, standoff(1.0m)
+근접 시 수직 FOV 반각(±0.515m@1m)에 비해 광축 오프셋(0.692m, 하단 마커 기준)이 커서
+패턴 아래쪽 행이 화각 밖으로 잘려나감 — 실측 1.0m 거리에서 평균 1.34개/4마커,
+`REQUIRED_MARKERS=3` 게이트 통과율 0%. `aruco_pnp_node`가 계속 "마커 부족 -> 보류"로
+막판 pose를 못 내니 `approach_control_node`가 `target_lost_timeout`에 걸려 REACQUIRE로
+튕기고, 좁은 스윕도 실패해 전체 SEARCH로 승격 — 반복 루프에 갇혀 HOLD를 못 감.
+`takeoff_alt=marker_center_height-camera_mount_offset`(=1.26m)로 카메라 광축을 마커
+중심고에 정렬하니 1.0m 거리 평균 마커수 3.43개, 게이트 통과 78.4%로 회복, 즉시 HOLD
+도달·3분간 246틱 유지(SEARCH 승격 0회). **접근 standoff를 설계할 때는 항상 "카메라가
+그 거리에서 마커 패턴 전체를 몇 도 각도로 내려다보는가"를 먼저 계산할 것** — 수평 위치
+정렬(lateral/yaw)만으로는 안 잡히는, 수직 축 하나만의 문제였음.
+
+### 위치 setpoint + 스트림 분리 (근본 fix, `approach_control_node.py`)
+이전 커밋(`1cd0fe7`)은 docstring과 콜백 그룹만 들어가고 실제 발행은 여전히
+`velocity_xy_toward`(XY 속도 커맨드)였음 — 로그상 `vel=(...)`이 매 틱 부호를 뒤집으며
+앵커 주변을 맴돌았고(`-0.296`→`+0.284`→`+0.256`), 이게 접근 중 락이 자꾸 풀리던
+근본 원인 중 하나로 확인됨. 이번에 마저 적용:
+- `velocity_xy_toward` 제거. `publish_trajectory_setpoint`가 앵커 위치를 그대로
+  `position`으로 발행(`velocity=[NaN,NaN,NaN]`), 감속·정지는 PX4 온보드 위치
+  컨트롤러에 위임. 속도 상한은 `MPC_XY_VEL_MAX`/`MPC_XY_CRUISE`(`sim/gcs_keepalive.py`)로만.
+- `on_setpoint_timer`(20Hz) 신설, `on_timer`(상태판단)와 분리. `on_timer`는 목표
+  스냅샷(`self.cmd` 튜플)만 교체하고, 실제 발행·arm 카운터는 스트림 타이머가 전담.
+  `main()`을 `MultiThreadedExecutor`로 전환해 로직 쪽이 비전 처리 부하로 느려져도
+  PX4가 요구하는 안정적인 오프보드 스트림(>2Hz)이 끊기지 않게 함.
+- 두 타이머가 다른 스레드에서 도니, 앵커를 `(ned, yaw, forward_err, lateral_err,
+  yaw_err)` 한 튜플로 묶어 통째로 교체 — 필드를 따로 두면 앵커는 새 프레임인데
+  오차는 이전 프레임 값인 조합으로 HOLD 오판정 가능.
+- 검증: `cur_ned` E가 0.47→0.52→0.66→0.83→0.98로 단조 수렴(약 0.3m/s), 목표 도달 후
+  ~5cm 이내 정지. 이전의 방향 반전 진동 사라짐.
+
+### `takeoff_alt` 유도 (`marker_center_height` / `camera_mount_offset` 파라미터화)
+매직넘버 1.5 대신 `marker_center_height`(기본 1.5, `kiosk_4walls.sdf` 벽 pose z)와
+`camera_mount_offset`(기본 0.242, `x500_depth/model.sdf` CameraJoint pose z)을 ROS
+파라미터로 노출, `takeoff_alt` 기본값을 `marker_center_height - camera_mount_offset`으로
+유도. 실기 마운트나 마커 높이가 바뀌어도 두 파라미터만 오버라이드하면 됨.
+
+### REACQUIRE 스윕(2번, 미착수) — 향후 로버스트니스 항목으로 보류
+락 유실 시 REACQUIRE가 마지막 방향 반대로 스윕하며 카메라를 벽에서 돌려버릴 수 있다는
+우려가 있었으나, 이번 재검증(3분/246 HOLD틱)에서는 순간 유실 4회 전부 grace 단계에서
+복구됐고 전체 SEARCH 승격은 0회 — 카메라고 정렬 fix로 유실 자체가 크게 줄어 지금은
+불필요. 다만 `_handle_lost`의 좁은 스윕이 마지막 벽 방향과 반대로 튈 수 있는 구조적
+여지는 남아있으니, 유실이 잦은 환경(조명/거리 조건 악화 등)에서 재발하면 "REACQUIRE는
+회전 없이 마지막 yaw·위치 유지, 스윕이 꼭 필요하면 마지막 방향 ± 좁은 범위로만 제한"
+방향으로 손볼 것.
+
+### 인프라
+- `sim/gcs_keepalive.py` 신설: MAVSDK로 `udp:14540`에 연결해 GCS 하트비트 유지(PX4
+  SITL이 GCS 연결 없이는 arm 거부, `NAV_DLL_ACT>0`) + `MPC_XY_VEL_MAX`/`MPC_XY_CRUISE`를
+  0.3m/s로 설정해 접근 속도 상한을 PX4 파라미터 쪽에서 관철.
+- `sim/run_kiosk_4walls.sh`에 keepalive 백그라운드 기동 단계 추가.
+- `sim/run_full_auto.sh` 신설: 인프라+브리지+aruco+approach_control까지 한 번에
+  기동하는 전체 자동 실행 스크립트(`bringup_level=4` 기본, 실제 arm+비행).
+
+### 결과: HOLD 도달, 3단계(YAW/YAW_LATERAL/FULL) 재검증 불필요해짐
+`bringup_level=4`(FULL)로 바로 검증 — 카메라고 정렬 후 APPROACH→HOLD 안정 도달,
+3분 관찰 동안 HOLD 246틱/APPROACH 68틱/REACQUIRE 62틱(전부 grace 복구), 전체 SEARCH
+재승격 0회. 벽까지 거리 평균 1.151m(standoff=1.0m 대비 표준 카메라 오프셋 이내).
+
+### 다음
+- 실기체 카메라 마운트고 확정되면 `camera_mount_offset` 실측치로 갱신
+- REACQUIRE 반대 방향 스윕 이슈는 재발 시에만 대응 (위 항목 참고)
