@@ -3,9 +3,11 @@
 #   1) repo의 world/model을 PX4-Autopilot Tools 경로로 동기화 (sim/kiosk.sdf와 동일 패턴)
 #   2) PX4 SITL (빌드된 바이너리 직접 실행 — make 금지, sim/README.md 참고)
 #   3) Micro XRCE-DDS Agent (px4_msgs 브리지, docs/SETUP.md 참고)
-#   4) ros_gz_bridge (image, camera_info)
-# 노드(aruco_pnp_node / approach_control_node)는 이 스크립트가 아니라 별도로
-# `ros2 run kiosk_vision ...`으로 띄운다 (bringup_level 단계별로 재시작하기 위함).
+#   4) gcs_keepalive.py — MAVSDK로 GCS 하트비트 유지(없으면 PX4가 arm 거부) +
+#      MPC_XY_VEL_MAX/CRUISE를 approach_control_node의 속도캡(0.3m/s)에 맞춤
+# ros_gz_bridge(image, camera_info)와 노드(aruco_pnp_node / approach_control_node)는
+# 이 스크립트가 아니라 별도로 띄운다 (카메라 토픽 이름이 스폰된 모델 인스턴스에
+# 의존하고, bringup_level 단계별로 노드를 재시작해야 하기 때문).
 set -euo pipefail
 
 export GZ_CONFIG_PATH=/usr/share/gz:${GZ_CONFIG_PATH:-}
@@ -52,6 +54,21 @@ if ! pgrep -f "MicroXRCEAgent udp4 -p 8888" > /dev/null; then
     echo "Agent 백그라운드 기동, 로그: ${LOG_DIR}/agent.log"
 else
     echo "Agent 이미 실행 중 — 재사용"
+fi
+
+echo "== 4) GCS keepalive + 속도 파라미터 =="
+VENV_PY=~/kiosk_drone_ws/venv/bin/python3
+if [ -x "${VENV_PY}" ]; then
+    if ! pgrep -f "gcs_keepalive.py" > /dev/null; then
+        setsid "${VENV_PY}" "${REPO_SIM_DIR}/gcs_keepalive.py" > "${LOG_DIR}/gcs_keepalive.log" 2>&1 \
+            < /dev/null &
+        disown
+        echo "gcs_keepalive 백그라운드 기동, 로그: ${LOG_DIR}/gcs_keepalive.log"
+    else
+        echo "gcs_keepalive 이미 실행 중 — 재사용"
+    fi
+else
+    echo "경고: ${VENV_PY} 없음 — GCS 연결 없이는 arm이 거부됨(docs/troubleshooting.md 참고). venv에 mavsdk 설치 필요." >&2
 fi
 
 echo "== 완료 =="
