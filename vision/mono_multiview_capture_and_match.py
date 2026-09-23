@@ -46,7 +46,26 @@ APPROACH_NORTH = 0.3  # wall is at world y=3 (kiosk.sdf), spawn ~= world (0,0),
                       # readings showing 0 keypoints predate that fix and may
                       # have just caught the vehicle mid-transit, not a real
                       # visibility limit).
-BASELINE_NORTH = 0.3  # frame A -> frame B forward step [m], hardcoded for this test
+BASELINE_NORTH = 0.0  # frame A -> frame B forward step [m], hardcoded for this test
+                      # (0 for now: isolating pure sideways motion, see
+                      # BASELINE_EAST, from the forward+east combined test that
+                      # came before it)
+BASELINE_EAST = 0.6   # frame A -> frame B sideways step [m]; pure-forward motion
+                      # gives weak parallax for points near the image center
+                      # (moving toward a point doesn't shift it across the
+                      # frame much) -- mono_multiview_pose_estimate.py's yaw
+                      # has been noisy across every distance tried so far, and
+                      # this has only ever been tested with BASELINE_EAST=0.
+                      # A sideways component should condition triangulation/
+                      # homography decomposition better for the same total
+                      # baseline length. A forward+east combined run got a
+                      # great Essential result (yaw -4.9deg) but a badly wrong
+                      # Homography one (-50deg, cam_rot disagreed with
+                      # Essential's for the same pair) -- isolating pure east
+                      # motion here to see whether that's about the sideways
+                      # component specifically, or the wall's 2cm real
+                      # thickness (kiosk_wall/model.sdf) breaking the
+                      # single-plane assumption once viewed at an angle.
 SETTLE_SEC = 10  # max wait for wait_until_stable(); PX4's offboard position
                  # controller in this sim regularly takes longer than 4s to
                  # converge on a new setpoint (observed repeatedly), so 4s was

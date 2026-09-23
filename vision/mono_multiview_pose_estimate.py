@@ -32,7 +32,7 @@ from mavsdk import System
 from mavsdk.offboard import OffboardError, PositionNedYaw
 
 from mono_multiview_capture_and_match import (
-    ALT, APPROACH_NORTH, BASELINE_NORTH, SETTLE_SEC,
+    ALT, APPROACH_NORTH, BASELINE_EAST, BASELINE_NORTH, SETTLE_SEC,
     capture_frame, detect_and_match, goto,
 )
 
@@ -241,8 +241,10 @@ async def run(K):
     t_a = time.time()
     print(f"-- frame A wall-clock time: {t_a:.3f}  north={pos_a.north_m:.3f}m")
 
-    baseline_target = APPROACH_NORTH + BASELINE_NORTH
-    await goto(drone, baseline_target, 0.0, 0.0, f"North {baseline_target}m (baseline step)", SETTLE_SEC)
+    baseline_target_n = APPROACH_NORTH + BASELINE_NORTH
+    baseline_target_e = BASELINE_EAST
+    await goto(drone, baseline_target_n, baseline_target_e, 0.0,
+               f"North {baseline_target_n}m East {baseline_target_e}m (baseline step)", SETTLE_SEC)
 
     print("-- Capturing frame B + position")
     frame_b = await loop.run_in_executor(None, capture_frame, "b")
