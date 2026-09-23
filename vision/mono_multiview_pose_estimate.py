@@ -198,6 +198,35 @@ def homography_to_metric(R, t_internal, n, inlier_a, K, real_baseline):
     return forward, lateral, vertical, yaw_deg, spread
 
 
+def select_pose(essential, homography, agreement_threshold_deg=5.0):
+    """Pick between the Essential Matrix and Homography estimates.
+
+    Both methods recover R for the SAME physical camera motion between frame
+    A and B, so their R's should agree; when they don't, at least one picked
+    a wrong disambiguation among the up-to-4 candidate solutions. We have no
+    way to directly check which one is right at runtime, but every test
+    flight here commands yaw=0.0 throughout, so the true rotation is expected
+    to be near zero -- whichever method's own cam_rot (deviation from
+    identity) was smaller matched the correct answer in every case observed
+    so far (5/5 pure-lateral runs where Essential failed 3 times with a large
+    cam_rot while Homography stayed small; the one forward+east mixed run
+    where it flipped -- Essential's cam_rot was the small one that time, and
+    Essential was the correct one).
+
+    CAVEAT: this tie-breaker assumes the expected rotation is ~0, which holds
+    for these commanded-yaw=0 test flights but won't generally hold in
+    production (the drone may genuinely turn between frames). A production
+    version needs a criterion that doesn't assume the answer up front, e.g.
+    comparing each solution's reprojection error against the matched points.
+    """
+    agree_deg = rotation_angle_deg(homography["R"] @ essential["R"].T)
+    if agree_deg < agreement_threshold_deg:
+        return "Homography", homography, agree_deg
+    if homography["cam_rot"] <= essential["cam_rot"]:
+        return "Homography", homography, agree_deg
+    return "Essential", essential, agree_deg
+
+
 async def run(K):
     drone = System()
     await drone.connect(system_address="udp://:14540")
@@ -313,8 +342,12 @@ async def run(K):
           f"yaw={yaw_deg:+.1f}deg (camera-A frame, plane-fit) CONFIDENT={confident}")
     print(f"-- camera attitude sanity check: rotated {cam_rotation_deg:.1f}deg between A and B "
           f"(commanded yaw=0.0 throughout, so this should be small)")
+    essential_result = {"method": "Essential", "R": R, "forward": forward, "lateral": lateral,
+                         "vertical": vertical, "yaw_deg": yaw_deg, "spread": spread,
+                         "cam_rot": cam_rotation_deg}
 
     print("-- Alternative: Homography-based pose (planar-scene-specific)")
+    homography_result = None
     try:
         R_h, t_h_internal, n_h, inlier_a_h, h_inliers = estimate_pose_homography(pts_a, pts_b, K)
         h_forward, h_lateral, h_vertical, h_yaw_deg, h_spread = homography_to_metric(
@@ -323,8 +356,22 @@ async def run(K):
         print(f"-- ESTIMATED [Homography] forward={h_forward:.3f}m lateral={h_lateral:.3f}m "
               f"vertical={h_vertical:.3f}m yaw={h_yaw_deg:+.1f}deg spread={h_spread:.3f}m "
               f"cam_rot={h_cam_rotation_deg:.1f}deg")
+        homography_result = {"method": "Homography", "R": R_h, "forward": h_forward, "lateral": h_lateral,
+                              "vertical": h_vertical, "yaw_deg": h_yaw_deg, "spread": h_spread,
+                              "cam_rot": h_cam_rotation_deg}
     except SystemExit as e:
         print(f"-- Homography pose FAILED: {e}")
+
+    print("-- Step 9 (new): auto-selecting between Essential and Homography")
+    if homography_result is None:
+        chosen, result, agree_deg = "Essential", essential_result, None
+        print("-- Homography unavailable, falling back to Essential")
+    else:
+        chosen, result, agree_deg = select_pose(essential_result, homography_result)
+        print(f"-- R agreement between methods: {agree_deg:.1f}deg apart "
+              f"({'AGREE' if agree_deg < 5.0 else 'DISAGREE -> picked by smaller cam_rot'})")
+    print(f"-- SELECTED [{chosen}] forward={result['forward']:.3f}m lateral={result['lateral']:.3f}m "
+          f"vertical={result['vertical']:.3f}m yaw={result['yaw_deg']:+.1f}deg")
 
 
 def main():
