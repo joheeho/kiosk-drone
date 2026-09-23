@@ -25,7 +25,8 @@ from mono_multiview_capture_and_match import (
     ALT, SETTLE_SEC, capture_frame, detect_and_match, goto,
 )
 from mono_multiview_pose_estimate import (
-    SPREAD_MIN_M, capture_camera_info, estimate_pose, fit_plane, rotation_angle_deg,
+    SPREAD_MIN_M, bbox_center_lateral_vertical, capture_camera_info, estimate_pose,
+    fit_plane, rotation_angle_deg,
 )
 
 WALL_WORLD_Y = 3.0  # kiosk.sdf: <pose>0 3 1.5 0 0 0</pose>
@@ -112,11 +113,11 @@ async def run(K):
         ]))
         try:
             _, pts_a, pts_b = detect_and_match(img_a, img_b)
-            R, t_unit, pts3d_unit = estimate_pose(pts_a, pts_b, K)
+            R, t_unit, pts3d_unit, inlier_2d_a = estimate_pose(pts_a, pts_b, K)
             pts3d_m = pts3d_unit * real_baseline
             normal, centroid, spread = fit_plane(pts3d_m)
             forward = float(-np.dot(normal, centroid))
-            lateral, vertical = float(centroid[0]), float(centroid[1])
+            lateral, vertical = bbox_center_lateral_vertical(inlier_2d_a, K, normal, forward)
             yaw_deg = float(np.degrees(np.arctan2(normal[0], -normal[2])))
             cam_rot = rotation_angle_deg(R)
             confident = spread >= SPREAD_MIN_M

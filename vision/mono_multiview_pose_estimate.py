@@ -116,6 +116,36 @@ def fit_plane(points):
     return normal, centroid, spread
 
 
+def bbox_center_lateral_vertical(pts_2d_a, K, normal_facing, forward):
+    """lateral/vertical via the 2D bounding-box CENTER of the matched points
+    in frame A, back-projected onto the fitted plane -- instead of the
+    density-weighted mean/centroid of the reconstructed 3D points.
+
+    The centroid approach is biased by which points happened to match: if
+    more corners matched on the right marker than the left one, the mean
+    drags toward the right even though the wall's actual visible extent was
+    roughly symmetric. The bounding-box center only depends on the min/max
+    extent of the matched region, not how densely points fill it, so it's a
+    better proxy for "where does the observed region sit relative to the
+    camera" -- same fix in spirit as using spread (extent) rather than count
+    for the confidence check.
+
+    normal_facing must already be oriented toward the camera (negative Z,
+    this file's convention), and forward is the already-computed
+    perpendicular camera-to-plane distance in meters -- both fit_plane() and
+    the homography path already produce these.
+    """
+    px_center = (pts_2d_a.min(axis=0) + pts_2d_a.max(axis=0)) / 2.0
+    ray = cv2.undistortPoints(px_center.reshape(1, 1, 2).astype(np.float64), K, None).ravel()
+    ray_dir = np.array([ray[0], ray[1], 1.0])
+    denom = float(normal_facing @ ray_dir)
+    if abs(denom) < 1e-9:
+        return None, None
+    s = -forward / denom
+    point = s * ray_dir
+    return float(point[0]), float(point[1])
+
+
 def rotation_angle_deg(R):
     """Angle of the rotation R represents, via the trace formula. Sanity check
     only: we commanded yaw=0.0 throughout, so this should be close to 0 -- it
@@ -123,6 +153,37 @@ def rotation_angle_deg(R):
     check that the drone held the commanded attitude between frame A and B."""
     cos_theta = np.clip((np.trace(R) - 1.0) / 2.0, -1.0, 1.0)
     return float(np.degrees(np.arccos(cos_theta)))
+
+
+def cheirality_vote(R, t, inlier_a, inlier_b, K):
+    """How many matched points end up in front of BOTH cameras for one
+    candidate (R, t). This is exactly what recoverPose uses internally to
+    pick the winner among the 4 candidates from decomposeEssentialMat, but it
+    only ever reports the winner -- diagnosing why Essential Matrix
+    occasionally picks the wrong one needs seeing all 4 vote counts."""
+    P0 = K @ np.hstack([np.eye(3), np.zeros((3, 1))])
+    P1 = K @ np.hstack([R, t.reshape(3, 1)])
+    pts4d = cv2.triangulatePoints(P0, P1, inlier_a.T, inlier_b.T)
+    pts3d_a = (pts4d[:3] / pts4d[3]).T
+    depth_a = pts3d_a[:, 2]
+    pts3d_b = (R @ pts3d_a.T + t.reshape(3, 1)).T
+    depth_b = pts3d_b[:, 2]
+    return int(((depth_a > 0) & (depth_b > 0)).sum())
+
+
+def diagnose_essential_candidates(E, inlier_a, inlier_b, K):
+    """Manually replicate recoverPose's own disambiguation to see the vote
+    margin between the winning candidate and the runner-up -- a close margin
+    would mean small amounts of noise (which matched points survived RANSAC,
+    etc.) can flip which candidate wins between otherwise-identical runs."""
+    R1, R2, t = cv2.decomposeEssentialMat(E)
+    candidates = [(R1, t), (R1, -t), (R2, t), (R2, -t)]
+    votes = [cheirality_vote(R, tt, inlier_a, inlier_b, K) for R, tt in candidates]
+    ranked = sorted(votes, reverse=True)
+    margin_pct = 100 * (ranked[0] - ranked[1]) / max(ranked[0], 1)
+    print(f"Essential candidate cheirality votes (of {len(inlier_a)}): {votes} "
+          f"-- winner leads runner-up by {margin_pct:.0f}%")
+    return votes, margin_pct
 
 
 def estimate_pose(pts_a, pts_b, K):
@@ -138,6 +199,8 @@ def estimate_pose(pts_a, pts_b, K):
     if len(inlier_a) < 5:
         raise SystemExit("too few essential-matrix inliers to recover pose")
 
+    diagnose_essential_candidates(E, inlier_a, inlier_b, K)
+
     n_front, R, t, pose_mask = cv2.recoverPose(E, inlier_a, inlier_b, K)
     print(f"recoverPose: {n_front} points in front of both cameras "
           f"(t is unit-length: this is the mono scale-ambiguity step 7 fixes)")
@@ -148,7 +211,7 @@ def estimate_pose(pts_a, pts_b, K):
     pts3d_unit = (pts4d[:3] / pts4d[3]).T  # Nx3, camera-A frame, unit baseline
 
     keep = pose_mask.ravel() > 0
-    return R, t, pts3d_unit[keep]
+    return R, t, pts3d_unit[keep], inlier_a[keep]
 
 
 def estimate_pose_homography(pts_a, pts_b, K):
@@ -215,8 +278,7 @@ def homography_to_metric(R, t_internal, n, inlier_a, K, real_baseline):
 
     n_facing = -n if n[2] > 0 else n
     forward = float(-np.dot(n_facing, pts3d_m.mean(axis=0)))
-    centroid = pts3d_m.mean(axis=0)
-    lateral, vertical = float(centroid[0]), float(centroid[1])
+    lateral, vertical = bbox_center_lateral_vertical(inlier_a[valid], K, n_facing, forward)
     yaw_deg = float(np.degrees(np.arctan2(n_facing[0], -n_facing[2])))
     spread = float(np.linalg.norm(pts3d_m.max(axis=0) - pts3d_m.min(axis=0)))
     return forward, lateral, vertical, yaw_deg, spread
@@ -345,7 +407,7 @@ async def run(K):
     _, pts_a, pts_b = detect_and_match(frame_a, frame_b)
 
     print("-- Steps 5-6: Essential Matrix + triangulation (unit scale)")
-    R, t_unit, pts3d_unit = estimate_pose(pts_a, pts_b, K)
+    R, t_unit, pts3d_unit, inlier_2d_a = estimate_pose(pts_a, pts_b, K)
 
     print("-- Step 7: scale correction using PX4 baseline")
     pts3d_m = pts3d_unit * real_baseline
@@ -353,7 +415,7 @@ async def run(K):
     print("-- Fitting wall plane + camera attitude sanity check")
     normal, centroid, spread = fit_plane(pts3d_m)
     forward = float(-np.dot(normal, centroid))
-    lateral, vertical = float(centroid[0]), float(centroid[1])
+    lateral, vertical = bbox_center_lateral_vertical(inlier_2d_a, K, normal, forward)
     yaw_deg = float(np.degrees(np.arctan2(normal[0], -normal[2])))
     cam_rotation_deg = rotation_angle_deg(R)
     confident = spread >= SPREAD_MIN_M

@@ -46,13 +46,13 @@ APPROACH_NORTH = 0.3  # wall is at world y=3 (kiosk.sdf), spawn ~= world (0,0),
                       # readings showing 0 keypoints predate that fix and may
                       # have just caught the vehicle mid-transit, not a real
                       # visibility limit).
-BASELINE_NORTH = 0.5  # frame A -> frame B forward step [m], hardcoded for this test
+BASELINE_NORTH = 0.0  # frame A -> frame B forward step [m], hardcoded for this test
                       # (mostly-forward, small-lateral ratio test: keeping the
                       # total baseline magnitude close to the ~0.6-0.7m that
                       # worked great pure-lateral, but shifting the ratio
                       # toward forward to see whether degradation tracks the
                       # forward:lateral ratio or just total point count/overlap)
-BASELINE_EAST = 0.4  # frame A -> frame B sideways step [m]; pure-forward motion
+BASELINE_EAST = 0.6  # frame A -> frame B sideways step [m]; pure-forward motion
                       # gives weak parallax for points near the image center
                       # (moving toward a point doesn't shift it across the
                       # frame much) -- mono_multiview_pose_estimate.py's yaw
