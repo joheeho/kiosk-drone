@@ -127,6 +127,77 @@ def estimate_pose(pts_a, pts_b, K):
     return R, t, pts3d_unit[keep]
 
 
+def estimate_pose_homography(pts_a, pts_b, K):
+    """Alternative to estimate_pose(), appropriate when the matched points lie
+    on a single plane -- our kiosk wall, always, in this sim. Essential Matrix
+    decomposition is known to be poorly conditioned for purely planar point
+    sets (a real risk here, confirmed by the distance sweep: some pairs came
+    back with a negative estimated distance -- a nonsensical result). Unlike
+    estimate_pose(), this solves for the plane's normal directly from the 2D
+    correspondences instead of triangulating noisy 3D points and fitting a
+    plane to them afterward, so the wall-relative angle no longer depends on a
+    second, separately-noisy estimation step.
+
+    Returns (R, forward, lateral, vertical, yaw_deg, spread, inlier_count).
+    forward/lateral/vertical/spread are scaled directly to meters here (unlike
+    estimate_pose(), which returns unit-scale points for run() to scale) since
+    the plane-relative point reconstruction needs the scale factor internally.
+    """
+    H, mask = cv2.findHomography(pts_a, pts_b, cv2.RANSAC, 3.0)
+    if H is None:
+        raise SystemExit("findHomography failed")
+    inlier_count = int(mask.sum())
+    print(f"Homography inliers: {inlier_count}/{len(pts_a)}")
+    if inlier_count < 8:
+        raise SystemExit("too few homography inliers")
+
+    _, Rs, Ts, Ns = cv2.decomposeHomographyMat(H, K)
+
+    pts_a_norm = cv2.undistortPoints(pts_a.reshape(-1, 1, 2).astype(np.float32), K, None)
+    pts_b_norm = cv2.undistortPoints(pts_b.reshape(-1, 1, 2).astype(np.float32), K, None)
+
+    possible = cv2.filterHomographyDecompByVisibleRefpoints(
+        Rs, Ns, pts_a_norm, pts_b_norm, pointsMask=mask)
+    if possible is None or len(possible) == 0:
+        raise SystemExit("no valid homography decomposition after filtering")
+    idx = int(possible.ravel()[0])
+    R = Rs[idx]
+    t_internal = Ts[idx].ravel()   # translation / plane-depth (unscaled)
+    n = Ns[idx].ravel()            # plane normal, camera-A frame, same internal scale
+
+    inlier_a = pts_a[mask.ravel() == 1]
+    return R, t_internal, n, inlier_a, inlier_count
+
+
+def homography_to_metric(R, t_internal, n, inlier_a, K, real_baseline):
+    """Scale the homography decomposition to meters using PX4's real baseline
+    (step 7, same idea as estimate_pose()'s scale correction), then reconstruct
+    each inlier point's 3D position by intersecting its camera ray with the
+    known plane (n . X = 1 in the decomposition's internal units) rather than
+    triangulating -- this leans on the planar assumption instead of fighting
+    it, which is the whole point of using homography here."""
+    scale = real_baseline / np.linalg.norm(t_internal)
+
+    rays = cv2.undistortPoints(inlier_a.reshape(-1, 1, 2).astype(np.float64), K, None).reshape(-1, 2)
+    rays = np.hstack([rays, np.ones((len(rays), 1))])  # Nx3, camera-A frame, unnormalized ray directions
+
+    denom = rays @ n
+    valid = np.abs(denom) > 1e-6
+    s = np.full(len(rays), np.nan)
+    s[valid] = 1.0 / denom[valid]
+    pts3d_internal = s[:, None] * rays  # points on the plane, internal scale
+
+    pts3d_m = pts3d_internal[valid] * scale
+
+    n_facing = -n if n[2] > 0 else n
+    forward = float(-np.dot(n_facing, pts3d_m.mean(axis=0)))
+    centroid = pts3d_m.mean(axis=0)
+    lateral, vertical = float(centroid[0]), float(centroid[1])
+    yaw_deg = float(np.degrees(np.arctan2(n_facing[0], -n_facing[2])))
+    spread = float(np.linalg.norm(pts3d_m.max(axis=0) - pts3d_m.min(axis=0)))
+    return forward, lateral, vertical, yaw_deg, spread
+
+
 async def run(K):
     drone = System()
     await drone.connect(system_address="udp://:14540")
@@ -236,10 +307,22 @@ async def run(K):
 
     print(f"-- {len(pts3d_m)} scaled 3D points, spread={spread:.3f}m "
           f"({'CONFIDENT' if confident else f'LOW CONFIDENCE (< {SPREAD_MIN_M}m, likely a single-marker cluster)'})")
-    print(f"-- ESTIMATED forward={forward:.3f}m lateral={lateral:.3f}m vertical={vertical:.3f}m "
+    print(f"-- ESTIMATED [Essential] forward={forward:.3f}m lateral={lateral:.3f}m vertical={vertical:.3f}m "
           f"yaw={yaw_deg:+.1f}deg (camera-A frame, plane-fit) CONFIDENT={confident}")
     print(f"-- camera attitude sanity check: rotated {cam_rotation_deg:.1f}deg between A and B "
           f"(commanded yaw=0.0 throughout, so this should be small)")
+
+    print("-- Alternative: Homography-based pose (planar-scene-specific)")
+    try:
+        R_h, t_h_internal, n_h, inlier_a_h, h_inliers = estimate_pose_homography(pts_a, pts_b, K)
+        h_forward, h_lateral, h_vertical, h_yaw_deg, h_spread = homography_to_metric(
+            R_h, t_h_internal, n_h, inlier_a_h, K, real_baseline)
+        h_cam_rotation_deg = rotation_angle_deg(R_h)
+        print(f"-- ESTIMATED [Homography] forward={h_forward:.3f}m lateral={h_lateral:.3f}m "
+              f"vertical={h_vertical:.3f}m yaw={h_yaw_deg:+.1f}deg spread={h_spread:.3f}m "
+              f"cam_rot={h_cam_rotation_deg:.1f}deg")
+    except SystemExit as e:
+        print(f"-- Homography pose FAILED: {e}")
 
 
 def main():
