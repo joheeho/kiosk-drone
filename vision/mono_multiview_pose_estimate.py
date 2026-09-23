@@ -62,6 +62,30 @@ async def get_position_ned(drone):
         return pv.position
 
 
+async def get_attitude_quaternion(drone):
+    async for q in drone.telemetry.attitude_quaternion():
+        return q
+
+
+def quaternion_angle_deg(q_a, q_b):
+    """Angle between two attitudes from PX4's own IMU-based estimate -- this
+    is real sensor data (not simulation-only, unlike the wall-world-pose
+    ground truth elsewhere in this file), so it carries over to production.
+
+    We don't need the exact camera-to-body mounting transform to use this as
+    a ground truth for cam_rot: rotation ANGLE (unlike axis) is invariant
+    under conjugation by any fixed rotation, so the body's rotation angle
+    between frame A and B equals the camera's rotation angle between the same
+    two frames regardless of how the camera is mounted on the body.
+    """
+    w_a, x_a, y_a, z_a = q_a.w, q_a.x, q_a.y, q_a.z
+    w_b, x_b, y_b, z_b = q_b.w, q_b.x, q_b.y, q_b.z
+    # relative quaternion q_rel = q_a^-1 * q_b (unit quaternions: inverse == conjugate)
+    w_rel = w_a * w_b + x_a * x_b + y_a * y_b + z_a * z_b
+    cos_half_angle = np.clip(abs(w_rel), -1.0, 1.0)
+    return float(np.degrees(2.0 * np.arccos(cos_half_angle)))
+
+
 # Below this bounding-box diagonal, matched points are more likely clustered
 # on a single ~0.15m ArUco marker (diagonal ~0.21m) than spread across the
 # wall -- confirmed by inspecting mono_frame_a/b.png for a run whose plane-fit
@@ -198,33 +222,25 @@ def homography_to_metric(R, t_internal, n, inlier_a, K, real_baseline):
     return forward, lateral, vertical, yaw_deg, spread
 
 
-def select_pose(essential, homography, agreement_threshold_deg=5.0):
+def select_pose(essential, homography, true_cam_rot_deg):
     """Pick between the Essential Matrix and Homography estimates.
 
     Both methods recover R for the SAME physical camera motion between frame
-    A and B, so their R's should agree; when they don't, at least one picked
-    a wrong disambiguation among the up-to-4 candidate solutions. We have no
-    way to directly check which one is right at runtime, but every test
-    flight here commands yaw=0.0 throughout, so the true rotation is expected
-    to be near zero -- whichever method's own cam_rot (deviation from
-    identity) was smaller matched the correct answer in every case observed
-    so far (5/5 pure-lateral runs where Essential failed 3 times with a large
-    cam_rot while Homography stayed small; the one forward+east mixed run
-    where it flipped -- Essential's cam_rot was the small one that time, and
-    Essential was the correct one).
-
-    CAVEAT: this tie-breaker assumes the expected rotation is ~0, which holds
-    for these commanded-yaw=0 test flights but won't generally hold in
-    production (the drone may genuinely turn between frames). A production
-    version needs a criterion that doesn't assume the answer up front, e.g.
-    comparing each solution's reprojection error against the matched points.
+    A and B, so their R's should agree with reality; when one is off, it
+    picked a wrong disambiguation among the up-to-4 candidate solutions. An
+    earlier version of this guessed the true rotation was ~0 (valid only
+    because these test flights command yaw=0.0 throughout). Now we compare
+    each method's self-reported cam_rot against PX4's own IMU-based attitude
+    estimate (quaternion_angle_deg) instead -- real sensor data, not a
+    simulation-only shortcut, so unlike the earlier guess this carries over
+    to production where the drone may genuinely be turning between frames.
     """
     agree_deg = rotation_angle_deg(homography["R"] @ essential["R"].T)
-    if agree_deg < agreement_threshold_deg:
-        return "Homography", homography, agree_deg
-    if homography["cam_rot"] <= essential["cam_rot"]:
-        return "Homography", homography, agree_deg
-    return "Essential", essential, agree_deg
+    e_err = abs(essential["cam_rot"] - true_cam_rot_deg)
+    h_err = abs(homography["cam_rot"] - true_cam_rot_deg)
+    chosen = "Essential" if e_err <= h_err else "Homography"
+    result = essential if chosen == "Essential" else homography
+    return chosen, result, agree_deg, e_err, h_err
 
 
 async def run(K):
@@ -267,6 +283,7 @@ async def run(K):
     print("-- Capturing frame A + position")
     frame_a = await loop.run_in_executor(None, capture_frame, "a")
     pos_a = await get_position_ned(drone)
+    quat_a = await get_attitude_quaternion(drone)
     t_a = time.time()
     print(f"-- frame A wall-clock time: {t_a:.3f}  north={pos_a.north_m:.3f}m")
 
@@ -278,8 +295,13 @@ async def run(K):
     print("-- Capturing frame B + position")
     frame_b = await loop.run_in_executor(None, capture_frame, "b")
     pos_b = await get_position_ned(drone)
+    quat_b = await get_attitude_quaternion(drone)
     t_b = time.time()
     print(f"-- frame B wall-clock time: {t_b:.3f}  north={pos_b.north_m:.3f}m")
+
+    true_cam_rot_deg = quaternion_angle_deg(quat_a, quat_b)
+    print(f"-- PX4-measured attitude change (ground truth, real IMU data): {true_cam_rot_deg:.1f}deg "
+          f"between A and B")
 
     print("-- Returning to origin")
     await goto(drone, 0.0, 0.0, 0.0, "Return to origin", SETTLE_SEC)
@@ -362,14 +384,16 @@ async def run(K):
     except SystemExit as e:
         print(f"-- Homography pose FAILED: {e}")
 
-    print("-- Step 9 (new): auto-selecting between Essential and Homography")
+    print("-- Step 9 (new): auto-selecting between Essential and Homography using PX4 attitude ground truth")
     if homography_result is None:
-        chosen, result, agree_deg = "Essential", essential_result, None
+        chosen, result = "Essential", essential_result
         print("-- Homography unavailable, falling back to Essential")
     else:
-        chosen, result, agree_deg = select_pose(essential_result, homography_result)
-        print(f"-- R agreement between methods: {agree_deg:.1f}deg apart "
-              f"({'AGREE' if agree_deg < 5.0 else 'DISAGREE -> picked by smaller cam_rot'})")
+        chosen, result, agree_deg, e_err, h_err = select_pose(
+            essential_result, homography_result, true_cam_rot_deg)
+        print(f"-- R agreement between methods: {agree_deg:.1f}deg apart")
+        print(f"-- vs PX4 attitude ({true_cam_rot_deg:.1f}deg): "
+              f"Essential off by {e_err:.1f}deg, Homography off by {h_err:.1f}deg")
     print(f"-- SELECTED [{chosen}] forward={result['forward']:.3f}m lateral={result['lateral']:.3f}m "
           f"vertical={result['vertical']:.3f}m yaw={result['yaw_deg']:+.1f}deg")
 
