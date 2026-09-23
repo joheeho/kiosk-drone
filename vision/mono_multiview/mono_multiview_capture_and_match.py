@@ -26,7 +26,7 @@ from mavsdk import System
 from mavsdk.offboard import OffboardError, PositionNedYaw
 
 RGB_TOPIC = "/world/kiosk/model/x500_depth_0/link/camera_link/sensor/IMX214/image"
-OUT_DIR = Path(__file__).resolve().parent.parent / "outputs"
+OUT_DIR = Path(__file__).resolve().parent.parent.parent / "outputs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 ALT = -1.5           # NED z for 1.5m altitude
