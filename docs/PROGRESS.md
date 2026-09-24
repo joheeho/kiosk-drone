@@ -146,3 +146,11 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
 ### 다음
 - 실기체 카메라 마운트고 확정되면 `camera_mount_offset` 실측치로 갱신
 - REACQUIRE 반대 방향 스윕 이슈는 재발 시에만 대응 (위 항목 참고)
+
+## 2026-09-24 — 4방향(4벽) HOLD 검증 완료 (SCRUM-25)
+- `kiosk_4walls.sdf`의 북/동/남/서 4벽 각각에 대해 SEARCH → 타겟 ID 정렬 APPROACH → HOLD
+  폐루프 도달 확인. 위치 setpoint + 20Hz 스트림 분리 + 카메라 마운트고 정렬
+  (`takeoff_alt = marker_center_height - camera_mount_offset`) 조합이 방향에 무관하게 동작.
+- 교훈 재확인: 근접 standoff에서 마커 가시성은 수평 정렬보다 **카메라 마운트고 vs 마커고**
+  정렬이 좌우함 — 벽 방향이 바뀌어도 수직 축 조건이 같으면 결과가 동일하게 재현됨.
+- `sim/*.sh` 실행 권한(+x)을 git 인덱스에 반영.
