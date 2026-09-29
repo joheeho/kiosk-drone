@@ -30,17 +30,40 @@ source ~/kiosk_drone_ws/install/setup.bash
 set -u
 export GZ_CONFIG_PATH=/usr/share/gz:${GZ_CONFIG_PATH:-}
 
+# 이 스크립트가 띄우는 노드/브리지 프로세스 패턴. `ros2 run`은 래퍼(python) 밑에 실제
+# 노드를 자식으로 띄우는데, 비대화형 셸의 백그라운드(&) 프로세스는 SIGINT가 SIG_IGN으로
+# 상속돼 래퍼 PID에 kill -INT를 보내도 무시되고, 래퍼만 KILL하면 실제 노드가 고아로
+# 남는다. 실측: 이전 실행의 aruco_pnp_node(target_wall=남)가 고아로 살아남아 같은
+# /target/pose에 계속 발행 -> 이후 TARGET_WALL을 뭘 주든 남쪽 벽으로 접근했음
+# (docs/PROGRESS.md 참고). 그래서 PID가 아니라 패턴으로 기동 전/종료 시 모두 정리한다.
+NODE_PATTERNS=(
+    "kiosk_vision/lib/kiosk_vision/aruco_pnp_node"
+    "kiosk_vision/lib/kiosk_vision/approach_control_node"
+    "ros2 run kiosk_vision"
+    "ros_gz_bridge/parameter_bridge"
+    "ros2 run ros_gz_bridge parameter_bridge"
+    "tail -f ${LOG_DIR}/approach_control.log"
+)
+kill_nodes() {  # kill_nodes <signal>
+    local p
+    for p in "${NODE_PATTERNS[@]}"; do
+        pkill "-$1" -f "${p}" 2>/dev/null || true
+    done
+}
+stop_stale_nodes() {
+    kill_nodes INT
+    local t=0
+    while [ "${t}" -lt 5 ] && pgrep -f "kiosk_vision/lib/kiosk_vision/|ros_gz_bridge/parameter_bridge" >/dev/null; do
+        sleep 1; t=$((t + 1))
+    done
+    kill_nodes KILL
+}
+
 PIDS=()
 cleanup() {
     trap - INT TERM EXIT
     echo; echo "== 정리 =="
-    for pid in "${PIDS[@]:-}"; do
-        [ -n "${pid}" ] && kill -INT "${pid}" 2>/dev/null || true
-    done
-    sleep 1
-    for pid in "${PIDS[@]:-}"; do
-        [ -n "${pid}" ] && kill -KILL "${pid}" 2>/dev/null || true
-    done
+    stop_stale_nodes
     if [ "${STOP_INFRA}" = "1" ]; then
         pkill -f "gcs_keepalive.py" 2>/dev/null || true
         pkill -f "MicroXRCEAgent udp4 -p 8888" 2>/dev/null || true
@@ -66,6 +89,12 @@ wait_for() {  # wait_for <설명> <명령...>
     done
     echo " OK"
 }
+
+echo "== 0) 이전 실행의 잔여 노드 정리 =="
+if pgrep -af "kiosk_vision/lib/kiosk_vision/|ros_gz_bridge/parameter_bridge"; then
+    echo "  ^ 잔여 노드 발견 — 종료"
+    stop_stale_nodes
+fi
 
 echo "== 1) PX4 + 월드 + XRCE Agent + gcs_keepalive =="
 if pgrep -f "build/px4_sitl_default/bin/px4" >/dev/null; then
@@ -104,6 +133,7 @@ sleep 3
 
 echo "== 5) approach_control_node (bringup_level=${BRINGUP_LEVEL}) =="
 ros2 run kiosk_vision approach_control_node --ros-args -p "bringup_level:=${BRINGUP_LEVEL}" \
+    -p "target_wall:=${TARGET_WALL}" \
     > "${LOG_DIR}/approach_control.log" 2>&1 &
 PIDS+=($!)
 
