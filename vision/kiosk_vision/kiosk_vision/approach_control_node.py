@@ -36,7 +36,7 @@ from px4_msgs.msg import (
 )
 from geometry_msgs.msg import PoseStamped
 
-from kiosk_vision.wall_geometry import quat_to_rotmat, yaw_err_from_R, wrap_deg_diff
+from kiosk_vision.wall_geometry import WALL_ID_BASE, quat_to_rotmat, yaw_err_from_R, wrap_deg_diff
 
 LOG_ONLY, HOVER_HOLD, YAW, YAW_LATERAL, FULL = range(5)
 LEVEL_NAMES = ['LOG_ONLY', 'HOVER_HOLD', 'YAW', 'YAW_LATERAL', 'FULL']
@@ -67,6 +67,10 @@ class ApproachControlNode(Node):
         super().__init__('approach_control_node')
         self.declare_parameter('bringup_level', LOG_ONLY)
         self.declare_parameter('pose_topic', '/target/pose')
+        # aruco_pnp_node의 target_wall과 같은 값을 줘야 한다. 이 벽(frame_id='wall_<벽>')이
+        # 아닌 pose는 버린다 — 이전 실행에서 고아로 남은 aruco_pnp_node(다른 target_wall)가
+        # 같은 토픽에 발행하면 엉뚱한 벽으로 접근하던 문제 방어 (docs/PROGRESS.md 참고).
+        self.declare_parameter('target_wall', '동')  # 북/동/남/서
         # 0.6m -> 1.0m: 1m 벽 패널 기준으로도 접근 끝(정지 지점)에서 4마커가 화각에
         # 남아 aruco_pnp_node의 마커 수 게이트(REQUIRED_MARKERS=4)가 막판에 끊기지
         # 않도록 여유를 둠.
@@ -104,6 +108,10 @@ class ApproachControlNode(Node):
         self.declare_parameter('reacquire_sweep_max_s', 15.0)
 
         self.level = int(self.get_parameter('bringup_level').value)
+        self.target_wall = self.get_parameter('target_wall').value
+        if self.target_wall not in WALL_ID_BASE:
+            raise ValueError(f"target_wall='{self.target_wall}' invalid, must be one of {list(WALL_ID_BASE)}")
+        self.expected_frame_id = f'wall_{self.target_wall}'
         self.standoff = float(self.get_parameter('standoff').value)
         self.search_yaw_rate = math.radians(float(self.get_parameter('search_yaw_rate_deg').value))
         self.gain = float(self.get_parameter('approach_gain').value)
@@ -142,6 +150,7 @@ class ApproachControlNode(Node):
                                   self.on_attitude, px4_qos, callback_group=cb_group)
 
         pose_topic = self.get_parameter('pose_topic').value
+        self.pose_topic = pose_topic
         self.create_subscription(PoseStamped, pose_topic, self.on_target_pose, 10, callback_group=cb_group)
 
         self.vlp = None
@@ -177,7 +186,8 @@ class ApproachControlNode(Node):
         self.create_timer(DT, self.on_timer, callback_group=cb_group)
         self.create_timer(SETPOINT_DT, self.on_setpoint_timer, callback_group=cb_group)
         self.get_logger().info(
-            f'approach_control_node start bringup_level={self.level}({LEVEL_NAMES[self.level]}) '
+            f'approach_control_node start target_wall={self.target_wall} '
+            f'bringup_level={self.level}({LEVEL_NAMES[self.level]}) '
             f'standoff={self.standoff}m takeoff_alt={self.takeoff_alt}m '
             f'(marker_center_height={self.marker_center_height}m - camera_mount_offset={self.camera_mount_offset}m) '
             f'gain={self.gain} yaw_gain={self.yaw_gain} ema_alpha={self.ema_alpha}')
@@ -191,6 +201,13 @@ class ApproachControlNode(Node):
         self.att = msg
 
     def on_target_pose(self, msg):
+        if msg.header.frame_id != self.expected_frame_id:
+            n_pub = self.count_publishers(self.pose_topic)
+            self.get_logger().warn(
+                f"[{self.pose_topic}] frame_id='{msg.header.frame_id}' != '{self.expected_frame_id}' -> 버림 "
+                f"(publisher {n_pub}개 — 다른 target_wall의 aruco_pnp_node가 살아있는지 확인)",
+                throttle_duration_sec=2.0)
+            return
         self.last_target_pose = msg
         self.last_target_time = self.get_clock().now()
 

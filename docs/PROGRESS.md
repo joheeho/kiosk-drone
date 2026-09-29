@@ -154,3 +154,25 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
 - 교훈 재확인: 근접 standoff에서 마커 가시성은 수평 정렬보다 **카메라 마운트고 vs 마커고**
   정렬이 좌우함 — 벽 방향이 바뀌어도 수직 축 조건이 같으면 결과가 동일하게 재현됨.
 - `sim/*.sh` 실행 권한(+x)을 git 인덱스에 반영.
+
+## 2026-09-29 — "TARGET_WALL 무관하게 항상 남쪽 벽 HOLD" 원인: 고아 aruco_pnp_node (SCRUM-25)
+- 증상: `run_full_auto.sh`에 TARGET_WALL=서/북/동/남 무엇을 줘도 물리적 남쪽 벽 앞에서 HOLD.
+  배너의 target_wall 값은 정상.
+- 월드/매핑은 정상이었음: 4벽 텍스처를 직접 검출해보니 북 0-3 / 동 4-7 / 남 8-11 / 서 12-15로
+  고유하고, `wall_geometry.WALL_ID_BASE`·`kiosk_4walls.sdf` 배치와 일치. `aruco_pnp_node`도
+  타겟 벽 ID 그룹일 때만 `/target/pose` 발행(판단 로직 정상).
+- 원인: 15:34 실행(target_wall=남)의 `aruco_pnp_node`가 고아로 살아남아(PPID=init) 이후 실행들과
+  **같은 `/target/pose`에 계속 발행**. 실측: target_wall=북 실행의 aruco.log에 `PnP target=남`만
+  36줄, 북 pose는 0건 → 제어부가 남 pose를 따라감.
+- 고아가 생긴 이유: 비대화형 셸의 백그라운드(`&`) 프로세스는 SIGINT가 SIG_IGN으로 상속됨
+  (`/proc/<pid>/status` SigIgn 비트로 확인). `ros2 run` 래퍼 PID에 `kill -INT`는 무시되고,
+  래퍼만 죽으면 실제 노드는 남는다.
+- 수정:
+  - `run_full_auto.sh`: 기동 전(0단계)·종료 시 PID가 아니라 프로세스 패턴으로 kiosk_vision
+    노드/브리지/tail을 INT→(5s)→KILL 정리. `approach_control_node`에도 `target_wall` 전달.
+  - `approach_control_node`: `target_wall` 파라미터 추가, `frame_id != wall_<target_wall>`인
+    pose는 버리고 경고(publisher 수 포함) — 다른 벽 pose가 섞여도 엉뚱한 벽으로 가지 않음.
+- 검증: 매 방향 인프라 완전 재기동 후 `run_full_auto.sh`, HOLD 4회 연속(5s 간격) 확인, gz 기체 pose(ENU):
+  서 (-1.87, 0.03) / 북 (0.05, 1.85) / 동 (1.87, 0.06) / 남 (-0.02, -1.87) — 전부 지정 벽
+  (±3m) 앞 standoff 위치. 각 실행의 `PnP target=`은 전부 지정 벽, 제어부 frame_id 거부 0건,
+  종료 후 잔여 노드 0개. 가드 단독 테스트(target=동에 wall_남 pose 주입)에서 거부 로그 확인.
