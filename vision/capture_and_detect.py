@@ -5,6 +5,7 @@ save them, and run ArUco detection on the RGB frame."""
 import threading
 import time
 from collections import Counter
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -14,7 +15,8 @@ import gz.transport13 as gz_transport
 RGB_TOPIC = "/world/kiosk/model/x500_depth_0/link/camera_link/sensor/IMX214/image"
 DEPTH_TOPIC = "/depth_camera"
 
-OUT_DIR = "/home/joheeho/kiosk_drone_ws/outputs"
+OUT_DIR = Path(__file__).resolve().parent.parent / "outputs"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Physical marker size, must match MARKER_MM in generate_marker.py or any
 # solvePnP/estimatePoseSingleMarkers distance estimate built on this capture

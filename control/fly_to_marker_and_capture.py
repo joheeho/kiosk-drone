@@ -10,9 +10,12 @@ yaw=0 throughout, then moves north toward the marker while facing it.
 """
 
 import asyncio
+from pathlib import Path
 
 from mavsdk import System
 from mavsdk.offboard import OffboardError, PositionNedYaw
+
+CAPTURE_SCRIPT = Path(__file__).resolve().parent.parent / "vision" / "capture_and_detect.py"
 
 ALT = -1.5      # NED z for 1.5m altitude (matches wall center height)
 NORTH_TARGET = 1.2  # 0.6m stand-off from wall at y=3
@@ -66,7 +69,7 @@ async def run():
     print(f"-- Holding for {HOLD_SEC}s, running capture_and_detect.py")
     capture_task = asyncio.create_task(
         asyncio.create_subprocess_exec(
-            "/usr/bin/python3", "/home/joheeho/kiosk_drone_ws/capture_and_detect.py",
+            "/usr/bin/python3", str(CAPTURE_SCRIPT),
             stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT,
         )
     )
