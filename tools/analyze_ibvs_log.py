@@ -62,6 +62,19 @@ def main(ctrl_log, aruco_log):
     dts = [float(r[11]) for r in rows]
     print(f'  on_timer dt: 중앙 {S.median(dts):.3f}s, 최대 {max(dts):.3f}s')
 
+    # 첫 HOLD 이후 타겟 벽 검출 마커 수 분포 — ≤2개면 마커 게이트(3)에 걸려 pose가 끊긴다.
+    mk = []
+    for l in open(aruco_log):
+        m = re.search(r'\[(\d+\.\d+)\].*walls seen\].*?\((\d)mk', l)
+        if m and float(m.group(1)) >= t_hold:
+            mk.append(int(m.group(2)))
+    low = sum(1 for n in mk if n <= 2)
+    print('\n## 첫 HOLD 이후 검출 마커 수')
+    print(f'  프레임 {len(mk)}개: ' + ', '.join(f'{k}mk {mk.count(k)}' for k in sorted(set(mk)))
+          + f' -> ≤2mk {low}개 ({low / max(len(mk), 1) * 100:.1f}%)')
+    lost = sum(1 for _, s in trans if s == 'REACQUIRE')
+    print(f'  REACQUIRE 진입 {lost}회')
+
     ts = [float(re.search(r'\[(\d+\.\d+)\]', l).group(1)) for l in open(aruco_log) if '[PnP target=' in l]
     iv = sorted(b - a for a, b in zip(ts, ts[1:]) if a >= t_app - 1)
     print('\n## 비전 PnP 간격 (APPROACH 이후)')

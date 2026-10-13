@@ -106,7 +106,11 @@ class ApproachControlNode(Node):
         # 0.6m -> 1.0m: 1m 벽 패널 기준으로도 접근 끝(정지 지점)에서 4마커가 화각에
         # 남아 aruco_pnp_node의 마커 수 게이트(REQUIRED_MARKERS=4)가 막판에 끊기지
         # 않도록 여유를 둠.
-        self.declare_parameter('standoff', 1.0)
+        # 1.0m -> 1.15m (SCRUM-22): 속도 모드 HOLD 드리프트(피치 2~3°, 고도 1~2cm) 중 마커가
+        # 잘리는 지배 축은 상하. IMX214 VFOV 54.5°, 패턴 반높이 0.45m 기준 상하 여유가
+        # 1.0m에서 0.065m(0.96m면 0.045m)뿐이라 다 소진됐음 -> 1.15m면 ~0.14m.
+        # 이 값은 제어(서보잉) 검증용 — 이 0.9m 패턴으로는 50cm 미션 거리 자체가 화각 밖.
+        self.declare_parameter('standoff', 1.15)
         self.declare_parameter('search_yaw_rate_deg', 20.0)
         self.declare_parameter('kp_fwd', KP_FWD)
         self.declare_parameter('kp_lat', KP_LAT)
