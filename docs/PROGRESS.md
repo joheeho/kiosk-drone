@@ -176,3 +176,29 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
   서 (-1.87, 0.03) / 북 (0.05, 1.85) / 동 (1.87, 0.06) / 남 (-0.02, -1.87) — 전부 지정 벽
   (±3m) 앞 standoff 위치. 각 실행의 `PnP target=`은 전부 지정 벽, 제어부 frame_id 거부 0건,
   종료 후 잔여 노드 0개. 가드 단독 테스트(target=동에 wall_남 pose 주입)에서 거부 로그 확인.
+
+## 2026-10-13 — 앵커 절대위치 setpoint -> IBVS 상대속도 서보잉 전환 (SCRUM-22)
+- 목적: 실내(GPS 없음)에서 수평 절대위치(NED x,y) 없이 정렬·접근. 제어를 "월드 절대 목표점"
+  에서 "카메라 상대오차 -> 기체(FRD) 속도 P제어"로 교체. 고도만 position(z=-takeoff_alt) 혼합
+  setpoint. 2-시계 구조 유지(decide는 비전 주기에 명령 저장만, 발행은 20Hz 타이머).
+- PX4(v1.18) 확인: OffboardControlMode `velocity=True`(position=False)면 수평 위치 제어만 꺼지고
+  고도 제어 유지, offboard 진입 조건도 `local_position_invalid` -> `local_velocity_invalid`로 완화
+  (commander `ModeUtil/control_mode.cpp`, `offboardCheck.cpp`). mc_pos_control은
+  `position=[NaN,NaN,z]` + `velocity=[vx,vy,NaN]` 혼합을 그대로 받음.
+- 숨은 문제 같이 수정: `on_local_position`이 `xy_valid`일 때만 저장 + `on_timer`가 vlp 없으면 return
+  -> 실내에서 xy 무효면 노드가 아예 안 돌던 경로. 게이트를 자세(att)로만 바꾸고 cur_ned는 로그 전용.
+- SITL(동 벽, FULL) 2회, 로그/요약: `docs/results/scrum22_ibvs/`
+  (`tools/analyze_ibvs_log.py <control.log> <aruco.log>`로 재생성).
+  - 수렴: 첫 APPROACH -> HOLD 15.0s / 15.3s. yaw 게이트(>10°) 동안 vf=0, vr 0.3배 확인 후
+    vf=0.3(캡) 접근 -> P 감속 -> HOLD 진입 시 fwd/lat/yaw = +0.055/+0.023/-0.3° , +0.037/-0.010/+0.4°.
+  - HOLD: 명령 비영 샘플 0개(v=0 유지), 2s 미만 HOLD 체류(chatter) 0회. 고도 -1.243..-1.280
+    (목표 -1.258). 위치 락이 없어 데드존 내 느린 드리프트(NED 로그상 ~0.15m/75s) ->
+    이탈 임계 초과 시 APPROACH 재보정 -> 재진입(run1에서 2회, 각 4~6s).
+  - 비전 PnP 간격: 중앙 0.40s, p90 0.80s(run1)/1.40s(run2), 0.6s 초과 27~35% -> 정상 간격에서도
+    명령이 깎이므로 `CMD_HOLD_S` 0.6 -> 0.8 (run2가 0.8).
+- 관찰된 이슈 (run2, 둘 다 REACQUIRE grace 안에서 회복, SEARCH 승격 없음):
+  1. HOLD 드리프트로 lat≈+0.16m, fwd≈-0.04m까지 밀리자 근접 화각에서 마커 2개만 보여
+     aruco 마커 수 게이트(3mk 미만 보류)로 pose가 3s 끊김 -> REACQUIRE. 즉 **lat 이탈 임계 0.20m가
+     standoff 1.0m 마커 가시 범위보다 느슨함** — 0.15 안팎으로 조이는 것 검토 필요.
+  2. 카메라 프레임 자체 공백 3.6s(WSL 렌더링, 검출 로그 전무) > target_lost_timeout 3.0s -> REACQUIRE.
+     제어와 무관한 기존 환경 이슈.
