@@ -1,0 +1,66 @@
+== pause 1: 5s (비전 정지) ==
+    +2.8s (근거리 fwd=1.20m) -> REACQUIRE(후퇴 0.1m/s x 3.0s) 진입
+  t= +0.0s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +0.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +0.8s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +1.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +1.8s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +2.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +2.8s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +3.3s  vf=-0.100 vr=-0.000 yawspeed= +0.0°/s
+  t= +3.8s  vf=-0.100 vr=-0.000 yawspeed= +0.0°/s
+  t= +4.3s  vf=-0.100 vr=+0.000 yawspeed= +0.0°/s
+  t= +4.8s  vf=-0.100 vr=+0.000 yawspeed= +0.0°/s
+  t= +5.3s  vf=+0.051 vr=+0.032 yawspeed= +0.2°/s
+  t= +5.8s  vf=+0.064 vr=+0.030 yawspeed= +0.1°/s
+  t= +6.3s  vf=+0.065 vr=+0.029 yawspeed= +0.2°/s
+  t= +6.8s  vf=+0.059 vr=+0.025 yawspeed= -0.1°/s
+  t= +7.3s  vf=+0.059 vr=+0.025 yawspeed= -0.1°/s
+  t= +7.8s  vf=+0.051 vr=+0.023 yawspeed= +0.0°/s
+  t= +8.3s  vf=+0.040 vr=+0.020 yawspeed= +0.1°/s
+  t= +8.8s  vf=+0.038 vr=+0.018 yawspeed= +0.3°/s
+  t= +9.3s  vf=+0.028 vr=+0.013 yawspeed= +0.2°/s
+  t= +9.8s  vf=+0.026 vr=+0.012 yawspeed= +0.5°/s
+  t=+10.3s  vf=+0.026 vr=+0.012 yawspeed= +0.5°/s
+  t=+10.8s  vf=+0.020 vr=+0.002 yawspeed= +0.4°/s
+  t=+11.3s  vf=+0.019 vr=-0.001 yawspeed= +0.3°/s
+  t=+11.8s  vf=+0.017 vr=-0.005 yawspeed= +0.3°/s
+  t=+12.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t=+12.8s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  상태: HOLD@+0.2s -> REACQUIRE@+2.9s -> APPROACH@+5.5s -> HOLD@+12.4s
+== pause 2: 8s (비전 정지) ==
+    +2.5s (근거리 fwd=1.18m) -> REACQUIRE(후퇴 0.1m/s x 3.0s) 진입
+  t= +0.0s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +0.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +0.8s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +1.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +1.8s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +2.3s  vf=+0.000 vr=+0.000 yawspeed= +0.0°/s
+  t= +2.8s  vf=-0.100 vr=-0.000 yawspeed= +0.0°/s
+  t= +3.3s  vf=-0.100 vr=+0.000 yawspeed= +0.0°/s
+  t= +3.8s  vf=-0.100 vr=+0.000 yawspeed= +0.0°/s
+  t= +4.3s  vf=-0.100 vr=-0.000 yawspeed= +0.0°/s
+  t= +4.8s  vf=-0.100 vr=-0.000 yawspeed= +0.0°/s
+  t= +5.3s  vf=-0.100 vr=-0.000 yawspeed= +0.0°/s
+  t= +5.8s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +6.3s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +6.8s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +7.3s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +7.8s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +8.3s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +8.8s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +9.3s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t= +9.8s  vf=+0.000 vr=+0.000 yawspeed= +9.0°/s
+  t=+10.3s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+10.8s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+11.3s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+11.8s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+12.3s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+12.8s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+13.3s  vf=+0.000 vr=+0.000 yawspeed= -9.0°/s
+  t=+13.8s  vf=+0.066 vr=-0.052 yawspeed= -2.2°/s
+  t=+14.3s  vf=+0.071 vr=-0.071 yawspeed= -3.4°/s
+  t=+14.8s  vf=+0.071 vr=-0.070 yawspeed= -3.4°/s
+  t=+15.3s  vf=+0.065 vr=-0.068 yawspeed= -3.9°/s
+  t=+15.8s  vf=+0.053 vr=-0.056 yawspeed= -3.2°/s
+  상태: HOLD@+0.1s -> REACQUIRE@+2.7s -> APPROACH@+13.9s

@@ -84,6 +84,13 @@ TOL_FORWARD_EXIT = 0.12  # m
 # 3s 끊김(REACQUIRE). 관측 실패점 0.16 아래 0.04 마진. 드리프트 ~2mm/s라 재보정은 수십 초에 한 번.
 TOL_LATERAL_EXIT = 0.12  # m
 TOL_YAW_EXIT_DEG = 6.0
+# 근거리 유실 후퇴 복구: standoff 근처에서 놓친 건 대부분 상하 화각 잘림(타겟은 정면에
+# 그대로) — 여기서 yaw 스윕은 마커를 더 잃게 만든다(SITL run3: 1mk까지, 공백 13.6s).
+# 마지막 전진거리가 RETREAT_NEAR_FWD_M 미만이면 grace/스윕 대신 뒤로 물러나 화각을 되찾는다.
+# 절대위치가 없으므로 거리는 시간으로 제한(0.1m/s x 3s = 0.3m) — 기체 뒤 여유 공간 전제.
+RETREAT_NEAR_FWD_M = 1.3  # m
+RETREAT_SPEED = 0.1       # m/s
+RETREAT_MAX_S = 3.0       # s
 
 
 def wrap_pi(a):
@@ -151,6 +158,9 @@ class ApproachControlNode(Node):
         self.declare_parameter('reacquire_sweep_deg', 40.0)
         self.declare_parameter('reacquire_sweep_rate_deg', 9.0)
         self.declare_parameter('reacquire_sweep_max_s', 15.0)
+        self.declare_parameter('retreat_near_fwd_m', RETREAT_NEAR_FWD_M)
+        self.declare_parameter('retreat_speed', RETREAT_SPEED)
+        self.declare_parameter('retreat_max_s', RETREAT_MAX_S)
 
         self.level = int(self.get_parameter('bringup_level').value)
         self.target_wall = self.get_parameter('target_wall').value
@@ -181,6 +191,9 @@ class ApproachControlNode(Node):
         self.reacquire_sweep = math.radians(float(self.get_parameter('reacquire_sweep_deg').value))
         self.reacquire_sweep_rate = math.radians(float(self.get_parameter('reacquire_sweep_rate_deg').value))
         self.reacquire_sweep_max_s = float(self.get_parameter('reacquire_sweep_max_s').value)
+        self.retreat_near_fwd = float(self.get_parameter('retreat_near_fwd_m').value)
+        self.retreat_speed = float(self.get_parameter('retreat_speed').value)
+        self.retreat_max_s = float(self.get_parameter('retreat_max_s').value)
 
         # 모든 콜백(구독 + 두 타이머)을 하나의 재진입 가능 그룹에 묶고
         # MultiThreadedExecutor(main() 참고)로 돌려서, on_timer(상태판단 로직,
@@ -229,6 +242,7 @@ class ApproachControlNode(Node):
         self._reacquire_since = None
         self._reacquire_center_yaw = None
         self._reacquire_sweep_dir = 1.0
+        self._reacquire_retreat = False
         self._last_tick_time = None
 
         self.create_timer(DT, self.on_timer, callback_group=cb_group)
@@ -396,7 +410,8 @@ class ApproachControlNode(Node):
 
     def _handle_lost(self, now):
         """타겟 유실 시 곧바로 전체 SEARCH로 튀지 않고 REACQUIRE 3단계를 거친다:
-        ①grace(제자리 대기) ②마지막 방향 근방 좁은 스윕 ③그래도 못 찾으면 전체 SEARCH.
+        ①grace(제자리 대기) — 단 standoff 근처 유실이면 대신 후퇴(RETREAT_*)
+        ②마지막 방향 근방 좁은 스윕 ③그래도 못 찾으면 전체 SEARCH.
         제자리 = 수평 속도 0, 회전 = yawspeed (절대위치 없음)."""
         cur_yaw = self.current_yaw()
 
@@ -405,14 +420,28 @@ class ApproachControlNode(Node):
             self._reacquire_since = now
             self._reacquire_center_yaw = cur_yaw
             self._reacquire_sweep_dir = 1.0
-            self.get_logger().info('타겟 유실 -> REACQUIRE(제자리 대기) 진입')
+            vc = self.vision_cmd
+            last_fwd = vc[4] + self.standoff if vc is not None else math.inf
+            gate_level = FULL if self.level == LOG_ONLY else self.level
+            self._reacquire_retreat = gate_level >= FULL and last_fwd < self.retreat_near_fwd
+            if self._reacquire_retreat:
+                self.get_logger().info(
+                    f'타겟 유실(근거리 fwd={last_fwd:.2f}m) -> REACQUIRE(후퇴 '
+                    f'{self.retreat_speed}m/s x {self.retreat_max_s}s) 진입')
+            else:
+                self.get_logger().info('타겟 유실 -> REACQUIRE(제자리 대기) 진입')
 
         if self.state == 'REACQUIRE':
             elapsed = (now - self._reacquire_since).nanoseconds * 1e-9
-            if elapsed <= self.reacquire_grace_s:
+            first_phase_s = self.retreat_max_s if self._reacquire_retreat else self.reacquire_grace_s
+            if elapsed <= first_phase_s:
+                if self._reacquire_retreat:
+                    # ① 근거리: 뒤로 물러나 상하 화각 여유를 되찾는다 (yaw 유지)
+                    return (-self.retreat_speed, 0.0, 0.0, now)
                 return (0.0, 0.0, 0.0, now)  # ① grace: 제자리 대기
 
-            if elapsed <= self.reacquire_grace_s + self.reacquire_sweep_max_s:
+            # 후퇴로도 못 찾았으면 단순 화각 잘림이 아니므로 기존 스윕 -> SEARCH로 넘어간다.
+            if elapsed <= first_phase_s + self.reacquire_sweep_max_s:
                 # ② 마지막 방향 기준 좁은 스윕 (느린 속도로 왕복) — 실제 yaw가 경계를
                 # 넘으면 방향만 뒤집는다.
                 offset = wrap_pi(cur_yaw - self._reacquire_center_yaw)
