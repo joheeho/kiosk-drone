@@ -80,7 +80,9 @@ CMD_HOLD_S = 0.8
 CMD_DECAY_S = 0.6
 # HOLD 히스테리시스: 진입은 tol_*(타이트), 이탈은 아래(느슨) — 데드존 안에선 v=0.
 TOL_FORWARD_EXIT = 0.12  # m
-TOL_LATERAL_EXIT = 0.20  # m
+# 좌우 0.20 -> 0.12: SITL에서 HOLD 드리프트로 lat≈0.16m(fwd≈0.96m)일 때 마커 2개만 보여 pose가
+# 3s 끊김(REACQUIRE). 관측 실패점 0.16 아래 0.04 마진. 드리프트 ~2mm/s라 재보정은 수십 초에 한 번.
+TOL_LATERAL_EXIT = 0.12  # m
 TOL_YAW_EXIT_DEG = 6.0
 
 
@@ -118,7 +120,9 @@ class ApproachControlNode(Node):
         self.declare_parameter('tol_forward', 0.06)
         # 6cm -> 12cm: approach_align 실측 lateral 노이즈 바닥이 약 3~12cm라 6cm는
         # 노이즈보다 빡빡해서 HOLD<->APPROACH가 계속 토글됐음 (docs/PROGRESS.md).
-        self.declare_parameter('tol_lateral', 0.12)
+        # 12cm -> 8cm (SCRUM-22): 이탈 임계(0.12)를 마커 가시 범위에 맞춰 조이면서 히스테리시스
+        # 0.04 유지. 당시 토글 문제는 진입=이탈 단일 임계 때문이었고 지금은 이탈이 따로 있음.
+        self.declare_parameter('tol_lateral', 0.08)
         self.declare_parameter('tol_yaw_deg', 3.0)  # 실측 yaw 진동폭(~±2deg)이 이미 여유 있어 유지
         # HOLD 이탈 임계(진입 tol_*보다 느슨) — 속도 모드엔 위치 락이 없어 HOLD 중 느린
         # 드리프트가 생기는데, 진입=이탈 임계면 tol_forward 0.06 경계에서 chatter가 남.

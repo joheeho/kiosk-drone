@@ -1,0 +1,1050 @@
+[INFO] [1791858055.308124997] [aruco_pnp_node]: aruco_pnp_node start img=/camera/image_raw info=/camera/camera_info target_wall=동
+[INFO] [1791858055.620891701] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858055.621173100] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858055.820114469] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858056.017680865] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858056.216203127] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858056.419598562] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858056.619006494] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858056.818578548] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858056.818895007] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858057.020298800] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858057.217115447] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858057.617562799] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858057.818941439] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858057.819227183] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858058.017209633] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858058.216215084] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858058.417293332] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858058.619632468] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858058.817957779] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858059.017720516] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858059.019140714] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858059.219022994] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858059.420851092] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858059.622351763] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858059.816247044] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858060.019007421] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858060.019278087] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858060.217075743] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858060.419544878] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858060.616896885] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858061.015944475] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858061.216895390] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858061.217178789] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858061.415224928] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858061.617754339] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858061.816613507] [aruco_pnp_node]: [walls seen] 동(2mk,0.6px)
+[INFO] [1791858062.016732258] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858062.732954795] [aruco_pnp_node]: [walls seen] 동(2mk,0.5px)
+[INFO] [1791858062.733246822] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858062.930656261] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858063.133302249] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858064.131372672] [aruco_pnp_node]: [walls seen] 남(2mk,0.7px)
+[INFO] [1791858064.333052534] [aruco_pnp_node]: [walls seen] 남(2mk,0.8px)
+[INFO] [1791858064.536233442] [aruco_pnp_node]: [walls seen] 남(2mk,0.7px)
+[INFO] [1791858064.731299612] [aruco_pnp_node]: [walls seen] 남(4mk,1.0px)
+[INFO] [1791858064.931449701] [aruco_pnp_node]: [walls seen] 남(4mk,1.0px)
+[INFO] [1791858065.135248245] [aruco_pnp_node]: [walls seen] 남(4mk,0.8px)
+[INFO] [1791858065.330270589] [aruco_pnp_node]: [walls seen] 남(3mk,1.0px)
+[INFO] [1791858065.532576941] [aruco_pnp_node]: [walls seen] 남(4mk,0.9px)
+[INFO] [1791858065.732481546] [aruco_pnp_node]: [walls seen] 남(3mk,0.9px)
+[INFO] [1791858065.932225424] [aruco_pnp_node]: [walls seen] 남(4mk,1.0px)
+[INFO] [1791858066.335134494] [aruco_pnp_node]: [walls seen] 남(3mk,0.9px)
+[INFO] [1791858066.532587544] [aruco_pnp_node]: [walls seen] 남(4mk,0.9px)
+[INFO] [1791858066.732516284] [aruco_pnp_node]: [walls seen] 남(2mk,0.8px)
+[INFO] [1791858066.933452075] [aruco_pnp_node]: [walls seen] 남(2mk,0.8px)
+[INFO] [1791858067.133487881] [aruco_pnp_node]: [walls seen] 남(2mk,0.6px)
+[INFO] [1791858067.331862548] [aruco_pnp_node]: [walls seen] 남(2mk,0.7px)
+[INFO] [1791858068.331934859] [aruco_pnp_node]: [walls seen] 서(2mk,0.8px)
+[INFO] [1791858068.529817688] [aruco_pnp_node]: [walls seen] 서(2mk,0.7px)
+[INFO] [1791858068.731184525] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1791858068.932917543] [aruco_pnp_node]: [walls seen] 서(4mk,1.1px)
+[INFO] [1791858069.134198635] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1791858069.331981186] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1791858069.531643035] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1791858069.732067130] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1791858069.934001632] [aruco_pnp_node]: [walls seen] 서(4mk,1.1px)
+[INFO] [1791858070.132033703] [aruco_pnp_node]: [walls seen] 서(4mk,1.2px)
+[INFO] [1791858070.332482688] [aruco_pnp_node]: [walls seen] 서(3mk,0.9px)
+[INFO] [1791858070.531484181] [aruco_pnp_node]: [walls seen] 서(3mk,1.0px)
+[INFO] [1791858070.733050311] [aruco_pnp_node]: [walls seen] 서(4mk,1.1px)
+[INFO] [1791858071.130536239] [aruco_pnp_node]: [walls seen] 서(2mk,0.7px)
+[INFO] [1791858071.336492462] [aruco_pnp_node]: [walls seen] 서(2mk,0.7px)
+[INFO] [1791858071.532683689] [aruco_pnp_node]: [walls seen] 서(2mk,0.7px)
+[INFO] [1791858071.732921341] [aruco_pnp_node]: [walls seen] 서(2mk,0.7px)
+[INFO] [1791858072.534067002] [aruco_pnp_node]: [walls seen] 북(1mk,0.2px)
+[INFO] [1791858072.732695317] [aruco_pnp_node]: [walls seen] 북(1mk,0.3px)
+[INFO] [1791858072.931368057] [aruco_pnp_node]: [walls seen] 북(1mk,0.0px)
+[INFO] [1791858073.133422834] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1791858073.331009250] [aruco_pnp_node]: [walls seen] 북(3mk,1.2px)
+[INFO] [1791858073.529439660] [aruco_pnp_node]: [walls seen] 북(2mk,0.8px)
+[INFO] [1791858073.735244522] [aruco_pnp_node]: [walls seen] 북(2mk,0.6px)
+[INFO] [1791858073.931736042] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1791858074.134031921] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1791858074.332024535] [aruco_pnp_node]: [walls seen] 북(3mk,0.9px)
+[INFO] [1791858074.730537465] [aruco_pnp_node]: [walls seen] 북(3mk,1.2px)
+[INFO] [1791858074.931221280] [aruco_pnp_node]: [walls seen] 북(1mk,0.2px)
+[INFO] [1791858075.335196303] [aruco_pnp_node]: [walls seen] 북(3mk,0.9px)
+[INFO] [1791858075.534276127] [aruco_pnp_node]: [walls seen] 북(1mk,0.1px)
+[INFO] [1791858075.731852708] [aruco_pnp_node]: [walls seen] 북(2mk,0.7px)
+[INFO] [1791858075.932591037] [aruco_pnp_node]: [walls seen] 북(1mk,0.2px)
+[INFO] [1791858076.130212728] [aruco_pnp_node]: [walls seen] 북(2mk,0.6px)
+[INFO] [1791858076.933230147] [aruco_pnp_node]: [walls seen] 동(2mk,0.5px)
+[INFO] [1791858076.933544412] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858077.130626929] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858077.330980027] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858077.530764780] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858077.531325951] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.654m | lat +1.154 | yaw +26.6deg | reproj 1.14px
+[INFO] [1791858077.730258374] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858077.730778569] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.729m | lat +0.960 | yaw +20.3deg | reproj 1.23px
+[INFO] [1791858077.932849839] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858077.933315327] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.782m | lat +0.789 | yaw +16.8deg | reproj 1.02px
+[INFO] [1791858078.131023441] [aruco_pnp_node]: [walls seen] 동(3mk,1.2px)
+[INFO] [1791858078.131551720] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 2.821m | lat +0.645 | yaw +12.5deg | reproj 1.17px
+[INFO] [1791858078.330760522] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858078.331295382] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.842m | lat +0.515 | yaw +13.5deg | reproj 1.13px
+[INFO] [1791858078.732967903] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858078.733482125] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.865m | lat +0.290 | yaw +8.1deg | reproj 0.99px
+[INFO] [1791858078.934807795] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858078.935554146] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.871m | lat +0.186 | yaw +6.3deg | reproj 0.93px
+[INFO] [1791858079.131732919] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858079.132269242] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.872m | lat +0.089 | yaw +6.4deg | reproj 0.91px
+[INFO] [1791858079.332238405] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858079.332720087] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.873m | lat +0.010 | yaw +1.3deg | reproj 0.96px
+[INFO] [1791858081.537678695] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858081.538173435] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.558m | lat -0.371 | yaw -1.8deg | reproj 1.00px
+[INFO] [1791858081.730588726] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858081.731074770] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.558m | lat -0.375 | yaw -1.5deg | reproj 0.81px
+[INFO] [1791858081.933427829] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858081.933909581] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.544m | lat -0.388 | yaw -1.5deg | reproj 0.92px
+[INFO] [1791858082.132909680] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858082.133397617] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.528m | lat -0.406 | yaw -3.8deg | reproj 0.90px
+[INFO] [1791858082.331190528] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858082.331673322] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.484m | lat -0.422 | yaw -1.6deg | reproj 1.02px
+[INFO] [1791858082.532793996] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858082.533343398] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.439m | lat -0.425 | yaw -2.2deg | reproj 0.81px
+[INFO] [1791858082.729324993] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858082.729886499] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.392m | lat -0.416 | yaw -3.4deg | reproj 1.01px
+[INFO] [1791858083.131151849] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858083.131806499] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.281m | lat -0.381 | yaw -3.6deg | reproj 1.00px
+[INFO] [1791858083.330787220] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858083.331649241] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 2.217m | lat -0.359 | yaw -2.6deg | reproj 0.95px
+[INFO] [1791858084.130908848] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858084.131385680] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.985m | lat -0.264 | yaw -0.5deg | reproj 1.02px
+[INFO] [1791858084.330659571] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858084.331196898] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.926m | lat -0.241 | yaw -1.0deg | reproj 0.96px
+[INFO] [1791858084.530462893] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858084.530953806] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.870m | lat -0.218 | yaw -0.8deg | reproj 0.90px
+[INFO] [1791858084.729304717] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858084.730036460] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.811m | lat -0.198 | yaw -1.2deg | reproj 0.95px
+[INFO] [1791858084.930877453] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858084.931401904] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.754m | lat -0.183 | yaw -0.4deg | reproj 0.97px
+[INFO] [1791858085.132867211] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858085.133357979] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.705m | lat -0.166 | yaw -1.3deg | reproj 1.07px
+[INFO] [1791858085.734642616] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858085.735101069] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.567m | lat -0.130 | yaw -0.2deg | reproj 1.18px
+[INFO] [1791858085.931181560] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858085.931719573] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.527m | lat -0.116 | yaw -1.7deg | reproj 1.50px
+[INFO] [1791858086.129907289] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858086.130620070] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.488m | lat -0.110 | yaw +0.4deg | reproj 0.93px
+[INFO] [1791858086.329373124] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858086.329951442] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.452m | lat -0.100 | yaw -0.0deg | reproj 0.92px
+[INFO] [1791858086.529568469] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858086.530174099] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.419m | lat -0.094 | yaw +1.5deg | reproj 1.40px
+[INFO] [1791858086.731180865] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858086.731721632] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.389m | lat -0.087 | yaw +1.9deg | reproj 1.20px
+[INFO] [1791858086.932746484] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858086.933436993] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.362m | lat -0.078 | yaw +0.3deg | reproj 1.09px
+[INFO] [1791858087.329900026] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858087.330398713] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.313m | lat -0.069 | yaw -0.2deg | reproj 1.22px
+[INFO] [1791858087.534382829] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858087.534929603] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.289m | lat -0.068 | yaw +0.7deg | reproj 1.14px
+[INFO] [1791858087.731151906] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858087.731651750] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.268m | lat -0.060 | yaw -1.4deg | reproj 1.61px
+[INFO] [1791858087.931239128] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858087.931722463] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.246m | lat -0.060 | yaw -0.0deg | reproj 0.80px
+[INFO] [1791858088.135799295] [aruco_pnp_node]: [walls seen] 동(4mk,3.1px)
+[WARN] [1791858088.136309820] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.228m | lat -0.053 | yaw -2.2deg | reproj 3.08px
+[INFO] [1791858088.332162395] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858088.332790944] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.207m | lat -0.054 | yaw +0.3deg | reproj 1.51px
+[INFO] [1791858088.530921182] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858088.531415958] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.190m | lat -0.053 | yaw +0.4deg | reproj 0.86px
+[INFO] [1791858088.733437931] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858088.733948423] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.176m | lat -0.049 | yaw +0.0deg | reproj 1.35px
+[INFO] [1791858088.930335092] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858088.930861367] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.163m | lat -0.048 | yaw +0.2deg | reproj 0.83px
+[INFO] [1791858089.130759655] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858089.131402607] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.152m | lat -0.045 | yaw -0.9deg | reproj 1.53px
+[INFO] [1791858089.332401655] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858089.332909478] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.140m | lat -0.049 | yaw +1.3deg | reproj 1.37px
+[INFO] [1791858089.730903853] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858089.731381296] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.123m | lat -0.044 | yaw +0.1deg | reproj 1.25px
+[INFO] [1791858089.932002128] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858089.932512372] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.115m | lat -0.042 | yaw -0.5deg | reproj 1.08px
+[INFO] [1791858090.131330596] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858090.131862740] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.109m | lat -0.045 | yaw +1.2deg | reproj 1.20px
+[INFO] [1791858090.333095649] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858090.333610081] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.104m | lat -0.041 | yaw +1.0deg | reproj 1.10px
+[INFO] [1791858090.533831287] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858090.534306809] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.100m | lat -0.037 | yaw +0.7deg | reproj 1.05px
+[INFO] [1791858090.731140583] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858090.731663491] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.097m | lat -0.034 | yaw +0.5deg | reproj 0.90px
+[INFO] [1791858090.932142484] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858090.933075912] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.093m | lat -0.026 | yaw -1.3deg | reproj 1.73px
+[INFO] [1791858091.129758598] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858091.130487976] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.091m | lat -0.030 | yaw +1.5deg | reproj 1.65px
+[INFO] [1791858091.333700879] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858091.334231496] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.087m | lat -0.027 | yaw +1.7deg | reproj 2.13px
+[INFO] [1791858091.531508074] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858091.532048515] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.083m | lat -0.022 | yaw +0.5deg | reproj 1.20px
+[INFO] [1791858091.733917608] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858091.734427205] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.082m | lat -0.019 | yaw +0.2deg | reproj 0.97px
+[INFO] [1791858091.931906695] [aruco_pnp_node]: [walls seen] 동(4mk,0.7px)
+[INFO] [1791858091.932629579] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.078m | lat -0.017 | yaw +0.2deg | reproj 0.71px
+[INFO] [1791858092.131045201] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858092.131516790] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.074m | lat -0.013 | yaw -0.6deg | reproj 1.74px
+[INFO] [1791858092.331765794] [aruco_pnp_node]: [walls seen] 동(4mk,4.1px)
+[WARN] [1791858092.332697845] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.069m | lat -0.017 | yaw +2.0deg | reproj 4.05px
+[INFO] [1791858092.530514303] [aruco_pnp_node]: [walls seen] 동(4mk,5.9px)
+[WARN] [1791858092.531023527] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.064m | lat -0.010 | yaw -0.1deg | reproj 5.91px
+[INFO] [1791858092.730355721] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858092.730858139] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.058m | lat -0.009 | yaw +0.8deg | reproj 1.73px
+[INFO] [1791858092.931823801] [aruco_pnp_node]: [walls seen] 동(4mk,6.6px)
+[WARN] [1791858092.932355288] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.052m | lat -0.008 | yaw +1.0deg | reproj 6.57px
+[INFO] [1791858093.130960271] [aruco_pnp_node]: [walls seen] 동(4mk,5.5px)
+[WARN] [1791858093.131479060] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.047m | lat -0.005 | yaw +0.1deg | reproj 5.47px
+[INFO] [1791858093.330852521] [aruco_pnp_node]: [walls seen] 동(4mk,3.7px)
+[WARN] [1791858093.331800247] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.042m | lat -0.004 | yaw +0.4deg | reproj 3.74px
+[INFO] [1791858093.533251326] [aruco_pnp_node]: [walls seen] 동(4mk,5.0px)
+[WARN] [1791858093.533795408] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.038m | lat -0.006 | yaw +1.4deg | reproj 4.99px
+[INFO] [1791858093.732734212] [aruco_pnp_node]: [walls seen] 동(4mk,2.5px)
+[WARN] [1791858093.733278844] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.035m | lat -0.007 | yaw +1.8deg | reproj 2.46px
+[INFO] [1791858093.930792613] [aruco_pnp_node]: [walls seen] 동(4mk,4.8px)
+[WARN] [1791858093.931373546] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.032m | lat -0.005 | yaw +0.8deg | reproj 4.79px
+[INFO] [1791858094.330809376] [aruco_pnp_node]: [walls seen] 동(4mk,2.6px)
+[WARN] [1791858094.331533947] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.029m | lat -0.006 | yaw +1.0deg | reproj 2.62px
+[INFO] [1791858094.531926846] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858094.532433777] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.027m | lat -0.003 | yaw -0.1deg | reproj 1.93px
+[INFO] [1791858094.731963961] [aruco_pnp_node]: [walls seen] 동(4mk,3.0px)
+[WARN] [1791858094.732538640] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.026m | lat -0.007 | yaw +1.5deg | reproj 3.03px
+[INFO] [1791858094.932857605] [aruco_pnp_node]: [walls seen] 동(4mk,5.0px)
+[WARN] [1791858094.933557580] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.025m | lat -0.010 | yaw +2.5deg | reproj 4.96px
+[INFO] [1791858095.738283858] [aruco_pnp_node]: [walls seen] 동(3mk,3.5px)
+[WARN] [1791858095.738795430] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.020m | lat +0.009 | yaw -3.2deg | reproj 3.51px
+[INFO] [1791858095.933555194] [aruco_pnp_node]: [walls seen] 동(3mk,0.8px)
+[INFO] [1791858095.934067434] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.030m | lat +0.005 | yaw -0.1deg | reproj 0.78px
+[INFO] [1791858096.133438322] [aruco_pnp_node]: [walls seen] 동(3mk,0.9px)
+[INFO] [1791858096.134127794] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.032m | lat +0.008 | yaw -0.7deg | reproj 0.87px
+[INFO] [1791858096.329971976] [aruco_pnp_node]: [walls seen] 동(3mk,0.7px)
+[INFO] [1791858096.330439528] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.034m | lat +0.009 | yaw -0.5deg | reproj 0.71px
+[INFO] [1791858096.730082417] [aruco_pnp_node]: [walls seen] 동(4mk,6.3px)
+[WARN] [1791858096.730602888] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.039m | lat +0.009 | yaw +0.3deg | reproj 6.25px
+[INFO] [1791858096.930709944] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858096.931220253] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.042m | lat +0.011 | yaw +0.1deg | reproj 1.48px
+[INFO] [1791858097.132005832] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858097.132565987] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.044m | lat +0.016 | yaw -1.6deg | reproj 1.84px
+[INFO] [1791858097.333514871] [aruco_pnp_node]: [walls seen] 동(4mk,4.7px)
+[WARN] [1791858097.334023573] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.047m | lat +0.012 | yaw +0.0deg | reproj 4.75px
+[INFO] [1791858097.531646389] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858097.532226957] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.050m | lat +0.016 | yaw -1.6deg | reproj 1.64px
+[INFO] [1791858097.730446509] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[INFO] [1791858097.730951381] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.052m | lat +0.012 | yaw +0.2deg | reproj 1.95px
+[INFO] [1791858097.931156205] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858097.931664274] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.054m | lat +0.015 | yaw -1.7deg | reproj 1.71px
+[INFO] [1791858098.130182485] [aruco_pnp_node]: [walls seen] 동(4mk,2.3px)
+[WARN] [1791858098.130728139] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.056m | lat +0.011 | yaw -0.6deg | reproj 2.30px
+[INFO] [1791858098.330028680] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858098.330516686] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.055m | lat +0.012 | yaw -1.3deg | reproj 1.80px
+[INFO] [1791858098.530991001] [aruco_pnp_node]: [walls seen] 동(4mk,5.4px)
+[WARN] [1791858098.531535626] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.055m | lat +0.008 | yaw -0.9deg | reproj 5.37px
+[INFO] [1791858098.732806957] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858098.733356019] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.055m | lat +0.003 | yaw +0.1deg | reproj 1.56px
+[INFO] [1791858098.932278109] [aruco_pnp_node]: [walls seen] 동(4mk,3.7px)
+[WARN] [1791858098.932807005] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.054m | lat -0.006 | yaw +2.4deg | reproj 3.72px
+[INFO] [1791858099.331290039] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858099.331842677] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.052m | lat -0.007 | yaw +0.5deg | reproj 1.69px
+[INFO] [1791858099.532307709] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858099.532785043] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.051m | lat -0.009 | yaw -0.0deg | reproj 0.98px
+[INFO] [1791858099.731836448] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858099.732397403] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.049m | lat -0.014 | yaw +0.8deg | reproj 1.72px
+[INFO] [1791858099.934426130] [aruco_pnp_node]: [walls seen] 동(4mk,2.4px)
+[WARN] [1791858099.935152457] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.048m | lat -0.018 | yaw +0.6deg | reproj 2.43px
+[INFO] [1791858100.132833599] [aruco_pnp_node]: [walls seen] 동(4mk,3.6px)
+[WARN] [1791858100.133358575] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.046m | lat -0.018 | yaw -0.7deg | reproj 3.55px
+[INFO] [1791858100.331585638] [aruco_pnp_node]: [walls seen] 동(4mk,2.2px)
+[WARN] [1791858100.332129535] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.044m | lat -0.025 | yaw +1.0deg | reproj 2.19px
+[INFO] [1791858100.530486928] [aruco_pnp_node]: [walls seen] 동(4mk,2.8px)
+[WARN] [1791858100.531049403] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.043m | lat -0.031 | yaw +2.0deg | reproj 2.77px
+[INFO] [1791858100.731077592] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858100.731625320] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.043m | lat -0.028 | yaw -0.8deg | reproj 1.92px
+[INFO] [1791858100.931305857] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858100.931863184] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.041m | lat -0.034 | yaw +0.4deg | reproj 1.67px
+[INFO] [1791858101.132919200] [aruco_pnp_node]: [walls seen] 동(4mk,2.8px)
+[WARN] [1791858101.133486045] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.040m | lat -0.034 | yaw -0.8deg | reproj 2.82px
+[INFO] [1791858101.337913240] [aruco_pnp_node]: [walls seen] 동(4mk,2.4px)
+[WARN] [1791858101.338410144] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.040m | lat -0.035 | yaw -1.1deg | reproj 2.37px
+[INFO] [1791858101.537529747] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858101.538204371] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.040m | lat -0.040 | yaw -0.0deg | reproj 0.91px
+[INFO] [1791858101.734950457] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858101.735422334] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.040m | lat -0.042 | yaw -0.0deg | reproj 0.91px
+[INFO] [1791858101.935009449] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858101.935540747] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.040m | lat -0.045 | yaw -0.0deg | reproj 0.91px
+[INFO] [1791858102.333895993] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858102.334848457] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.040m | lat -0.049 | yaw +0.4deg | reproj 1.29px
+[INFO] [1791858102.535940214] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858102.536531028] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.042m | lat -0.049 | yaw -0.2deg | reproj 1.34px
+[INFO] [1791858102.735802243] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858102.736300224] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.042m | lat -0.051 | yaw +0.1deg | reproj 1.63px
+[INFO] [1791858102.935278064] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858102.935776039] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.045m | lat -0.053 | yaw +0.8deg | reproj 1.72px
+[INFO] [1791858103.142002578] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[WARN] [1791858103.142530755] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.048m | lat -0.046 | yaw -1.8deg | reproj 2.02px
+[INFO] [1791858103.536814879] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858103.537301990] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.052m | lat -0.054 | yaw +1.1deg | reproj 1.86px
+[INFO] [1791858103.735508896] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858103.736406722] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.057m | lat -0.050 | yaw -0.1deg | reproj 1.41px
+[INFO] [1791858104.143085072] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858104.143872416] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.063m | lat -0.050 | yaw +0.1deg | reproj 0.94px
+[INFO] [1791858104.533259843] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858104.533775141] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.068m | lat -0.046 | yaw -0.1deg | reproj 1.11px
+[INFO] [1791858104.737352323] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858104.737883565] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.071m | lat -0.043 | yaw -0.5deg | reproj 1.04px
+[INFO] [1791858104.934668279] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858104.935197539] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.072m | lat -0.041 | yaw -0.0deg | reproj 0.91px
+[INFO] [1791858105.135231819] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858105.135770111] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.073m | lat -0.037 | yaw -0.7deg | reproj 2.06px
+[INFO] [1791858105.333421010] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858105.333949755] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.073m | lat -0.038 | yaw +0.3deg | reproj 1.40px
+[INFO] [1791858105.536932114] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858105.537457524] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.073m | lat -0.035 | yaw -0.7deg | reproj 0.88px
+[INFO] [1791858105.734688113] [aruco_pnp_node]: [walls seen] 동(4mk,2.8px)
+[WARN] [1791858105.735374665] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.071m | lat -0.039 | yaw +1.8deg | reproj 2.85px
+[INFO] [1791858106.135467014] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858106.135959370] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.070m | lat -0.033 | yaw -0.2deg | reproj 1.03px
+[INFO] [1791858106.337899725] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858106.338786620] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.069m | lat -0.029 | yaw -1.0deg | reproj 1.01px
+[INFO] [1791858106.534581498] [aruco_pnp_node]: [walls seen] 동(3mk,1.3px)
+[INFO] [1791858106.535121094] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.070m | lat -0.030 | yaw +0.1deg | reproj 1.32px
+[INFO] [1791858106.736473976] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858106.737589114] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.072m | lat -0.031 | yaw +1.3deg | reproj 2.12px
+[INFO] [1791858107.137930384] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858107.138750908] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.076m | lat -0.025 | yaw -0.4deg | reproj 1.22px
+[INFO] [1791858107.336851922] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[WARN] [1791858107.337326505] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.079m | lat -0.028 | yaw +0.8deg | reproj 2.05px
+[INFO] [1791858107.535756648] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858107.536242853] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.082m | lat -0.026 | yaw -0.4deg | reproj 1.11px
+[INFO] [1791858107.735463210] [aruco_pnp_node]: [walls seen] 동(4mk,4.6px)
+[WARN] [1791858107.735959269] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.084m | lat -0.025 | yaw -0.7deg | reproj 4.57px
+[INFO] [1791858107.936183869] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858107.936971549] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.087m | lat -0.028 | yaw -0.3deg | reproj 0.85px
+[INFO] [1791858108.137545757] [aruco_pnp_node]: [walls seen] 동(4mk,4.0px)
+[WARN] [1791858108.138048333] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.089m | lat -0.027 | yaw -1.5deg | reproj 4.01px
+[INFO] [1791858108.338275516] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858108.338792320] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.090m | lat -0.031 | yaw +0.0deg | reproj 1.01px
+[INFO] [1791858108.537999787] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858108.538495774] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.093m | lat -0.032 | yaw +0.2deg | reproj 1.03px
+[INFO] [1791858109.140670642] [aruco_pnp_node]: [walls seen] 동(4mk,4.4px)
+[WARN] [1791858109.141208173] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.095m | lat -0.027 | yaw -1.5deg | reproj 4.42px
+[INFO] [1791858109.341234615] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858109.341788645] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.097m | lat -0.030 | yaw -0.5deg | reproj 1.01px
+[INFO] [1791858109.540492808] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858109.541053377] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.097m | lat -0.033 | yaw +0.8deg | reproj 1.43px
+[INFO] [1791858109.739957617] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858109.740527153] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.097m | lat -0.028 | yaw -1.5deg | reproj 2.06px
+[INFO] [1791858109.940238171] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858109.940900982] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.097m | lat -0.031 | yaw -0.6deg | reproj 1.87px
+[INFO] [1791858110.141408400] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[WARN] [1791858110.141927226] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.098m | lat -0.035 | yaw +0.7deg | reproj 2.01px
+[INFO] [1791858110.341747595] [aruco_pnp_node]: [walls seen] 동(4mk,3.0px)
+[WARN] [1791858110.342301443] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.099m | lat -0.036 | yaw +1.2deg | reproj 2.98px
+[INFO] [1791858110.539447883] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[INFO] [1791858110.539932941] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.101m | lat -0.029 | yaw -1.4deg | reproj 1.97px
+[INFO] [1791858110.743772475] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858110.744269150] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.102m | lat -0.033 | yaw +0.0deg | reproj 0.83px
+[INFO] [1791858110.940443401] [aruco_pnp_node]: [walls seen] 동(4mk,2.7px)
+[WARN] [1791858110.940997621] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.104m | lat -0.033 | yaw -0.4deg | reproj 2.66px
+[INFO] [1791858111.139820216] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858111.140350641] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.107m | lat -0.037 | yaw +0.8deg | reproj 1.58px
+[INFO] [1791858111.340883301] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858111.341744408] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.110m | lat -0.037 | yaw +0.6deg | reproj 1.55px
+[INFO] [1791858111.543083315] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858111.543688475] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.112m | lat -0.039 | yaw +0.8deg | reproj 1.75px
+[INFO] [1791858111.740100993] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858111.740609995] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.115m | lat -0.037 | yaw -0.5deg | reproj 1.17px
+[INFO] [1791858111.938675486] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858111.939165503] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.117m | lat -0.042 | yaw +1.2deg | reproj 1.83px
+[INFO] [1791858112.141548657] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[INFO] [1791858112.142054621] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.120m | lat -0.044 | yaw +1.2deg | reproj 1.96px
+[INFO] [1791858112.341439471] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858112.341914320] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.121m | lat -0.043 | yaw +0.2deg | reproj 1.69px
+[INFO] [1791858112.538563524] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858112.539104292] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.122m | lat -0.047 | yaw +0.6deg | reproj 1.42px
+[INFO] [1791858112.739979648] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858112.740478941] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.122m | lat -0.043 | yaw -2.3deg | reproj 2.08px
+[INFO] [1791858112.938838522] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858112.939369058] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.118m | lat -0.047 | yaw -1.2deg | reproj 2.11px
+[INFO] [1791858113.138710504] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858113.139264620] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.114m | lat -0.051 | yaw +0.6deg | reproj 1.43px
+[INFO] [1791858113.337272041] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858113.337809814] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.111m | lat -0.043 | yaw -1.8deg | reproj 1.57px
+[INFO] [1791858113.742355860] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[WARN] [1791858113.742852244] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.101m | lat -0.041 | yaw +0.1deg | reproj 2.02px
+[INFO] [1791858113.940153273] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[WARN] [1791858113.940658848] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.095m | lat -0.036 | yaw -0.1deg | reproj 2.05px
+[INFO] [1791858114.139596744] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858114.140094105] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.090m | lat -0.032 | yaw +0.0deg | reproj 1.68px
+[INFO] [1791858114.338448521] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858114.339081593] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.084m | lat -0.027 | yaw -0.1deg | reproj 2.14px
+[INFO] [1791858114.541011097] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858114.541509830] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.078m | lat -0.026 | yaw +1.2deg | reproj 2.07px
+[INFO] [1791858114.740907333] [aruco_pnp_node]: [walls seen] 동(4mk,2.7px)
+[WARN] [1791858114.741764008] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.071m | lat -0.024 | yaw +1.6deg | reproj 2.70px
+[INFO] [1791858114.938729461] [aruco_pnp_node]: [walls seen] 동(4mk,3.6px)
+[WARN] [1791858114.939289505] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.064m | lat -0.017 | yaw +0.3deg | reproj 3.55px
+[INFO] [1791858115.139813715] [aruco_pnp_node]: [walls seen] 동(4mk,2.8px)
+[WARN] [1791858115.140323850] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.056m | lat -0.020 | yaw +2.0deg | reproj 2.78px
+[INFO] [1791858115.342174589] [aruco_pnp_node]: [walls seen] 동(4mk,3.2px)
+[WARN] [1791858115.342666123] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.049m | lat -0.013 | yaw -0.4deg | reproj 3.25px
+[INFO] [1791858115.541625496] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858115.542149789] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.041m | lat -0.014 | yaw +0.0deg | reproj 1.22px
+[INFO] [1791858115.743023188] [aruco_pnp_node]: [walls seen] 동(4mk,3.4px)
+[WARN] [1791858115.743513167] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.036m | lat -0.013 | yaw +0.4deg | reproj 3.38px
+[INFO] [1791858116.142348465] [aruco_pnp_node]: [walls seen] 동(4mk,4.4px)
+[WARN] [1791858116.143131536] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.027m | lat -0.011 | yaw -0.6deg | reproj 4.38px
+[INFO] [1791858116.339692121] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858116.340212879] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.024m | lat -0.015 | yaw +0.7deg | reproj 1.62px
+[INFO] [1791858116.541046202] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858116.541533240] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.017 | yaw +1.0deg | reproj 1.89px
+[INFO] [1791858116.741535701] [aruco_pnp_node]: [walls seen] 동(4mk,4.9px)
+[WARN] [1791858116.742374263] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.013m | lat -0.021 | yaw +2.8deg | reproj 4.86px
+[INFO] [1791858117.139025140] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858117.139509192] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.009m | lat -0.014 | yaw -0.6deg | reproj 0.98px
+[INFO] [1791858117.341000787] [aruco_pnp_node]: [walls seen] 동(3mk,0.7px)
+[INFO] [1791858117.341562076] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.006m | lat -0.015 | yaw -0.6deg | reproj 0.68px
+[INFO] [1791858117.539666202] [aruco_pnp_node]: [walls seen] 동(3mk,0.8px)
+[INFO] [1791858117.540148475] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.004m | lat -0.017 | yaw -0.4deg | reproj 0.76px
+[INFO] [1791858117.739732703] [aruco_pnp_node]: [walls seen] 동(3mk,0.9px)
+[INFO] [1791858117.740227630] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.001m | lat -0.018 | yaw -0.5deg | reproj 0.87px
+[INFO] [1791858117.938106060] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858117.938714843] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.998m | lat -0.023 | yaw +0.7deg | reproj 1.55px
+[INFO] [1791858118.137918831] [aruco_pnp_node]: [walls seen] 동(4mk,4.0px)
+[WARN] [1791858118.138514657] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.024 | yaw +0.2deg | reproj 4.03px
+[INFO] [1791858118.337965970] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858118.338475810] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.994m | lat -0.025 | yaw -0.3deg | reproj 1.19px
+[INFO] [1791858118.539840387] [aruco_pnp_node]: [walls seen] 동(4mk,5.5px)
+[WARN] [1791858118.540371156] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.026 | yaw -1.2deg | reproj 5.51px
+[INFO] [1791858118.740185079] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858118.740670569] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.028 | yaw -1.6deg | reproj 1.71px
+[INFO] [1791858118.938403468] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858118.939100805] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.987m | lat -0.033 | yaw -1.0deg | reproj 1.56px
+[INFO] [1791858119.138012924] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858119.138504335] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.039 | yaw -0.1deg | reproj 1.18px
+[INFO] [1791858119.339684934] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858119.340417549] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.042 | yaw +0.0deg | reproj 1.04px
+[INFO] [1791858119.740460487] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858119.740943083] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.048 | yaw -0.1deg | reproj 1.18px
+[INFO] [1791858119.947179979] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858119.947670477] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.048 | yaw -0.5deg | reproj 1.08px
+[INFO] [1791858120.140703932] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858120.141197353] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.051 | yaw +0.2deg | reproj 1.19px
+[INFO] [1791858120.338687928] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858120.339176020] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.047 | yaw -1.5deg | reproj 1.75px
+[INFO] [1791858120.541064354] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858120.541814800] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.051 | yaw -0.5deg | reproj 0.97px
+[INFO] [1791858120.739405078] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858120.739912417] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.050 | yaw -0.8deg | reproj 0.93px
+[INFO] [1791858121.139288450] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858121.139808178] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.051 | yaw -0.4deg | reproj 1.45px
+[INFO] [1791858121.539198980] [aruco_pnp_node]: [walls seen] 동(3mk,2.8px)
+[WARN] [1791858121.539701955] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.981m | lat -0.056 | yaw +0.2deg | reproj 2.75px
+[INFO] [1791858121.741301802] [aruco_pnp_node]: [walls seen] 동(3mk,1.6px)
+[INFO] [1791858121.741814231] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.982m | lat -0.054 | yaw -0.0deg | reproj 1.63px
+[INFO] [1791858121.938281328] [aruco_pnp_node]: [walls seen] 동(3mk,1.2px)
+[INFO] [1791858121.938795196] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.980m | lat -0.050 | yaw -1.4deg | reproj 1.25px
+[INFO] [1791858122.140841150] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858122.141363521] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.983m | lat -0.055 | yaw +0.5deg | reproj 1.68px
+[INFO] [1791858122.338065085] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858122.338593848] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.051 | yaw -0.7deg | reproj 1.05px
+[INFO] [1791858122.539842338] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858122.540370350] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.985m | lat -0.053 | yaw +0.3deg | reproj 1.41px
+[INFO] [1791858122.739978587] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858122.740494632] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.051 | yaw -0.4deg | reproj 1.07px
+[INFO] [1791858123.139263910] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858123.139770435] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.987m | lat -0.048 | yaw -0.2deg | reproj 1.06px
+[INFO] [1791858123.340232757] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858123.341174563] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.987m | lat -0.045 | yaw -0.6deg | reproj 1.46px
+[INFO] [1791858123.541969921] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858123.542448764] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.043 | yaw -0.4deg | reproj 0.95px
+[INFO] [1791858123.940426331] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858123.940942935] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.984m | lat -0.039 | yaw -0.8deg | reproj 1.11px
+[INFO] [1791858124.140439259] [aruco_pnp_node]: [walls seen] 동(3mk,1.9px)
+[INFO] [1791858124.141337035] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.981m | lat -0.033 | yaw -1.9deg | reproj 1.95px
+[INFO] [1791858124.339979111] [aruco_pnp_node]: [walls seen] 동(3mk,1.2px)
+[INFO] [1791858124.340446603] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.979m | lat -0.036 | yaw -0.6deg | reproj 1.20px
+[INFO] [1791858124.539872112] [aruco_pnp_node]: [walls seen] 동(3mk,1.5px)
+[INFO] [1791858124.540375760] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.978m | lat -0.031 | yaw -1.8deg | reproj 1.46px
+[INFO] [1791858124.741445842] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858124.741749551] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858124.941859600] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858125.141049985] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858125.343673976] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858125.541524751] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858125.739262190] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858125.938178938] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858125.938439599] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858126.143744167] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858126.539956283] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858126.741001421] [aruco_pnp_node]: [walls seen] 동(2mk,1.2px)
+[INFO] [1791858126.941482364] [aruco_pnp_node]: [walls seen] 동(2mk,2.8px)
+[INFO] [1791858126.941761578] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858127.141832094] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858127.339524934] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858127.541473808] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858127.741385332] [aruco_pnp_node]: [walls seen] 동(1mk,0.4px)
+[INFO] [1791858127.938708230] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858128.139498256] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858128.139758241] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858128.340096745] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858128.541279367] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858128.739841293] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858128.939147186] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858129.140730439] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858129.141128088] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858129.337990434] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858129.540033053] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858129.738745748] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858129.940287138] [aruco_pnp_node]: [walls seen] 동(2mk,1.0px)
+[INFO] [1791858130.142308524] [aruco_pnp_node]: [walls seen] 동(1mk,0.4px)
+[INFO] [1791858130.142556773] [aruco_pnp_node]: [gate] target=동 1mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858130.338535987] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858130.540606155] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858130.742112703] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858130.939668737] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858131.143067627] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858131.143311762] [aruco_pnp_node]: [gate] target=동 1mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858131.341518399] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858131.541340698] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858131.939753186] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858132.140665083] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858132.541503084] [aruco_pnp_node]: [walls seen] 동(1mk,0.0px)
+[INFO] [1791858132.541772852] [aruco_pnp_node]: [gate] target=동 1mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858132.740670645] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858132.939516412] [aruco_pnp_node]: [walls seen] 동(1mk,0.0px)
+[INFO] [1791858133.138729065] [aruco_pnp_node]: [walls seen] 동(1mk,0.0px)
+[INFO] [1791858133.339294985] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858133.540176647] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858133.740433734] [aruco_pnp_node]: [walls seen] 동(1mk,0.5px)
+[INFO] [1791858133.740728470] [aruco_pnp_node]: [gate] target=동 1mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858133.942047904] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858134.139793981] [aruco_pnp_node]: [walls seen] 동(1mk,0.2px)
+[INFO] [1791858134.341115473] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858134.542905731] [aruco_pnp_node]: [walls seen] 동(1mk,0.0px)
+[INFO] [1791858134.740071709] [aruco_pnp_node]: [walls seen] 동(1mk,0.3px)
+[INFO] [1791858135.139889666] [aruco_pnp_node]: [walls seen] 동(1mk,0.1px)
+[INFO] [1791858135.140255496] [aruco_pnp_node]: [gate] target=동 1mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858135.340256099] [aruco_pnp_node]: [walls seen] 동(1mk,0.5px)
+[INFO] [1791858135.738659848] [aruco_pnp_node]: [walls seen] 동(2mk,1.0px)
+[INFO] [1791858135.939192427] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858136.141675040] [aruco_pnp_node]: [walls seen] 동(2mk,1.1px)
+[INFO] [1791858136.141967951] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858136.341605674] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858136.539979947] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858136.737888897] [aruco_pnp_node]: [walls seen] 동(2mk,0.6px)
+[INFO] [1791858136.940485243] [aruco_pnp_node]: [walls seen] 동(2mk,1.0px)
+[INFO] [1791858137.139972742] [aruco_pnp_node]: [walls seen] 동(2mk,0.9px)
+[INFO] [1791858137.342228032] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1791858137.342474034] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858137.539676705] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858137.740677179] [aruco_pnp_node]: [walls seen] 동(2mk,0.8px)
+[INFO] [1791858138.144781722] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858138.145270867] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.008m | lat -0.163 | yaw -6.2deg | reproj 1.00px
+[INFO] [1791858138.339637354] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858138.340272036] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.013m | lat -0.126 | yaw -4.1deg | reproj 1.03px
+[INFO] [1791858138.542962469] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858138.543822788] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.017m | lat -0.103 | yaw -3.1deg | reproj 0.94px
+[INFO] [1791858138.740224110] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858138.740752175] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.017m | lat -0.094 | yaw -2.9deg | reproj 0.88px
+[INFO] [1791858139.142505019] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858139.143049297] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.018m | lat -0.094 | yaw -2.4deg | reproj 1.17px
+[INFO] [1791858139.339601678] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858139.340229607] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.018m | lat -0.094 | yaw -2.3deg | reproj 1.31px
+[INFO] [1791858139.541371235] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858139.541891045] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.018m | lat -0.094 | yaw -2.5deg | reproj 1.11px
+[INFO] [1791858139.744299904] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858139.744840379] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.019m | lat -0.092 | yaw -3.2deg | reproj 0.92px
+[INFO] [1791858139.940183934] [aruco_pnp_node]: [walls seen] 동(4mk,2.4px)
+[WARN] [1791858139.940873030] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.088 | yaw -4.9deg | reproj 2.36px
+[INFO] [1791858140.143418764] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858140.143885858] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.093 | yaw -3.3deg | reproj 1.00px
+[INFO] [1791858140.342170683] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858140.342633856] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.019m | lat -0.095 | yaw -2.5deg | reproj 1.72px
+[INFO] [1791858140.544255062] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858140.544936661] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.096 | yaw -2.7deg | reproj 1.41px
+[INFO] [1791858140.741917509] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858140.742415237] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.094 | yaw -4.3deg | reproj 1.56px
+[INFO] [1791858140.940425830] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858140.940906238] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.019m | lat -0.099 | yaw -2.9deg | reproj 1.21px
+[INFO] [1791858141.142444873] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858141.142924847] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.100 | yaw -3.5deg | reproj 0.98px
+[INFO] [1791858141.341408969] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858141.341932338] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.020m | lat -0.101 | yaw -3.9deg | reproj 1.28px
+[INFO] [1791858141.539601401] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858141.540112705] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.021m | lat -0.106 | yaw -3.4deg | reproj 1.04px
+[INFO] [1791858141.738612573] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858141.739144322] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.021m | lat -0.109 | yaw -3.2deg | reproj 0.96px
+[INFO] [1791858141.940203344] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858141.940787986] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.023m | lat -0.111 | yaw -3.0deg | reproj 1.43px
+[INFO] [1791858142.140892363] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858142.141407987] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.025m | lat -0.110 | yaw -3.9deg | reproj 0.98px
+[INFO] [1791858142.340139062] [aruco_pnp_node]: [walls seen] 동(3mk,1.8px)
+[INFO] [1791858142.340672800] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.027m | lat -0.108 | yaw -5.1deg | reproj 1.77px
+[INFO] [1791858142.541646204] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858142.542144368] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.032m | lat -0.110 | yaw -4.5deg | reproj 1.89px
+[INFO] [1791858142.741401532] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858142.741938206] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.036m | lat -0.113 | yaw -3.3deg | reproj 0.88px
+[INFO] [1791858142.939851577] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858142.940414404] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.041m | lat -0.112 | yaw -3.7deg | reproj 0.97px
+[INFO] [1791858143.140120448] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858143.140660075] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.045m | lat -0.112 | yaw -3.9deg | reproj 1.06px
+[INFO] [1791858143.341403926] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858143.341903364] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.047m | lat -0.113 | yaw -3.7deg | reproj 1.18px
+[INFO] [1791858143.543678472] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858143.544159902] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.051m | lat -0.115 | yaw -3.5deg | reproj 0.92px
+[INFO] [1791858143.739691682] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858143.740237619] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.054m | lat -0.116 | yaw -3.5deg | reproj 1.36px
+[INFO] [1791858143.944282859] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858143.944779324] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.055m | lat -0.117 | yaw -3.4deg | reproj 1.02px
+[INFO] [1791858144.142317349] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858144.143065471] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.056m | lat -0.119 | yaw -2.8deg | reproj 1.26px
+[INFO] [1791858144.339036826] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858144.339550776] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.058m | lat -0.116 | yaw -4.1deg | reproj 1.04px
+[INFO] [1791858144.542554961] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858144.543135961] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.058m | lat -0.116 | yaw -3.8deg | reproj 0.99px
+[INFO] [1791858144.740330413] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858144.740851033] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.057m | lat -0.114 | yaw -4.2deg | reproj 1.34px
+[INFO] [1791858144.943044194] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858144.943538731] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.058m | lat -0.112 | yaw -4.2deg | reproj 1.19px
+[INFO] [1791858145.138635340] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858145.139144932] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.058m | lat -0.111 | yaw -3.8deg | reproj 1.69px
+[INFO] [1791858145.340672679] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858145.341186115] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.056m | lat -0.112 | yaw -2.4deg | reproj 1.51px
+[INFO] [1791858145.541547594] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858145.542434016] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.054m | lat -0.106 | yaw -3.6deg | reproj 1.06px
+[INFO] [1791858145.738388462] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858145.739179521] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.052m | lat -0.101 | yaw -4.8deg | reproj 1.75px
+[INFO] [1791858145.942485864] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858145.943314813] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.049m | lat -0.103 | yaw -3.0deg | reproj 1.15px
+[INFO] [1791858146.140775093] [aruco_pnp_node]: [walls seen] 동(4mk,4.8px)
+[WARN] [1791858146.141330662] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.046m | lat -0.094 | yaw -5.0deg | reproj 4.85px
+[INFO] [1791858146.341299980] [aruco_pnp_node]: [walls seen] 동(4mk,2.9px)
+[WARN] [1791858146.341830257] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.043m | lat -0.097 | yaw -2.8deg | reproj 2.86px
+[INFO] [1791858146.540098783] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858146.540573644] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.041m | lat -0.093 | yaw -3.5deg | reproj 1.81px
+[INFO] [1791858146.743215675] [aruco_pnp_node]: [walls seen] 동(4mk,3.0px)
+[WARN] [1791858146.743728775] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.039m | lat -0.090 | yaw -4.6deg | reproj 2.98px
+[INFO] [1791858146.939097456] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858146.939660533] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.038m | lat -0.094 | yaw -2.7deg | reproj 1.63px
+[INFO] [1791858147.139088496] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858147.139710177] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.037m | lat -0.092 | yaw -3.6deg | reproj 2.06px
+[INFO] [1791858147.339546051] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858147.340053506] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.036m | lat -0.096 | yaw -2.4deg | reproj 1.86px
+[INFO] [1791858147.542483486] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858147.542959710] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.035m | lat -0.097 | yaw -2.2deg | reproj 1.92px
+[INFO] [1791858147.744858184] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858147.745439121] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.035m | lat -0.095 | yaw -3.2deg | reproj 1.10px
+[INFO] [1791858147.939424260] [aruco_pnp_node]: [walls seen] 동(4mk,2.2px)
+[WARN] [1791858147.939953836] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.033m | lat -0.099 | yaw -1.8deg | reproj 2.20px
+[INFO] [1791858148.139733266] [aruco_pnp_node]: [walls seen] 동(4mk,2.4px)
+[WARN] [1791858148.140417566] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.033m | lat -0.091 | yaw -5.2deg | reproj 2.40px
+[INFO] [1791858148.338936415] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858148.339529147] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.031m | lat -0.098 | yaw -2.3deg | reproj 1.69px
+[INFO] [1791858148.541766437] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858148.542269950] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.029m | lat -0.099 | yaw -2.5deg | reproj 1.42px
+[INFO] [1791858148.742993405] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858148.743505062] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.027m | lat -0.099 | yaw -2.4deg | reproj 1.77px
+[INFO] [1791858148.939385990] [aruco_pnp_node]: [walls seen] 동(4mk,3.3px)
+[WARN] [1791858148.939959644] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.024m | lat -0.101 | yaw -1.5deg | reproj 3.34px
+[INFO] [1791858149.140534553] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858149.141048904] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.024m | lat -0.096 | yaw -3.6deg | reproj 0.99px
+[INFO] [1791858149.339804910] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858149.340355390] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.024m | lat -0.097 | yaw -2.9deg | reproj 1.89px
+[INFO] [1791858149.541817254] [aruco_pnp_node]: [walls seen] 동(4mk,2.2px)
+[WARN] [1791858149.542302173] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.023m | lat -0.097 | yaw -2.6deg | reproj 2.20px
+[INFO] [1791858149.740435925] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858149.740996125] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.023m | lat -0.097 | yaw -2.4deg | reproj 1.88px
+[INFO] [1791858149.943408929] [aruco_pnp_node]: [walls seen] 동(4mk,3.3px)
+[WARN] [1791858149.943942687] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.024m | lat -0.095 | yaw -3.4deg | reproj 3.31px
+[INFO] [1791858150.339681549] [aruco_pnp_node]: [walls seen] 동(4mk,2.8px)
+[WARN] [1791858150.340200121] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.026m | lat -0.101 | yaw -2.5deg | reproj 2.79px
+[INFO] [1791858150.739970087] [aruco_pnp_node]: [walls seen] 동(4mk,3.7px)
+[WARN] [1791858150.740519297] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.030m | lat -0.098 | yaw -5.5deg | reproj 3.72px
+[INFO] [1791858150.950622622] [aruco_pnp_node]: [walls seen] 동(4mk,3.4px)
+[WARN] [1791858150.951124292] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.030m | lat -0.103 | yaw -4.8deg | reproj 3.41px
+[INFO] [1791858151.139358091] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858151.140080298] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.030m | lat -0.112 | yaw -2.6deg | reproj 1.43px
+[INFO] [1791858151.539975443] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858151.540490140] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.033m | lat -0.114 | yaw -3.1deg | reproj 1.17px
+[INFO] [1791858151.741843232] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858151.742497105] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.034m | lat -0.115 | yaw -3.1deg | reproj 1.65px
+[INFO] [1791858151.944867195] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858151.945378021] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.035m | lat -0.117 | yaw -2.5deg | reproj 1.66px
+[INFO] [1791858152.141762116] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858152.142250278] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.037m | lat -0.116 | yaw -3.5deg | reproj 1.00px
+[INFO] [1791858152.340177734] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858152.340654536] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.036m | lat -0.117 | yaw -2.9deg | reproj 1.27px
+[INFO] [1791858152.542342601] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858152.542815120] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.034m | lat -0.116 | yaw -3.1deg | reproj 1.28px
+[INFO] [1791858152.741326932] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858152.741996758] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.032m | lat -0.115 | yaw -2.8deg | reproj 1.50px
+[INFO] [1791858152.941580848] [aruco_pnp_node]: [walls seen] 동(4mk,2.7px)
+[WARN] [1791858152.942084409] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.029m | lat -0.111 | yaw -4.0deg | reproj 2.74px
+[INFO] [1791858153.342285710] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858153.342767866] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.022m | lat -0.112 | yaw -2.5deg | reproj 1.91px
+[INFO] [1791858153.541614609] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858153.542136314] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.019m | lat -0.111 | yaw -2.2deg | reproj 1.81px
+[INFO] [1791858153.940905923] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858153.941471541] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.013m | lat -0.108 | yaw -3.1deg | reproj 1.16px
+[INFO] [1791858154.144158727] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858154.144634075] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.010m | lat -0.109 | yaw -3.0deg | reproj 1.18px
+[INFO] [1791858154.338777037] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858154.339902143] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.007m | lat -0.110 | yaw -3.3deg | reproj 1.04px
+[INFO] [1791858154.541007358] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858154.541526286] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.004m | lat -0.111 | yaw -3.7deg | reproj 1.53px
+[INFO] [1791858154.739873074] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858154.740370037] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.001m | lat -0.116 | yaw -3.1deg | reproj 1.09px
+[INFO] [1791858154.942166331] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858154.942674231] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.120 | yaw -2.3deg | reproj 1.86px
+[INFO] [1791858155.142167184] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858155.142635468] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.118 | yaw -4.1deg | reproj 1.58px
+[INFO] [1791858155.339317044] [aruco_pnp_node]: [walls seen] 동(4mk,1.8px)
+[INFO] [1791858155.339814680] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.119 | yaw -4.6deg | reproj 1.84px
+[INFO] [1791858155.539252494] [aruco_pnp_node]: [walls seen] 동(3mk,1.7px)
+[INFO] [1791858155.539845436] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.992m | lat -0.120 | yaw -4.7deg | reproj 1.75px
+[INFO] [1791858155.739979784] [aruco_pnp_node]: [walls seen] 동(3mk,1.8px)
+[INFO] [1791858155.740452906] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.987m | lat -0.123 | yaw -5.0deg | reproj 1.76px
+[INFO] [1791858155.939401582] [aruco_pnp_node]: [walls seen] 동(3mk,1.4px)
+[INFO] [1791858155.939987747] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.991m | lat -0.126 | yaw -3.2deg | reproj 1.44px
+[INFO] [1791858156.138980389] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858156.139477708] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.988m | lat -0.128 | yaw -3.2deg | reproj 1.02px
+[INFO] [1791858156.342010654] [aruco_pnp_node]: [walls seen] 동(3mk,3.0px)
+[WARN] [1791858156.342502188] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.986m | lat -0.117 | yaw -6.1deg | reproj 2.96px
+[INFO] [1791858156.544148409] [aruco_pnp_node]: [walls seen] 동(3mk,1.3px)
+[INFO] [1791858156.545084500] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.993m | lat -0.117 | yaw -2.2deg | reproj 1.29px
+[INFO] [1791858156.739596253] [aruco_pnp_node]: [walls seen] 동(3mk,2.5px)
+[WARN] [1791858156.740153920] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.992m | lat -0.108 | yaw -1.5deg | reproj 2.52px
+[INFO] [1791858157.339160605] [aruco_pnp_node]: [walls seen] 동(3mk,1.6px)
+[INFO] [1791858157.339657939] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.000m | lat -0.070 | yaw -0.7deg | reproj 1.60px
+[INFO] [1791858157.539892088] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858157.540411538] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.003m | lat -0.055 | yaw -1.7deg | reproj 1.10px
+[INFO] [1791858157.740322090] [aruco_pnp_node]: [walls seen] 동(4mk,0.8px)
+[INFO] [1791858157.740799654] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.004m | lat -0.046 | yaw -0.7deg | reproj 0.84px
+[INFO] [1791858157.939589687] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858157.940116347] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.003m | lat -0.038 | yaw -0.2deg | reproj 1.55px
+[INFO] [1791858158.139747771] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858158.140252494] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.004m | lat -0.032 | yaw +0.1deg | reproj 1.03px
+[INFO] [1791858158.345516104] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858158.346054001] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.003m | lat -0.028 | yaw +0.1deg | reproj 1.25px
+[INFO] [1791858158.540147264] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858158.540699806] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.002m | lat -0.026 | yaw +0.5deg | reproj 1.44px
+[INFO] [1791858158.944035707] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[WARN] [1791858158.944560617] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 1.000m | lat -0.025 | yaw +1.0deg | reproj 2.05px
+[INFO] [1791858159.142187882] [aruco_pnp_node]: [walls seen] 동(4mk,4.4px)
+[WARN] [1791858159.142753918] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.998m | lat -0.028 | yaw +2.6deg | reproj 4.35px
+[INFO] [1791858159.542488048] [aruco_pnp_node]: [walls seen] 동(3mk,1.1px)
+[INFO] [1791858159.542990648] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.999m | lat -0.016 | yaw -1.2deg | reproj 1.09px
+[INFO] [1791858159.741782032] [aruco_pnp_node]: [walls seen] 동(3mk,1.3px)
+[INFO] [1791858159.742274296] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 1.002m | lat -0.017 | yaw +0.2deg | reproj 1.26px
+[INFO] [1791858159.939763122] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858159.940227771] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.998m | lat -0.014 | yaw -1.2deg | reproj 1.04px
+[INFO] [1791858160.138535425] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858160.139187579] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.996m | lat -0.017 | yaw +0.0deg | reproj 0.99px
+[INFO] [1791858160.341145234] [aruco_pnp_node]: [walls seen] 동(3mk,1.2px)
+[INFO] [1791858160.342302710] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.998m | lat -0.015 | yaw -1.1deg | reproj 1.16px
+[INFO] [1791858160.538724954] [aruco_pnp_node]: [walls seen] 동(4mk,4.8px)
+[WARN] [1791858160.539276413] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.013 | yaw -2.4deg | reproj 4.78px
+[INFO] [1791858160.743073962] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[INFO] [1791858160.743569285] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.017 | yaw -1.6deg | reproj 1.98px
+[INFO] [1791858160.941329871] [aruco_pnp_node]: [walls seen] 동(4mk,4.5px)
+[WARN] [1791858160.941901185] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.016 | yaw -2.5deg | reproj 4.49px
+[INFO] [1791858161.143404128] [aruco_pnp_node]: [walls seen] 동(4mk,4.0px)
+[WARN] [1791858161.143914848] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.015 | yaw -3.6deg | reproj 3.96px
+[INFO] [1791858161.339707488] [aruco_pnp_node]: [walls seen] 동(4mk,4.0px)
+[WARN] [1791858161.340224146] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.020 | yaw -2.2deg | reproj 3.97px
+[INFO] [1791858161.540158372] [aruco_pnp_node]: [walls seen] 동(4mk,4.8px)
+[WARN] [1791858161.540715403] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.021 | yaw -2.4deg | reproj 4.84px
+[INFO] [1791858161.742487933] [aruco_pnp_node]: [walls seen] 동(4mk,3.6px)
+[WARN] [1791858161.743331940] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.021 | yaw -3.0deg | reproj 3.56px
+[INFO] [1791858161.938950691] [aruco_pnp_node]: [walls seen] 동(4mk,4.7px)
+[WARN] [1791858161.939468935] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.018 | yaw -4.3deg | reproj 4.73px
+[INFO] [1791858162.141679281] [aruco_pnp_node]: [walls seen] 동(4mk,3.9px)
+[WARN] [1791858162.142207882] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.022 | yaw -3.1deg | reproj 3.85px
+[INFO] [1791858162.344408921] [aruco_pnp_node]: [walls seen] 동(4mk,4.8px)
+[WARN] [1791858162.344903224] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.994m | lat -0.020 | yaw -4.4deg | reproj 4.83px
+[INFO] [1791858162.539442532] [aruco_pnp_node]: [walls seen] 동(4mk,3.9px)
+[WARN] [1791858162.539950369] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.025 | yaw -2.5deg | reproj 3.95px
+[INFO] [1791858162.742440035] [aruco_pnp_node]: [walls seen] 동(4mk,4.4px)
+[WARN] [1791858162.742917935] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.022 | yaw -3.7deg | reproj 4.42px
+[INFO] [1791858162.940640018] [aruco_pnp_node]: [walls seen] 동(4mk,3.5px)
+[WARN] [1791858162.941285447] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.994m | lat -0.027 | yaw -1.9deg | reproj 3.50px
+[INFO] [1791858163.540739305] [aruco_pnp_node]: [walls seen] 동(4mk,4.3px)
+[WARN] [1791858163.541527513] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.988m | lat -0.024 | yaw -2.6deg | reproj 4.35px
+[INFO] [1791858163.739378590] [aruco_pnp_node]: [walls seen] 동(4mk,4.0px)
+[WARN] [1791858163.739927174] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.022 | yaw -3.7deg | reproj 3.99px
+[INFO] [1791858163.940640210] [aruco_pnp_node]: [walls seen] 동(4mk,4.1px)
+[WARN] [1791858163.941217428] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.983m | lat -0.023 | yaw -3.3deg | reproj 4.13px
+[INFO] [1791858164.141559768] [aruco_pnp_node]: [walls seen] 동(4mk,4.6px)
+[WARN] [1791858164.142109100] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.980m | lat -0.022 | yaw -4.0deg | reproj 4.55px
+[INFO] [1791858164.339543871] [aruco_pnp_node]: [walls seen] 동(4mk,5.3px)
+[WARN] [1791858164.340046221] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.978m | lat -0.022 | yaw -4.5deg | reproj 5.28px
+[INFO] [1791858164.539255644] [aruco_pnp_node]: [walls seen] 동(4mk,3.6px)
+[WARN] [1791858164.539765064] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.976m | lat -0.028 | yaw -3.1deg | reproj 3.57px
+[INFO] [1791858164.739674723] [aruco_pnp_node]: [walls seen] 동(4mk,6.5px)
+[WARN] [1791858164.740190929] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.024 | yaw -5.2deg | reproj 6.54px
+[INFO] [1791858165.341419570] [aruco_pnp_node]: [walls seen] 동(4mk,4.1px)
+[WARN] [1791858165.341937887] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.973m | lat -0.035 | yaw -3.3deg | reproj 4.05px
+[INFO] [1791858165.538930109] [aruco_pnp_node]: [walls seen] 동(4mk,5.7px)
+[WARN] [1791858165.539601072] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.032 | yaw -4.9deg | reproj 5.69px
+[INFO] [1791858165.739543330] [aruco_pnp_node]: [walls seen] 동(4mk,8.1px)
+[WARN] [1791858165.740123574] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.029 | yaw -6.7deg | reproj 8.14px
+[INFO] [1791858165.939798154] [aruco_pnp_node]: [walls seen] 동(4mk,7.5px)
+[WARN] [1791858165.940344199] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.032 | yaw -6.3deg | reproj 7.52px
+[INFO] [1791858166.141623443] [aruco_pnp_node]: [walls seen] 동(4mk,5.0px)
+[WARN] [1791858166.142115666] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.042 | yaw -3.0deg | reproj 4.99px
+[INFO] [1791858166.543557649] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858166.544452489] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.052 | yaw -0.5deg | reproj 0.96px
+[INFO] [1791858166.941117301] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858166.941619522] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.972m | lat -0.059 | yaw +0.3deg | reproj 1.50px
+[INFO] [1791858167.142833089] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858167.143858603] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.971m | lat -0.059 | yaw -0.5deg | reproj 1.34px
+[INFO] [1791858167.340339459] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858167.340858709] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.970m | lat -0.063 | yaw -0.0deg | reproj 1.12px
+[INFO] [1791858167.539745463] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858167.540219059] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.970m | lat -0.062 | yaw -1.2deg | reproj 1.04px
+[INFO] [1791858167.739020401] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858167.739715983] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.969m | lat -0.063 | yaw -1.1deg | reproj 1.09px
+[INFO] [1791858167.938895872] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858167.939409427] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.969m | lat -0.068 | yaw +0.3deg | reproj 1.59px
+[INFO] [1791858168.141566143] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858168.142578782] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.970m | lat -0.065 | yaw -0.8deg | reproj 0.92px
+[INFO] [1791858168.339180815] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858168.340245801] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.971m | lat -0.066 | yaw -1.0deg | reproj 1.02px
+[INFO] [1791858168.538457583] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858168.538979241] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.970m | lat -0.070 | yaw +0.1deg | reproj 1.45px
+[INFO] [1791858168.738216113] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858168.738767057] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.971m | lat -0.068 | yaw -1.5deg | reproj 2.13px
+[INFO] [1791858169.140871502] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858169.141842253] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.972m | lat -0.075 | yaw +0.3deg | reproj 1.48px
+[INFO] [1791858169.338791373] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858169.339270103] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.973m | lat -0.072 | yaw -0.9deg | reproj 1.41px
+[INFO] [1791858169.538157320] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858169.538816735] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.075 | yaw -0.3deg | reproj 1.15px
+[INFO] [1791858169.742473594] [aruco_pnp_node]: [walls seen] 동(4mk,3.0px)
+[WARN] [1791858169.742996316] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.973m | lat -0.079 | yaw +1.3deg | reproj 3.01px
+[INFO] [1791858169.946029572] [aruco_pnp_node]: [walls seen] 동(4mk,5.5px)
+[WARN] [1791858169.946753435] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.971m | lat -0.082 | yaw +2.5deg | reproj 5.49px
+[INFO] [1791858170.139799481] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858170.140277666] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.975m | lat -0.075 | yaw -0.6deg | reproj 1.01px
+[INFO] [1791858170.539958726] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858170.540808767] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.978m | lat -0.073 | yaw +0.1deg | reproj 1.26px
+[INFO] [1791858170.739319799] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858170.739868774] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.980m | lat -0.068 | yaw -1.3deg | reproj 1.48px
+[INFO] [1791858170.939348713] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858170.939923643] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.981m | lat -0.068 | yaw -0.6deg | reproj 1.07px
+[INFO] [1791858171.142842619] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858171.143353010] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.982m | lat -0.065 | yaw -0.5deg | reproj 0.94px
+[INFO] [1791858171.342052352] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858171.342527696] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.984m | lat -0.063 | yaw -0.5deg | reproj 1.08px
+[INFO] [1791858171.539011873] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858171.539515428] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.058 | yaw -1.3deg | reproj 1.16px
+[INFO] [1791858171.740690562] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858171.741197588] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.986m | lat -0.058 | yaw -0.4deg | reproj 1.01px
+[INFO] [1791858171.939965440] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858171.940488968] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.988m | lat -0.056 | yaw +0.1deg | reproj 1.73px
+[INFO] [1791858172.138857268] [aruco_pnp_node]: [walls seen] 동(4mk,2.8px)
+[WARN] [1791858172.139495254] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.052 | yaw -0.9deg | reproj 2.84px
+[INFO] [1791858172.341242631] [aruco_pnp_node]: [walls seen] 동(4mk,2.2px)
+[WARN] [1791858172.341868440] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.049 | yaw -1.1deg | reproj 2.24px
+[INFO] [1791858172.538868142] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858172.539379862] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.049 | yaw -0.6deg | reproj 0.99px
+[INFO] [1791858172.741599763] [aruco_pnp_node]: [walls seen] 동(4mk,2.5px)
+[WARN] [1791858172.742104213] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.049 | yaw -0.6deg | reproj 2.47px
+[INFO] [1791858172.941034656] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858172.941822917] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.050 | yaw -0.5deg | reproj 0.95px
+[INFO] [1791858173.142730854] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858173.143225289] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.049 | yaw -1.0deg | reproj 1.42px
+[INFO] [1791858173.340610328] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858173.341142610] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.054 | yaw +0.4deg | reproj 1.52px
+[INFO] [1791858173.543581975] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858173.544097694] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.053 | yaw -0.7deg | reproj 1.49px
+[INFO] [1791858173.742164658] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858173.742695368] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.054 | yaw -0.4deg | reproj 0.97px
+[INFO] [1791858173.939761286] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858173.940410273] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.055 | yaw -0.2deg | reproj 1.07px
+[INFO] [1791858174.339255099] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858174.340059134] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.055 | yaw -0.2deg | reproj 1.08px
+[INFO] [1791858174.543490230] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858174.544013847] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.056 | yaw +0.0deg | reproj 1.10px
+[INFO] [1791858174.742129767] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858174.742602693] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.055 | yaw -0.2deg | reproj 1.05px
+[INFO] [1791858174.938455853] [aruco_pnp_node]: [walls seen] 동(4mk,2.0px)
+[INFO] [1791858174.939004504] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.052 | yaw -0.6deg | reproj 1.98px
+[INFO] [1791858175.140582384] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858175.141089977] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.052 | yaw -0.9deg | reproj 1.08px
+[INFO] [1791858175.342206623] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858175.342697116] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.988m | lat -0.054 | yaw +0.3deg | reproj 1.73px
+[INFO] [1791858175.540808336] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858175.541308211] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.988m | lat -0.054 | yaw +0.3deg | reproj 1.50px
+[INFO] [1791858175.739651019] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858175.740122648] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.048 | yaw -1.5deg | reproj 1.52px
+[INFO] [1791858175.942131812] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858175.942841752] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.050 | yaw -0.5deg | reproj 0.91px
+[INFO] [1791858176.140720346] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858176.141353759] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.049 | yaw -0.1deg | reproj 1.12px
+[INFO] [1791858176.341276972] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858176.341791292] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.046 | yaw -1.4deg | reproj 1.74px
+[INFO] [1791858176.540532362] [aruco_pnp_node]: [walls seen] 동(4mk,1.6px)
+[INFO] [1791858176.541007766] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.047 | yaw -0.2deg | reproj 1.64px
+[INFO] [1791858176.740871797] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858176.741407504] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.989m | lat -0.047 | yaw -0.2deg | reproj 1.41px
+[INFO] [1791858177.142652878] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858177.143164758] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.988m | lat -0.046 | yaw +0.3deg | reproj 1.48px
+[INFO] [1791858177.540803077] [aruco_pnp_node]: [walls seen] 동(4mk,2.2px)
+[WARN] [1791858177.541391834] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.039 | yaw -2.3deg | reproj 2.24px
+[INFO] [1791858177.739771260] [aruco_pnp_node]: [walls seen] 동(4mk,1.7px)
+[INFO] [1791858177.740231618] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.040 | yaw -1.8deg | reproj 1.74px
+[INFO] [1791858177.942072620] [aruco_pnp_node]: [walls seen] 동(4mk,0.9px)
+[INFO] [1791858177.942606756] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.044 | yaw -0.4deg | reproj 0.93px
+[INFO] [1791858178.139976657] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858178.140475440] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.044 | yaw -0.4deg | reproj 0.95px
+[INFO] [1791858178.339325805] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858178.339944823] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.046 | yaw -0.0deg | reproj 1.16px
+[INFO] [1791858178.539809669] [aruco_pnp_node]: [walls seen] 동(4mk,1.2px)
+[INFO] [1791858178.540324351] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.994m | lat -0.046 | yaw -0.4deg | reproj 1.18px
+[INFO] [1791858178.739374935] [aruco_pnp_node]: [walls seen] 동(4mk,1.4px)
+[INFO] [1791858178.739890194] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.048 | yaw +0.0deg | reproj 1.42px
+[INFO] [1791858178.939209107] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858178.939715483] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.050 | yaw -0.1deg | reproj 1.33px
+[INFO] [1791858179.139290479] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858179.139788467] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.052 | yaw -0.0deg | reproj 1.31px
+[INFO] [1791858179.339922925] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858179.340425221] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.051 | yaw -0.7deg | reproj 1.03px
+[INFO] [1791858179.540296429] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858179.541036678] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.052 | yaw -0.5deg | reproj 1.15px
+[INFO] [1791858179.738863810] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858179.739386902] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.049 | yaw -1.3deg | reproj 1.54px
+[INFO] [1791858179.938275138] [aruco_pnp_node]: [walls seen] 동(4mk,1.1px)
+[INFO] [1791858179.938795979] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.051 | yaw -0.8deg | reproj 1.15px
+[INFO] [1791858180.139759396] [aruco_pnp_node]: [walls seen] 동(4mk,2.1px)
+[WARN] [1791858180.140309852] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.994m | lat -0.047 | yaw -2.0deg | reproj 2.11px
+[INFO] [1791858180.742049298] [aruco_pnp_node]: [walls seen] 동(3mk,1.2px)
+[INFO] [1791858180.742510963] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.988m | lat -0.052 | yaw -0.9deg | reproj 1.23px
+[INFO] [1791858180.941258343] [aruco_pnp_node]: [walls seen] 동(3mk,1.2px)
+[INFO] [1791858180.941782377] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.989m | lat -0.049 | yaw -1.3deg | reproj 1.17px
+[INFO] [1791858181.144849259] [aruco_pnp_node]: [walls seen] 동(4mk,1.0px)
+[INFO] [1791858181.145381069] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.053 | yaw -0.2deg | reproj 0.99px
+[INFO] [1791858181.347439330] [aruco_pnp_node]: [walls seen] 동(4mk,2.2px)
+[WARN] [1791858181.348021511] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.046 | yaw -2.3deg | reproj 2.20px
+[INFO] [1791858181.544141248] [aruco_pnp_node]: [walls seen] 동(4mk,2.4px)
+[WARN] [1791858181.544814067] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.054 | yaw +0.9deg | reproj 2.38px
+[INFO] [1791858181.745995495] [aruco_pnp_node]: [walls seen] 동(4mk,3.6px)
+[WARN] [1791858181.746511767] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.043 | yaw -2.6deg | reproj 3.58px
+[INFO] [1791858181.946891324] [aruco_pnp_node]: [walls seen] 동(4mk,2.3px)
+[WARN] [1791858181.947445165] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.051 | yaw +0.9deg | reproj 2.31px
+[INFO] [1791858182.146401785] [aruco_pnp_node]: [walls seen] 동(4mk,1.9px)
+[INFO] [1791858182.146944777] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.047 | yaw -0.1deg | reproj 1.90px
+[INFO] [1791858182.344865056] [aruco_pnp_node]: [walls seen] 동(4mk,2.7px)
+[WARN] [1791858182.345439932] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.040 | yaw -2.2deg | reproj 2.67px
+[INFO] [1791858182.545873763] [aruco_pnp_node]: [walls seen] 동(4mk,2.7px)
+[WARN] [1791858182.546408950] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.037 | yaw -2.4deg | reproj 2.67px
+[INFO] [1791858182.744612348] [aruco_pnp_node]: [walls seen] 동(4mk,5.9px)
+[WARN] [1791858182.745175069] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.029 | yaw -5.1deg | reproj 5.87px
+[INFO] [1791858183.145952469] [aruco_pnp_node]: [walls seen] 동(4mk,4.1px)
+[WARN] [1791858183.146450356] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.029 | yaw -3.7deg | reproj 4.10px
+[INFO] [1791858183.347336940] [aruco_pnp_node]: [walls seen] 동(4mk,5.8px)
+[WARN] [1791858183.348225108] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.991m | lat -0.025 | yaw -5.0deg | reproj 5.84px
+[INFO] [1791858183.745150197] [aruco_pnp_node]: [walls seen] 동(4mk,4.5px)
+[WARN] [1791858183.745777419] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.026 | yaw -4.0deg | reproj 4.49px
+[INFO] [1791858183.944224316] [aruco_pnp_node]: [walls seen] 동(4mk,4.7px)
+[WARN] [1791858183.944808355] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.026 | yaw -3.7deg | reproj 4.66px
+[INFO] [1791858184.145096424] [aruco_pnp_node]: [walls seen] 동(4mk,3.1px)
+[WARN] [1791858184.146079427] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.029 | yaw -2.9deg | reproj 3.06px
+[INFO] [1791858184.342847592] [aruco_pnp_node]: [walls seen] 동(4mk,3.3px)
+[WARN] [1791858184.343345935] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.029 | yaw -3.2deg | reproj 3.30px
+[INFO] [1791858184.548654432] [aruco_pnp_node]: [walls seen] 동(4mk,6.0px)
+[WARN] [1791858184.549587671] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.025 | yaw -5.3deg | reproj 6.04px
+[INFO] [1791858184.747228678] [aruco_pnp_node]: [walls seen] 동(4mk,4.9px)
+[WARN] [1791858184.747746452] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.029 | yaw -4.5deg | reproj 4.89px
+[INFO] [1791858184.944718141] [aruco_pnp_node]: [walls seen] 동(4mk,5.9px)
+[WARN] [1791858184.945267357] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.029 | yaw -5.3deg | reproj 5.86px
+[INFO] [1791858185.145529888] [aruco_pnp_node]: [walls seen] 동(4mk,7.2px)
+[WARN] [1791858185.146090461] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.992m | lat -0.030 | yaw -6.2deg | reproj 7.21px
+[INFO] [1791858185.344277619] [aruco_pnp_node]: [walls seen] 동(4mk,6.4px)
+[WARN] [1791858185.344772107] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.035 | yaw -5.3deg | reproj 6.44px
+[INFO] [1791858185.543822298] [aruco_pnp_node]: [walls seen] 동(4mk,6.1px)
+[WARN] [1791858185.544390070] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.994m | lat -0.036 | yaw -5.4deg | reproj 6.07px
+[INFO] [1791858185.744572610] [aruco_pnp_node]: [walls seen] 동(4mk,6.6px)
+[WARN] [1791858185.745098395] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.037 | yaw -5.8deg | reproj 6.57px
+[INFO] [1791858185.942546453] [aruco_pnp_node]: [walls seen] 동(4mk,7.4px)
+[WARN] [1791858185.943128662] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.996m | lat -0.037 | yaw -6.5deg | reproj 7.45px
+[INFO] [1791858186.143124895] [aruco_pnp_node]: [walls seen] 동(4mk,6.9px)
+[WARN] [1791858186.143650578] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.038 | yaw -6.2deg | reproj 6.94px
+[INFO] [1791858186.344895552] [aruco_pnp_node]: [walls seen] 동(4mk,6.0px)
+[WARN] [1791858186.345472255] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.997m | lat -0.041 | yaw -5.3deg | reproj 5.98px
+[INFO] [1791858186.545323638] [aruco_pnp_node]: [walls seen] 동(4mk,6.8px)
+[WARN] [1791858186.545872274] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.995m | lat -0.041 | yaw -6.0deg | reproj 6.79px
+[INFO] [1791858186.744643568] [aruco_pnp_node]: [walls seen] 동(4mk,7.3px)
+[WARN] [1791858186.745150768] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.993m | lat -0.042 | yaw -6.3deg | reproj 7.30px
+[INFO] [1791858186.942518654] [aruco_pnp_node]: [walls seen] 동(4mk,6.4px)
+[WARN] [1791858186.943333382] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.990m | lat -0.047 | yaw -4.9deg | reproj 6.35px
+[INFO] [1791858187.346766641] [aruco_pnp_node]: [walls seen] 동(4mk,9.0px)
+[WARN] [1791858187.347688418] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.982m | lat -0.043 | yaw -7.2deg | reproj 8.98px
+[INFO] [1791858187.545789117] [aruco_pnp_node]: [walls seen] 동(4mk,7.3px)
+[WARN] [1791858187.546726250] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.978m | lat -0.046 | yaw -5.4deg | reproj 7.28px
+[INFO] [1791858187.747704073] [aruco_pnp_node]: [walls seen] 동(4mk,8.1px)
+[WARN] [1791858187.748537752] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.974m | lat -0.039 | yaw -5.2deg | reproj 8.09px
+[INFO] [1791858187.942795983] [aruco_pnp_node]: [walls seen] 동(4mk,8.4px)
+[WARN] [1791858187.943443200] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.971m | lat -0.024 | yaw -5.1deg | reproj 8.41px
+[INFO] [1791858188.144974336] [aruco_pnp_node]: [walls seen] 동(4mk,8.1px)
+[WARN] [1791858188.145599723] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.968m | lat -0.009 | yaw -4.3deg | reproj 8.07px
+[INFO] [1791858188.347568460] [aruco_pnp_node]: [walls seen] 동(4mk,6.3px)
+[WARN] [1791858188.348288130] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.968m | lat +0.001 | yaw -1.4deg | reproj 6.26px
+[INFO] [1791858188.542763804] [aruco_pnp_node]: [walls seen] 동(4mk,6.7px)
+[WARN] [1791858188.543634211] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.966m | lat +0.019 | yaw -2.2deg | reproj 6.68px
+[INFO] [1791858188.744049501] [aruco_pnp_node]: [walls seen] 동(4mk,6.9px)
+[WARN] [1791858188.744613309] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.964m | lat +0.028 | yaw -0.8deg | reproj 6.90px
+[INFO] [1791858188.943669327] [aruco_pnp_node]: [walls seen] 동(4mk,5.1px)
+[WARN] [1791858188.944236911] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.964m | lat +0.032 | yaw +1.3deg | reproj 5.09px
+[INFO] [1791858189.143943270] [aruco_pnp_node]: [walls seen] 동(4mk,5.2px)
+[WARN] [1791858189.144496162] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.962m | lat +0.042 | yaw +0.0deg | reproj 5.21px
+[INFO] [1791858189.342963124] [aruco_pnp_node]: [walls seen] 동(4mk,5.9px)
+[WARN] [1791858189.343470514] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.960m | lat +0.044 | yaw -0.2deg | reproj 5.95px
+[INFO] [1791858189.544475134] [aruco_pnp_node]: [walls seen] 동(4mk,5.0px)
+[WARN] [1791858189.544978572] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.957m | lat +0.039 | yaw +1.5deg | reproj 5.05px
+[INFO] [1791858189.747639695] [aruco_pnp_node]: [walls seen] 동(4mk,5.6px)
+[WARN] [1791858189.748280063] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.953m | lat +0.041 | yaw +0.4deg | reproj 5.62px
+[INFO] [1791858189.945395742] [aruco_pnp_node]: [walls seen] 동(4mk,7.2px)
+[WARN] [1791858189.946374101] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.951m | lat +0.036 | yaw +1.8deg | reproj 7.18px
+[INFO] [1791858190.145682177] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858190.146167297] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.947m | lat +0.029 | yaw +3.6deg | reproj 1.03px
+[INFO] [1791858190.343343170] [aruco_pnp_node]: [walls seen] 동(3mk,1.1px)
+[INFO] [1791858190.343923260] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.941m | lat +0.030 | yaw +3.5deg | reproj 1.14px
+[INFO] [1791858190.543344539] [aruco_pnp_node]: [walls seen] 동(3mk,2.7px)
+[WARN] [1791858190.543918562] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.946m | lat +0.029 | yaw +2.2deg | reproj 2.72px
+[INFO] [1791858190.943625958] [aruco_pnp_node]: [walls seen] 동(2mk,3.3px)
+[INFO] [1791858190.943877928] [aruco_pnp_node]: [gate] target=동 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1791858191.145997494] [aruco_pnp_node]: [walls seen] 동(2mk,3.3px)
+[INFO] [1791858191.344180999] [aruco_pnp_node]: [walls seen] 동(3mk,1.0px)
+[INFO] [1791858191.344693578] [aruco_pnp_node]: [PnP target=동] 3mk | fwd 0.941m | lat +0.031 | yaw +2.8deg | reproj 0.97px
+[INFO] [1791858191.946594077] [aruco_pnp_node]: [walls seen] 동(4mk,1.3px)
+[INFO] [1791858191.947094005] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.948m | lat +0.027 | yaw +3.8deg | reproj 1.29px
+[INFO] [1791858192.148809568] [aruco_pnp_node]: [walls seen] 동(4mk,2.7px)
+[WARN] [1791858192.149335642] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.950m | lat +0.024 | yaw +4.7deg | reproj 2.66px
+[INFO] [1791858192.344392455] [aruco_pnp_node]: [walls seen] 동(4mk,3.0px)
+[WARN] [1791858192.344959998] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.952m | lat +0.023 | yaw +5.2deg | reproj 2.95px
+[INFO] [1791858192.543138860] [aruco_pnp_node]: [walls seen] 동(4mk,4.1px)
+[WARN] [1791858192.543680563] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.955m | lat +0.029 | yaw +2.7deg | reproj 4.12px
+[INFO] [1791858192.946394330] [aruco_pnp_node]: [walls seen] 동(4mk,3.3px)
+[WARN] [1791858192.946933398] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.959m | lat +0.033 | yaw +1.8deg | reproj 3.26px
+[INFO] [1791858193.344339696] [aruco_pnp_node]: [walls seen] 동(4mk,1.5px)
+[INFO] [1791858193.344857139] [aruco_pnp_node]: [PnP target=동] 4mk | fwd 0.963m | lat +0.030 | yaw +3.1deg | reproj 1.49px
