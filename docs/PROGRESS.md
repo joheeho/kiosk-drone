@@ -247,3 +247,30 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
     후퇴로 시야가 돌아올 수 없었던 것. 자연 HOLD 중 ≤2mk는 0.
 - 한계: 주입은 '비전 정지'라 후퇴가 실제로 상하 화각을 되찾는 물리 효과는 이 테스트로 검증 안 됨
   (standoff 1.15m에선 자연 잘림이 재현되지 않음, run4).
+
+## 2026-10-15 — agy R1 리뷰 반영: 콜백 그룹 분리 + 종료 RCLError (SCRUM-22, run6)
+교신 기록: `docs/agent-loop.md` (R1-01~08 응답).
+- R1-01: 단일 `ReentrantCallbackGroup` -> 로직(비전 콜백+`on_timer`, 상호배제) / 스트림
+  (`on_setpoint_timer`, 상호배제) / 센서(자세·로컬위치, 재진입) 3그룹. 상태머신·EMA 경쟁 제거, 2-시계 유지.
+- R1-07: SIGINT 종료 시 `executor.spin()`이 wait set 재생성에서 `RCLError`로 exit 1 나던 것
+  (`logs/approach_control.log` 실측) -> `rclpy.ok()`가 False일 때만 정상 종료 처리.
+  LOG_ONLY 단독 6회는 수정 전에도 재현 안 됨(부하 의존 race). run6 종료는 RCLError 0, ros2run 실패 0.
+- run6 SITL(북 벽, FULL, ~200s), `docs/results/scrum22_ibvs/run6_r1_*`:
+  - 첫 APPROACH -> HOLD 12.8s. HOLD 비율 88%, HOLD 중 비영 명령 0, 2s 미만 체류(chatter) 0.
+  - `on_timer` dt 중앙 0.053s / 최대 0.188s — 로직 그룹 직렬화로 인한 지연 악화 없음.
+  - +150s 근거리 유실 -> 후퇴 복구(vf=-0.10) -> APPROACH(+160.9) -> HOLD(+165.2): run5에서 미검증이던
+    '자연 화각 잘림 -> 후퇴로 회복' 경로가 처음 실제로 재현·확인됨.
+- 관찰된 이상(미해결, 코드 변경과 무관): 유실 직전 HOLD 중 고도가 2~3s 동안 -1.26 -> -0.87m로 하강.
+  ulog(`rootfs/log/2026-10-15/05_16_35.ulg`, 발췌 `run6_r1_zdrop_ulog.txt`): 거리센서·GPS·baro 모두
+  실제 하강을 보이는데 setpoint z는 -1.258 고정, 추력은 hover(~0.74) 근처 유지, 같은 구간 EKF vz는
+  상승 부호. 우리 노드 출력은 일정했으므로 PX4 추정/시뮬 쪽 문제로 보임 — 재발 시 추적.
+
+### 실기 전환 전제조건 (agy R1-02)
+- 수평 속도 추정원 필수: `OffboardControlMode.velocity=True`는 EKF2 local velocity 유효성을 요구한다.
+  SITL은 시뮬 GPS가 이를 채워서 드러나지 않았을 뿐, 실내 실기에선 옵티컬 플로우(+하향 거리센서)
+  또는 VIO(`/fmu/in/vehicle_visual_odometry`)가 없으면 offboard 진입 거부/HOLD 중 드리프트.
+  D435i 단독으로는 속도가 나오지 않는다.
+- 고도: 실내 baro 단독은 수십 cm 변동 -> 하향 거리센서 + `EKF2_HGT_REF` 권장
+  (standoff 1.15m 상하 화각 마진 ~0.14m — 위 run6 고도 이상처럼 0.3m+ 변동이면 마커 유실).
+- 실기에선 노드 자동 arm/offboard 대신 조종사 이륙 후 RC로 offboard 전환 + 킬스위치.
+  `MPC_XY_VEL_MAX`/`MPC_XY_CRUISE` 0.3은 FC에 직접 설정(SITL은 `sim/gcs_keepalive.py`가 설정).
