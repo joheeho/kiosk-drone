@@ -34,6 +34,7 @@ import math
 import rclpy
 from rclpy.callback_groups import MutuallyExclusiveCallbackGroup, ReentrantCallbackGroup
 from rclpy.executors import ExternalShutdownException, MultiThreadedExecutor
+from rclpy.impl.implementation_singleton import rclpy_implementation as _rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
 from px4_msgs.msg import (
@@ -550,6 +551,12 @@ def main(args=None):
         executor.spin()
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
+    except _rclpy.RCLError:
+        # SIGINT 시 rclpy 시그널 핸들러가 context를 먼저 내리면, 대기 중이던 spin이 wait set
+        # 재생성에서 RCLError로 터진다(실측 logs/approach_control.log, exit 1). 종료 중일 때만
+        # 정상 종료로 취급하고, 살아있는 context에서 난 RCLError는 그대로 올린다.
+        if rclpy.ok():
+            raise
     finally:
         executor.remove_node(node)
         node.destroy_node()
