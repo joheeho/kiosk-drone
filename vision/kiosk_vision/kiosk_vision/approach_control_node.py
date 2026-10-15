@@ -32,7 +32,7 @@ FRD->NED 속도 변환은 발행 시점의 현재 yaw(heading)만 사용한다.
 import math
 
 import rclpy
-from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.callback_groups import MutuallyExclusiveCallbackGroup, ReentrantCallbackGroup
 from rclpy.executors import ExternalShutdownException, MultiThreadedExecutor
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
@@ -195,11 +195,17 @@ class ApproachControlNode(Node):
         self.retreat_speed = float(self.get_parameter('retreat_speed').value)
         self.retreat_max_s = float(self.get_parameter('retreat_max_s').value)
 
-        # 모든 콜백(구독 + 두 타이머)을 하나의 재진입 가능 그룹에 묶고
-        # MultiThreadedExecutor(main() 참고)로 돌려서, on_timer(상태판단 로직,
-        # 비전 콜백 처리 등으로 느려질 수 있음)가 on_setpoint_timer(PX4 오프보드
-        # 스트림)를 굶기지 않게 한다.
-        cb_group = ReentrantCallbackGroup()
+        # 콜백 그룹 3개 + MultiThreadedExecutor(main() 참고):
+        # - logic_group(상호배제): 비전 콜백(EMA·decide)과 on_timer(상태머신). 둘 다 같은
+        #   상태(EMA, state, _reacquire_*)를 읽고 쓰므로 직렬화한다. 재진입 그룹이면 on_timer가
+        #   50ms를 넘길 때 자기 자신과 겹치거나 비전 콜백 두 개가 EMA를 동시에 갱신할 수 있었다.
+        # - stream_group(상호배제): on_setpoint_timer(PX4 오프보드 스트림) 전용 — 로직 쪽이
+        #   느려져도 스트림은 굶지 않는다(2-시계 독립성 유지).
+        # - sensor_group(재진입): 자세/로컬위치 구독. 참조 대입만 하므로 겹쳐도 무해하고,
+        #   로직 쪽에 묶이면 발행부가 쓰는 yaw가 묵을 수 있어 따로 둔다.
+        logic_group = MutuallyExclusiveCallbackGroup()
+        stream_group = MutuallyExclusiveCallbackGroup()
+        sensor_group = ReentrantCallbackGroup()
 
         px4_qos = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,
@@ -211,13 +217,13 @@ class ApproachControlNode(Node):
         self.trajectory_pub = self.create_publisher(TrajectorySetpoint, '/fmu/in/trajectory_setpoint', px4_qos)
         self.vehicle_command_pub = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', px4_qos)
         self.create_subscription(VehicleLocalPosition, '/fmu/out/vehicle_local_position_v1',
-                                  self.on_local_position, px4_qos, callback_group=cb_group)
+                                  self.on_local_position, px4_qos, callback_group=sensor_group)
         self.create_subscription(VehicleAttitude, '/fmu/out/vehicle_attitude',
-                                  self.on_attitude, px4_qos, callback_group=cb_group)
+                                  self.on_attitude, px4_qos, callback_group=sensor_group)
 
         pose_topic = self.get_parameter('pose_topic').value
         self.pose_topic = pose_topic
-        self.create_subscription(PoseStamped, pose_topic, self.on_target_pose, 10, callback_group=cb_group)
+        self.create_subscription(PoseStamped, pose_topic, self.on_target_pose, 10, callback_group=logic_group)
 
         self.vlp = None
         self.att = None
@@ -245,8 +251,8 @@ class ApproachControlNode(Node):
         self._reacquire_retreat = False
         self._last_tick_time = None
 
-        self.create_timer(DT, self.on_timer, callback_group=cb_group)
-        self.create_timer(SETPOINT_DT, self.on_setpoint_timer, callback_group=cb_group)
+        self.create_timer(DT, self.on_timer, callback_group=logic_group)
+        self.create_timer(SETPOINT_DT, self.on_setpoint_timer, callback_group=stream_group)
         self.get_logger().info(
             f'approach_control_node start target_wall={self.target_wall} '
             f'bringup_level={self.level}({LEVEL_NAMES[self.level]}) '
