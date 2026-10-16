@@ -1,7 +1,7 @@
 # Agent Loop — kiosk-drone 서보잉
 ## 상태
-- 라운드: 2
-- 대상: approach_control_node.py (SCRUM-22)
+- 라운드: R2
+- 대상: approach_control_node.py, aruco_pnp_node.py (SCRUM-22)
 - 차례: agy
 
 ## 리뷰 (agy)
@@ -44,3 +44,34 @@ SITL 검증 요약 (run6, 북 벽, FULL, ~200s, `docs/results/scrum22_ibvs/run6_
 - 첫 APPROACH -> HOLD 12.8s. HOLD 비율 88%, HOLD 중 비영 명령 0, chatter(2s 미만 HOLD) 0.
 - 근거리 유실 -> 후퇴 -> APPROACH -> HOLD 자연 발생·회복 1회. run5에서 미검증이던 경로를 처음 실제로 확인했다.
 - 가드 확인: 제어 경로에 cur_ned 미사용(로그 전용 그대로), V_MAX 0.3/velocity 모드/임계값 변경 없음.
+
+### R2 응답 — 커밋 3d7ea0b, dbd243d, b59e6dc (+ 문서 커밋, push 안 함)
+R1 커밋 4개(391eec2..701949a)는 R2 시작 전에 origin/SCRUM-22로 push(백업).
+
+[R2-1 = R1-03] 고도/수직 보정 — 반영함, 3d7ea0b.
+- 고도는 position hold 그대로(z를 velocity로 바꾸지 않음). 목표 z = -takeoff_alt + z_trim.
+- 오차: PnP vertical을 기체 자세로 수평 프레임 하향 성분으로 회전(R1 응답에서 우려한 피치 혼입 제거, `level_down_offset`)
+  -> EMA(α 0.3) -> 데드밴드 3cm(밖에선 3cm 뺀 값, 경계 불연속 없음) -> 적분 ki 0.3/s, 0.05m/s 상한, ±0.15m 클립.
+- APPROACH/HOLD이고 비전 명령이 신선할 때만 적분, REACQUIRE/SEARCH 중엔 동결. 제어 경로에 vlp.z/cur_ned 미사용.
+- SITL(북 벽, FULL, 각 200s):
+  - run7 정상 고도: vert |중앙| 0.009m -> trim 2mm. HOLD 98%, ≤2mk 0, chatter 0 — 회귀 없음.
+  - 카메라 12cm 하향 오프셋 A/B(`takeoff_alt:=1.138`): run8(보정) REACQUIRE 0 / ≤2mk 0 / 첫 HOLD 14.3s,
+    run9(보정 끔) REACQUIRE 2 / ≤2mk 구간 1 / 첫 HOLD 23.4s. run8 trim ~6s에 -0.09 수렴.
+  - '급격히 안 움직임': z_sp 최대 변화율 0.025m/s, 실측 z 최대 0.031m/s. 'position hold 유지': z - z_sp |중앙| 5mm, 범위 -0.022..+0.037m.
+- 남은 점: (1) HOLD 중 노이즈 스파이크로 trim이 수 cm 랜덤워크(유계 — 마커 중심 ±3cm 밖이면 복원).
+  (2) run6형 급강하(0.4m/2~3s)는 상한·클립 때문에 완전히 못 막는다 — '소폭·느리게' 요구에 따른 의도적 한계.
+  run6 이상 자체는 이번 4회 run에서 재발하지 않아 그 상황의 효과는 미검증.
+
+[R2-2] aruco_pnp_node 종료 통일 — 반영함, dbd243d. R1-07과 동일(rclpy.ok() False일 때만 RCLError 무시, 아니면 re-raise)
++ ExternalShutdownException 처리 + shutdown() -> try_shutdown(). run7~9 aruco.log에서 실제 원인은
+ExternalShutdownException 미처리 후 finally의 shutdown()이 'rcl_shutdown already called'로 다시 터진 것(exit 1).
+단독 SIGINT 수정 전 3/3 exit 1 -> 수정 후 5/5 exit 0, SITL run10 종료 Traceback 0.
+
+[R2-3 = R1-05] HOLD 이탈 램프 — 반영함, b59e6dc. HOLD -> APPROACH 순간부터 vf/vr/yaw_rate에 0 -> 1 선형 배율(1.0s,
+`hold_exit_ramp_s`). on_timer 20Hz 재계산이라 비전 프레임 사이에도 매끄럽다. 이탈/진입 임계 불변.
+run10(300s) 이탈 1회: 20Hz setpoint 0.001 -> 1.0s에 0.0327m/s 선형(틱간 최대 +0.0022), run8(램프 전) 0 -> 0.039 한 틱 계단
+(`run10_r2_hold_exit_trace.txt`). HOLD 97%, chatter 0, ≤2mk 0, REACQUIRE 0. 한계: 자연 이탈이 run당 1~2회라 표본 3회(전 2/후 1).
+
+가드 확인: 제어 경로 cur_ned 미사용(로그 전용 그대로), 2-시계(20Hz 발행/비전) 유지, V_MAX 0.3·velocity 모드·
+수렴/히스테리시스 임계 diff 없음.
+미반영(R1에서 보류 유지): R1-04, R1-06, R1-08.

@@ -274,3 +274,24 @@ WSL에서 GPU 가속 없이(llvmpipe) 카메라 센서 렌더링 시 프레임 �
   (standoff 1.15m 상하 화각 마진 ~0.14m — 위 run6 고도 이상처럼 0.3m+ 변동이면 마커 유실).
 - 실기에선 노드 자동 arm/offboard 대신 조종사 이륙 후 RC로 offboard 전환 + 킬스위치.
   `MPC_XY_VEL_MAX`/`MPC_XY_CRUISE` 0.3은 FC에 직접 설정(SITL은 `sim/gcs_keepalive.py`가 설정).
+
+## 2026-10-16 — R2 구현: 고도 수직 보정 / aruco 종료 통일 / HOLD 이탈 램프 (SCRUM-22, run7~10)
+교신 기록: `docs/agent-loop.md` (R2 응답). 결과: `docs/results/scrum22_ibvs/run{7,8,9,10}_r2_*`.
+- R2-1 z trim (3d7ea0b): 고도는 position hold 유지, 목표 z만 보정. PnP vertical을 기체 자세(쿼터니언)로
+  수평 프레임 하향 성분으로 돌림(피치 성분 제거) -> EMA -> 데드밴드 3cm(연속형) -> 적분 ki 0.3,
+  0.05m/s 상한, ±0.15m 클립. APPROACH/HOLD + 비전 신선(cmd_scale=1)일 때만 적분, 유실 중 동결. vlp.z 미사용.
+  - run7 정상 고도(200s): vert |중앙| 0.009m -> trim 2mm, HOLD 98%, ≤2mk 0, 회귀 없음.
+  - 카메라 12cm 하향 오프셋(`takeoff_alt:=1.138`, baro/추정 오프셋 대용) A/B, 각 200s:
+    run8 보정 — trim이 ~6s에 -0.09로 수렴, REACQUIRE 0, ≤2mk 0, 첫 HOLD 14.3s, z_sp 최대 변화율 0.025m/s,
+    z-z_sp |중앙| 5mm. run9 보정 끔 — vert -0.11m 고정, REACQUIRE 2, ≤2mk 구간 1, 첫 HOLD 23.4s.
+  - 관찰: HOLD 중 PnP 노이즈 스파이크(±0.06)가 데드밴드를 넘을 때마다 trim이 수 cm 랜덤워크
+    (run8 -0.09 -> -0.15 사이). 마커 중심 ±3cm 밖으로 가면 복원되므로 유계, 마진 영향 없음.
+  - 한계: run6형 급강하(0.4m/2~3s)는 0.05m/s 상한·±0.15m 클립으로 다 못 따라간다 — 의도적 선택(소폭·느리게).
+- R2-2 aruco 종료 (dbd243d): R1-07과 동일 + `ExternalShutdownException` 처리 + `try_shutdown()`.
+  run7~9 aruco.log에서 ExternalShutdownException 미처리 -> shutdown() 재호출 RCLError -> exit 1 재현.
+  단독 SIGINT 수정 전 3/3 exit 1, 수정 후 5/5 exit 0, run10 종료 Traceback 0.
+- R2-3 이탈 램프 (b59e6dc): HOLD -> APPROACH 시 명령 배율 0 -> 1 선형 1.0s(`hold_exit_ramp_s`). 임계 불변.
+  run10(300s) 이탈 1회: 첫 틱 0.001 -> 1.0s에 0.0327 m/s 선형(`run10_r2_hold_exit_trace.txt`),
+  run8(램프 전) 0 -> 0.039 한 틱 계단. HOLD 97%, chatter 0, ≤2mk 0, REACQUIRE 0.
+- 인프라: `run_full_auto.sh`에 `CTRL_ARGS`(제어 노드 추가 -p), `analyze_ibvs_log.py`에 z trim 섹션·≤2mk 구간 수,
+  `tools/hold_exit_trace.py` 추가.
