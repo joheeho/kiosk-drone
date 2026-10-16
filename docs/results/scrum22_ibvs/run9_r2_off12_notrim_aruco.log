@@ -1,0 +1,808 @@
+[INFO] [1792132682.531435515] [aruco_pnp_node]: aruco_pnp_node start img=/camera/image_raw info=/camera/camera_info target_wall=북
+[INFO] [1792132683.986097102] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132684.383181461] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132686.782676610] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132687.582496405] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132687.983562122] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132688.186153077] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132689.186338220] [aruco_pnp_node]: [walls seen] 동(2mk,0.7px)
+[INFO] [1792132689.911504081] [aruco_pnp_node]: [walls seen] 동(2mk,0.4px)
+[INFO] [1792132690.109025507] [aruco_pnp_node]: [walls seen] 동(2mk,1.0px)
+[INFO] [1792132691.307682384] [aruco_pnp_node]: [walls seen] 남(1mk,0.4px)
+[INFO] [1792132691.507452972] [aruco_pnp_node]: [walls seen] 남(2mk,1.0px)
+[INFO] [1792132692.307933822] [aruco_pnp_node]: [walls seen] 남(4mk,0.9px)
+[INFO] [1792132692.508311203] [aruco_pnp_node]: [walls seen] 남(4mk,0.8px)
+[INFO] [1792132692.909691829] [aruco_pnp_node]: [walls seen] 남(3mk,0.8px)
+[INFO] [1792132693.306044554] [aruco_pnp_node]: [walls seen] 남(4mk,1.0px)
+[INFO] [1792132693.908952364] [aruco_pnp_node]: [walls seen] 남(4mk,0.9px)
+[INFO] [1792132694.506528887] [aruco_pnp_node]: [walls seen] 남(2mk,0.7px)
+[INFO] [1792132695.307597360] [aruco_pnp_node]: [walls seen] 서(2mk,1.1px)
+[INFO] [1792132695.909049520] [aruco_pnp_node]: [walls seen] 서(1mk,0.2px)
+[INFO] [1792132696.708801081] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1792132696.905125921] [aruco_pnp_node]: [walls seen] 서(3mk,1.0px)
+[INFO] [1792132697.108471506] [aruco_pnp_node]: [walls seen] 서(4mk,0.9px)
+[INFO] [1792132697.306529537] [aruco_pnp_node]: [walls seen] 서(4mk,0.9px)
+[INFO] [1792132697.507366659] [aruco_pnp_node]: [walls seen] 서(4mk,0.9px)
+[INFO] [1792132697.908406638] [aruco_pnp_node]: [walls seen] 서(4mk,1.0px)
+[INFO] [1792132698.308166191] [aruco_pnp_node]: [walls seen] 서(4mk,1.1px)
+[INFO] [1792132699.907384889] [aruco_pnp_node]: [walls seen] 북(1mk,0.2px)
+[INFO] [1792132699.907655744] [aruco_pnp_node]: [gate] target=북 1mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132700.507658117] [aruco_pnp_node]: [walls seen] 북(2mk,0.6px)
+[INFO] [1792132701.307825870] [aruco_pnp_node]: [walls seen] 북(3mk,1.1px)
+[INFO] [1792132701.308331344] [aruco_pnp_node]: [PnP target=북] 3mk | fwd 2.893m | lat +0.230 | yaw +3.0deg | reproj 1.14px
+[INFO] [1792132701.506612428] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1792132701.506857343] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132702.307234056] [aruco_pnp_node]: [walls seen] 북(2mk,0.7px)
+[INFO] [1792132702.506805724] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132702.507376686] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 2.750m | lat -0.163 | yaw -2.2deg | reproj 0.99px
+[INFO] [1792132703.105054210] [aruco_pnp_node]: [walls seen] 북(2mk,0.6px)
+[INFO] [1792132703.105325255] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132703.508304975] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132703.509117716] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 2.488m | lat -0.233 | yaw -3.4deg | reproj 0.78px
+[INFO] [1792132704.106058812] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132704.106558042] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 2.318m | lat -0.263 | yaw -2.6deg | reproj 0.89px
+[INFO] [1792132704.507845831] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132704.508319445] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 2.206m | lat -0.269 | yaw -4.2deg | reproj 1.13px
+[INFO] [1792132705.307441250] [aruco_pnp_node]: [walls seen] 북(3mk,2.1px)
+[WARN] [1792132705.307950219] [aruco_pnp_node]: [PnP target=북] 3mk | fwd 1.960m | lat -0.245 | yaw -10.0deg | reproj 2.08px
+[INFO] [1792132705.706673282] [aruco_pnp_node]: [walls seen] 북(4mk,4.6px)
+[WARN] [1792132705.707167377] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.871m | lat -0.220 | yaw -12.7deg | reproj 4.57px
+[INFO] [1792132706.707229258] [aruco_pnp_node]: [walls seen] 북(4mk,5.9px)
+[WARN] [1792132706.708156569] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.665m | lat -0.110 | yaw -10.5deg | reproj 5.90px
+[INFO] [1792132706.908585169] [aruco_pnp_node]: [walls seen] 북(4mk,6.4px)
+[WARN] [1792132706.909067248] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.631m | lat -0.088 | yaw -10.4deg | reproj 6.39px
+[INFO] [1792132707.105609165] [aruco_pnp_node]: [walls seen] 북(4mk,6.6px)
+[WARN] [1792132707.106122401] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.599m | lat -0.065 | yaw -9.1deg | reproj 6.56px
+[INFO] [1792132707.507330233] [aruco_pnp_node]: [walls seen] 북(4mk,7.0px)
+[WARN] [1792132707.507855155] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.544m | lat -0.012 | yaw -7.2deg | reproj 6.98px
+[INFO] [1792132708.105438898] [aruco_pnp_node]: [walls seen] 북(4mk,7.1px)
+[WARN] [1792132708.105989978] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.478m | lat +0.067 | yaw -3.9deg | reproj 7.05px
+[INFO] [1792132708.308471542] [aruco_pnp_node]: [walls seen] 북(4mk,7.4px)
+[WARN] [1792132708.308953907] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.455m | lat +0.089 | yaw -2.5deg | reproj 7.36px
+[INFO] [1792132708.907428229] [aruco_pnp_node]: [walls seen] 북(4mk,7.4px)
+[WARN] [1792132708.907936480] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.395m | lat +0.139 | yaw +0.7deg | reproj 7.35px
+[INFO] [1792132711.105916360] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132711.106377489] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.245m | lat +0.179 | yaw +13.1deg | reproj 1.10px
+[INFO] [1792132711.906644982] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132711.907147900] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.241m | lat +0.168 | yaw +12.4deg | reproj 1.13px
+[INFO] [1792132712.307831962] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132712.308322240] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.238m | lat +0.149 | yaw +11.9deg | reproj 1.07px
+[INFO] [1792132712.511333457] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132712.511827625] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.237m | lat +0.134 | yaw +11.9deg | reproj 0.98px
+[INFO] [1792132712.707009970] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132712.707483852] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.237m | lat +0.116 | yaw +11.2deg | reproj 1.13px
+[INFO] [1792132712.906129643] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132712.906634608] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat +0.093 | yaw +10.3deg | reproj 0.98px
+[INFO] [1792132713.105295465] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132713.105784674] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.234m | lat +0.066 | yaw +9.4deg | reproj 1.03px
+[INFO] [1792132713.306948789] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132713.307445167] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.232m | lat +0.036 | yaw +8.6deg | reproj 0.86px
+[INFO] [1792132713.708180943] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132713.708704215] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.226m | lat -0.022 | yaw +6.5deg | reproj 1.11px
+[INFO] [1792132714.305768285] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132714.306253305] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.213m | lat -0.098 | yaw +3.5deg | reproj 0.94px
+[INFO] [1792132714.706693985] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132714.707182375] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.203m | lat -0.142 | yaw +2.2deg | reproj 1.02px
+[INFO] [1792132714.909105983] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132714.909632644] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.198m | lat -0.160 | yaw +1.3deg | reproj 1.06px
+[INFO] [1792132716.106771718] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132716.107252368] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat -0.207 | yaw -1.5deg | reproj 0.86px
+[INFO] [1792132717.507597803] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132717.508100919] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.169m | lat -0.196 | yaw -2.6deg | reproj 1.14px
+[INFO] [1792132718.506813169] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132718.507297024] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.172m | lat -0.174 | yaw -3.7deg | reproj 0.95px
+[INFO] [1792132718.911116300] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132718.911965352] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.169m | lat -0.162 | yaw -3.5deg | reproj 0.96px
+[INFO] [1792132719.105880399] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132719.106446879] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.169m | lat -0.152 | yaw -3.7deg | reproj 0.95px
+[INFO] [1792132719.507429383] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132719.508047754] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.166m | lat -0.128 | yaw -3.1deg | reproj 1.18px
+[INFO] [1792132719.708064994] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132719.708582442] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.166m | lat -0.114 | yaw -2.7deg | reproj 0.97px
+[INFO] [1792132720.306621298] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132720.307112924] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.162m | lat -0.073 | yaw -1.5deg | reproj 1.23px
+[INFO] [1792132720.506777997] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132720.507513032] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.162m | lat -0.057 | yaw -2.1deg | reproj 0.98px
+[INFO] [1792132720.705888236] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132720.706545328] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.162m | lat -0.046 | yaw -1.4deg | reproj 1.47px
+[INFO] [1792132721.706352694] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1792132721.706625624] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132721.907088446] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1792132722.706833439] [aruco_pnp_node]: [walls seen] 북(2mk,0.9px)
+[INFO] [1792132722.707082129] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132722.906814939] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1792132723.506563117] [aruco_pnp_node]: [walls seen] 북(2mk,1.2px)
+[INFO] [1792132723.706349345] [aruco_pnp_node]: [walls seen] 북(2mk,1.1px)
+[INFO] [1792132723.907190404] [aruco_pnp_node]: [walls seen] 북(2mk,0.9px)
+[INFO] [1792132723.907487595] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132724.907766053] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132724.908323257] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat +0.019 | yaw -0.2deg | reproj 1.00px
+[INFO] [1792132725.309864182] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132725.310582230] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.216m | lat +0.018 | yaw -0.8deg | reproj 1.32px
+[INFO] [1792132725.909916323] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132725.910578305] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.244m | lat +0.017 | yaw -0.7deg | reproj 0.94px
+[INFO] [1792132726.912093050] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132726.912575127] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.253m | lat +0.023 | yaw -0.4deg | reproj 1.00px
+[INFO] [1792132727.305881034] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132727.306399860] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.258m | lat +0.027 | yaw -0.2deg | reproj 1.01px
+[INFO] [1792132727.906963417] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132727.907418838] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.264m | lat +0.035 | yaw -0.9deg | reproj 1.15px
+[INFO] [1792132728.507631697] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132728.508284803] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.270m | lat +0.042 | yaw -1.2deg | reproj 1.02px
+[INFO] [1792132730.107367713] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132730.107887622] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.271m | lat +0.052 | yaw -1.0deg | reproj 1.08px
+[INFO] [1792132730.308346532] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132730.308807826] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.268m | lat +0.053 | yaw -0.7deg | reproj 1.12px
+[INFO] [1792132730.708822526] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132730.709304041] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.262m | lat +0.055 | yaw +0.1deg | reproj 1.02px
+[INFO] [1792132732.908213204] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132732.908708082] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.206m | lat +0.046 | yaw +0.0deg | reproj 0.87px
+[INFO] [1792132733.306186484] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132733.306689067] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.200m | lat +0.042 | yaw +0.4deg | reproj 1.25px
+[INFO] [1792132733.908389248] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132733.908872796] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.197m | lat +0.038 | yaw +0.9deg | reproj 1.40px
+[INFO] [1792132734.707672326] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132734.708313744] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.195m | lat +0.036 | yaw +0.9deg | reproj 1.09px
+[INFO] [1792132734.906975794] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132734.907460266] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.197m | lat +0.037 | yaw +0.3deg | reproj 1.27px
+[INFO] [1792132735.106788812] [aruco_pnp_node]: [walls seen] 북(4mk,1.8px)
+[INFO] [1792132735.107327627] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.198m | lat +0.036 | yaw +0.5deg | reproj 1.83px
+[INFO] [1792132735.508279641] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132735.508754476] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.197m | lat +0.035 | yaw -0.2deg | reproj 1.06px
+[INFO] [1792132735.906623857] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132735.907120687] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.198m | lat +0.033 | yaw -0.4deg | reproj 1.19px
+[INFO] [1792132736.107722712] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132736.108187240] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.200m | lat +0.030 | yaw +0.8deg | reproj 1.03px
+[INFO] [1792132736.508039265] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132736.508495787] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.202m | lat +0.031 | yaw +0.5deg | reproj 1.31px
+[INFO] [1792132736.907447592] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132736.907943575] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.201m | lat +0.034 | yaw -0.1deg | reproj 1.05px
+[INFO] [1792132737.106517260] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132737.107000370] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.204m | lat +0.032 | yaw +0.9deg | reproj 1.23px
+[INFO] [1792132737.907311474] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132737.907801433] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.205m | lat +0.038 | yaw -0.2deg | reproj 0.89px
+[INFO] [1792132738.507116893] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132738.507574945] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.209m | lat +0.040 | yaw +0.5deg | reproj 1.05px
+[INFO] [1792132738.707594794] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132738.708083808] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.209m | lat +0.041 | yaw +0.1deg | reproj 0.99px
+[INFO] [1792132739.307581905] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132739.308090641] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.211m | lat +0.037 | yaw +1.6deg | reproj 1.52px
+[INFO] [1792132739.505841060] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132739.506342690] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.211m | lat +0.038 | yaw +0.5deg | reproj 1.05px
+[INFO] [1792132740.709895561] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132740.710836774] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.214m | lat +0.031 | yaw +0.3deg | reproj 1.14px
+[INFO] [1792132741.308046800] [aruco_pnp_node]: [walls seen] 북(4mk,1.6px)
+[INFO] [1792132741.308582312] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.220m | lat +0.027 | yaw +1.1deg | reproj 1.56px
+[INFO] [1792132741.507412911] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132741.507918378] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.223m | lat +0.030 | yaw -0.6deg | reproj 1.01px
+[INFO] [1792132743.309324468] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132743.310005652] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.240m | lat +0.035 | yaw -0.8deg | reproj 1.36px
+[INFO] [1792132743.505821368] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132743.506351631] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.244m | lat +0.037 | yaw -0.9deg | reproj 1.55px
+[INFO] [1792132743.708321325] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132743.708837035] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.244m | lat +0.035 | yaw +0.0deg | reproj 0.82px
+[INFO] [1792132743.909150686] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132743.909642492] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.245m | lat +0.035 | yaw -0.1deg | reproj 1.20px
+[INFO] [1792132744.906262138] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132744.906754562] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.250m | lat +0.033 | yaw +0.4deg | reproj 0.81px
+[INFO] [1792132746.706191611] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132746.706666591] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.237m | lat +0.025 | yaw +0.7deg | reproj 0.97px
+[INFO] [1792132747.109892448] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132747.110392061] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat +0.027 | yaw -0.2deg | reproj 1.12px
+[INFO] [1792132747.714171182] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132747.714654247] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat +0.025 | yaw +0.8deg | reproj 1.17px
+[INFO] [1792132747.907403286] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132747.908225022] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat +0.026 | yaw +0.3deg | reproj 1.02px
+[INFO] [1792132748.705601557] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132748.706080505] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.241m | lat +0.025 | yaw +0.2deg | reproj 1.04px
+[INFO] [1792132749.708094527] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132749.708608291] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.241m | lat +0.027 | yaw +0.3deg | reproj 0.95px
+[INFO] [1792132750.106002018] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132750.106472394] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.237m | lat +0.026 | yaw +0.2deg | reproj 1.10px
+[INFO] [1792132750.307075298] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132750.307565194] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat +0.026 | yaw +0.3deg | reproj 1.09px
+[INFO] [1792132751.706305666] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132751.706809720] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.211m | lat +0.031 | yaw +0.0deg | reproj 1.18px
+[INFO] [1792132751.905830566] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132751.906313428] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.207m | lat +0.029 | yaw +0.5deg | reproj 1.19px
+[INFO] [1792132752.106785830] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132752.107236834] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.205m | lat +0.029 | yaw +0.5deg | reproj 1.09px
+[INFO] [1792132753.107485408] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132753.108229744] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.187m | lat +0.023 | yaw +0.0deg | reproj 1.05px
+[INFO] [1792132753.307672541] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132753.308173553] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat +0.021 | yaw +0.3deg | reproj 0.96px
+[INFO] [1792132753.505414640] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132753.505943281] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat +0.020 | yaw -0.1deg | reproj 1.03px
+[INFO] [1792132753.706259774] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132753.706755525] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat +0.019 | yaw -0.2deg | reproj 1.13px
+[INFO] [1792132754.305466922] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132754.305944647] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat +0.014 | yaw +0.2deg | reproj 1.18px
+[INFO] [1792132754.508685133] [aruco_pnp_node]: [walls seen] 북(4mk,11.1px)
+[WARN] [1792132754.509548768] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat +0.012 | yaw +0.6deg | reproj 11.12px
+[INFO] [1792132754.706987271] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132754.707704886] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.179m | lat +0.013 | yaw -0.0deg | reproj 0.93px
+[INFO] [1792132754.907743503] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132754.908624071] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.179m | lat +0.013 | yaw +0.4deg | reproj 0.99px
+[INFO] [1792132755.907112645] [aruco_pnp_node]: [walls seen] 북(4mk,10.4px)
+[WARN] [1792132755.907718622] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.013 | yaw +0.6deg | reproj 10.39px
+[INFO] [1792132756.106071795] [aruco_pnp_node]: [walls seen] 북(4mk,10.5px)
+[WARN] [1792132756.106607909] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.009 | yaw +2.0deg | reproj 10.49px
+[INFO] [1792132756.509018485] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132756.509506189] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.008 | yaw +0.6deg | reproj 1.13px
+[INFO] [1792132758.106139151] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132758.107011491] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat -0.023 | yaw +0.4deg | reproj 1.11px
+[INFO] [1792132758.906670773] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132758.907369903] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat -0.035 | yaw +0.3deg | reproj 1.30px
+[INFO] [1792132759.507189513] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132759.507701236] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.173m | lat -0.045 | yaw -0.7deg | reproj 1.33px
+[INFO] [1792132760.707268163] [aruco_pnp_node]: [walls seen] 북(2mk,1.2px)
+[INFO] [1792132760.707748910] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132761.109129942] [aruco_pnp_node]: [walls seen] 북(2mk,1.0px)
+[INFO] [1792132762.108190589] [aruco_pnp_node]: [walls seen] 북(2mk,1.4px)
+[INFO] [1792132762.108432131] [aruco_pnp_node]: [gate] target=북 2mk < 3mk -> 보류(마지막 pose 유지)
+[INFO] [1792132762.307971487] [aruco_pnp_node]: [walls seen] 북(2mk,0.9px)
+[INFO] [1792132763.307016208] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132763.307525899] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.172m | lat -0.073 | yaw +0.4deg | reproj 0.83px
+[INFO] [1792132763.507450183] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132763.507922041] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat -0.070 | yaw +0.1deg | reproj 0.91px
+[INFO] [1792132763.905679942] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132763.906220406] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.209m | lat -0.064 | yaw -0.2deg | reproj 1.12px
+[INFO] [1792132764.110074172] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132764.110585830] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.216m | lat -0.062 | yaw +0.7deg | reproj 0.99px
+[INFO] [1792132764.304954883] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132764.305587542] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.223m | lat -0.057 | yaw -0.2deg | reproj 1.00px
+[INFO] [1792132764.510177797] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132764.510746915] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.226m | lat -0.054 | yaw -0.3deg | reproj 1.20px
+[INFO] [1792132764.708672071] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132764.709200626] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.229m | lat -0.051 | yaw +0.0deg | reproj 1.03px
+[INFO] [1792132764.906177614] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132764.906656992] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.230m | lat -0.048 | yaw +0.4deg | reproj 0.95px
+[INFO] [1792132765.106025232] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132765.106712728] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.233m | lat -0.045 | yaw +0.1deg | reproj 0.92px
+[INFO] [1792132765.307943290] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132765.308457125] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.235m | lat -0.042 | yaw +0.1deg | reproj 1.07px
+[INFO] [1792132765.907244652] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132765.907751486] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.244m | lat -0.033 | yaw +1.3deg | reproj 1.36px
+[INFO] [1792132766.109952177] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132766.110645576] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.247m | lat -0.026 | yaw -0.1deg | reproj 1.26px
+[INFO] [1792132766.306613077] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132766.307167570] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.247m | lat -0.023 | yaw +0.6deg | reproj 1.14px
+[INFO] [1792132766.706511536] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132766.707000270] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.248m | lat -0.012 | yaw +0.3deg | reproj 1.15px
+[INFO] [1792132766.907007061] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132766.907487561] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.247m | lat -0.009 | yaw +1.3deg | reproj 1.15px
+[INFO] [1792132767.107203863] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132767.107690623] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.247m | lat -0.002 | yaw +0.3deg | reproj 1.20px
+[INFO] [1792132767.906462506] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132767.906972839] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.244m | lat +0.014 | yaw +0.3deg | reproj 1.10px
+[INFO] [1792132768.705829263] [aruco_pnp_node]: [walls seen] 북(4mk,7.9px)
+[WARN] [1792132768.706386676] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.245m | lat +0.018 | yaw +0.6deg | reproj 7.85px
+[INFO] [1792132769.911009085] [aruco_pnp_node]: [walls seen] 북(4mk,6.0px)
+[WARN] [1792132769.911753658] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.244m | lat +0.013 | yaw -0.0deg | reproj 5.95px
+[INFO] [1792132770.707383803] [aruco_pnp_node]: [walls seen] 북(4mk,5.7px)
+[WARN] [1792132770.707967165] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.243m | lat +0.010 | yaw -2.3deg | reproj 5.68px
+[INFO] [1792132773.305778462] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132773.306237183] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.247m | lat -0.018 | yaw +0.3deg | reproj 0.99px
+[INFO] [1792132773.707284165] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132773.707805782] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.250m | lat -0.020 | yaw +0.2deg | reproj 0.94px
+[INFO] [1792132774.305557020] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132774.306064118] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.257m | lat -0.020 | yaw -0.6deg | reproj 1.12px
+[INFO] [1792132775.105677719] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132775.106127325] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.276m | lat -0.025 | yaw +0.7deg | reproj 1.20px
+[INFO] [1792132778.106789706] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132778.107243269] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.270m | lat -0.008 | yaw +0.5deg | reproj 1.16px
+[INFO] [1792132778.910014816] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132778.910514264] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.258m | lat -0.009 | yaw +0.3deg | reproj 1.08px
+[INFO] [1792132779.107671128] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132779.108199873] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.252m | lat -0.009 | yaw -0.2deg | reproj 1.19px
+[INFO] [1792132779.508023708] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132779.508527127] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat -0.008 | yaw -0.3deg | reproj 1.08px
+[INFO] [1792132779.706561501] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132779.707084786] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.229m | lat -0.009 | yaw -0.0deg | reproj 0.99px
+[INFO] [1792132780.707214174] [aruco_pnp_node]: [walls seen] 북(4mk,7.1px)
+[WARN] [1792132780.707697809] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.197m | lat -0.010 | yaw +0.0deg | reproj 7.11px
+[INFO] [1792132781.510371848] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132781.511082235] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.182m | lat -0.021 | yaw +0.2deg | reproj 1.07px
+[INFO] [1792132782.707280109] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132782.707942423] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.167m | lat -0.034 | yaw -0.0deg | reproj 0.99px
+[INFO] [1792132783.106815860] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132783.107300561] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.163m | lat -0.036 | yaw -0.3deg | reproj 1.39px
+[INFO] [1792132783.706350698] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132783.706936797] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.154m | lat -0.042 | yaw -0.0deg | reproj 1.10px
+[INFO] [1792132784.307346647] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132784.307832920] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.148m | lat -0.046 | yaw +0.0deg | reproj 0.96px
+[INFO] [1792132785.110403227] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132785.110874156] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.135m | lat -0.044 | yaw -0.0deg | reproj 1.10px
+[INFO] [1792132785.307642670] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132785.308116167] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.135m | lat -0.043 | yaw -0.1deg | reproj 0.97px
+[INFO] [1792132785.706235061] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132785.706738343] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.134m | lat -0.041 | yaw +0.0deg | reproj 1.01px
+[INFO] [1792132785.907132830] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132785.907603030] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.135m | lat -0.039 | yaw +0.1deg | reproj 0.91px
+[INFO] [1792132786.107263533] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132786.107738596] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.136m | lat -0.039 | yaw +0.3deg | reproj 1.11px
+[INFO] [1792132786.705943735] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132786.706418620] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.143m | lat -0.036 | yaw +0.8deg | reproj 1.16px
+[INFO] [1792132787.909437448] [aruco_pnp_node]: [walls seen] 북(4mk,1.7px)
+[INFO] [1792132787.910156503] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.155m | lat -0.023 | yaw -0.8deg | reproj 1.71px
+[INFO] [1792132788.107754491] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132788.108257060] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.158m | lat -0.024 | yaw -0.0deg | reproj 0.96px
+[INFO] [1792132788.308237050] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132788.308744124] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.161m | lat -0.022 | yaw -0.0deg | reproj 0.82px
+[INFO] [1792132789.311244394] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132789.311765988] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.171m | lat -0.014 | yaw +0.0deg | reproj 1.08px
+[INFO] [1792132789.512902849] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132789.513378246] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.173m | lat -0.013 | yaw -0.1deg | reproj 1.18px
+[INFO] [1792132789.705731759] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132789.706251031] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.172m | lat -0.010 | yaw -0.5deg | reproj 0.95px
+[INFO] [1792132789.906238847] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132789.906751936] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.174m | lat -0.009 | yaw -0.5deg | reproj 1.13px
+[INFO] [1792132790.308737852] [aruco_pnp_node]: [walls seen] 북(4mk,7.1px)
+[WARN] [1792132790.309492702] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat -0.003 | yaw -1.4deg | reproj 7.10px
+[INFO] [1792132790.513537960] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132790.514033377] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.174m | lat -0.004 | yaw -0.3deg | reproj 1.49px
+[INFO] [1792132790.705393850] [aruco_pnp_node]: [walls seen] 북(4mk,7.6px)
+[WARN] [1792132790.705905283] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat -0.000 | yaw -1.7deg | reproj 7.64px
+[INFO] [1792132791.506835099] [aruco_pnp_node]: [walls seen] 북(4mk,9.7px)
+[WARN] [1792132791.507591442] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat -0.001 | yaw -0.1deg | reproj 9.65px
+[INFO] [1792132791.706756809] [aruco_pnp_node]: [walls seen] 북(4mk,6.8px)
+[WARN] [1792132791.707379080] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat +0.001 | yaw -0.8deg | reproj 6.77px
+[INFO] [1792132792.107477354] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132792.107960901] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.000 | yaw -0.0deg | reproj 1.40px
+[INFO] [1792132792.307661367] [aruco_pnp_node]: [walls seen] 북(4mk,7.8px)
+[WARN] [1792132792.308199778] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat +0.000 | yaw -0.1deg | reproj 7.78px
+[INFO] [1792132792.707179944] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132792.707680773] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat +0.002 | yaw -0.7deg | reproj 0.94px
+[INFO] [1792132793.308300979] [aruco_pnp_node]: [walls seen] 북(4mk,8.8px)
+[WARN] [1792132793.308948112] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.000 | yaw -0.7deg | reproj 8.81px
+[INFO] [1792132793.505727729] [aruco_pnp_node]: [walls seen] 북(4mk,8.7px)
+[WARN] [1792132793.506471505] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.002 | yaw -0.2deg | reproj 8.73px
+[INFO] [1792132794.305863315] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132794.306398511] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.182m | lat -0.006 | yaw +0.3deg | reproj 0.90px
+[INFO] [1792132794.506130647] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132794.506753975] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.182m | lat -0.007 | yaw +0.2deg | reproj 1.27px
+[INFO] [1792132795.106492189] [aruco_pnp_node]: [walls seen] 북(4mk,10.0px)
+[WARN] [1792132795.107205394] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat -0.006 | yaw -0.1deg | reproj 9.99px
+[INFO] [1792132795.507727288] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132795.508217786] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.176m | lat -0.006 | yaw +0.7deg | reproj 1.20px
+[INFO] [1792132796.507437440] [aruco_pnp_node]: [walls seen] 북(4mk,1.7px)
+[INFO] [1792132796.508036329] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.174m | lat +0.005 | yaw +0.3deg | reproj 1.71px
+[INFO] [1792132796.713802863] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132796.714353237] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.176m | lat +0.009 | yaw -0.8deg | reproj 1.25px
+[INFO] [1792132796.906043036] [aruco_pnp_node]: [walls seen] 북(4mk,1.6px)
+[INFO] [1792132796.906529748] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.013 | yaw -1.5deg | reproj 1.61px
+[INFO] [1792132797.107885920] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132797.108382138] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat +0.012 | yaw -0.3deg | reproj 0.91px
+[INFO] [1792132797.905545920] [aruco_pnp_node]: [walls seen] 북(4mk,8.6px)
+[WARN] [1792132797.906059195] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.190m | lat +0.012 | yaw +0.3deg | reproj 8.58px
+[INFO] [1792132798.507877446] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132798.508391667] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.193m | lat +0.010 | yaw +0.0deg | reproj 1.10px
+[INFO] [1792132799.105132683] [aruco_pnp_node]: [walls seen] 북(4mk,9.1px)
+[WARN] [1792132799.105637000] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.192m | lat +0.007 | yaw +0.3deg | reproj 9.09px
+[INFO] [1792132800.108791507] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132800.109288466] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat +0.001 | yaw +0.2deg | reproj 0.76px
+[INFO] [1792132800.306050589] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132800.306558405] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat -0.001 | yaw +0.2deg | reproj 1.07px
+[INFO] [1792132800.505478475] [aruco_pnp_node]: [walls seen] 북(4mk,10.6px)
+[WARN] [1792132800.506088927] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.004 | yaw +0.9deg | reproj 10.65px
+[INFO] [1792132800.705988416] [aruco_pnp_node]: [walls seen] 북(4mk,1.7px)
+[INFO] [1792132800.706467224] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat -0.007 | yaw +1.6deg | reproj 1.69px
+[INFO] [1792132801.907525100] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132801.908050705] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat -0.007 | yaw -0.0deg | reproj 1.01px
+[INFO] [1792132802.106070047] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132802.106551667] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.008 | yaw +0.0deg | reproj 0.95px
+[INFO] [1792132802.705687151] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132802.706202247] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.013 | yaw -0.5deg | reproj 1.20px
+[INFO] [1792132803.308264387] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132803.308986467] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.021 | yaw +0.3deg | reproj 0.89px
+[INFO] [1792132803.706962816] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132803.707469760] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat -0.024 | yaw -0.2deg | reproj 1.05px
+[INFO] [1792132803.908271605] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132803.908848660] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.186m | lat -0.026 | yaw -0.1deg | reproj 0.94px
+[INFO] [1792132804.108037810] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132804.108734289] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.189m | lat -0.027 | yaw -0.2deg | reproj 1.06px
+[INFO] [1792132805.707442301] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132805.708009297] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.199m | lat -0.021 | yaw -0.1deg | reproj 1.03px
+[INFO] [1792132805.907987867] [aruco_pnp_node]: [walls seen] 북(4mk,10.5px)
+[WARN] [1792132805.908507474] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.201m | lat -0.017 | yaw -0.4deg | reproj 10.47px
+[INFO] [1792132806.707618378] [aruco_pnp_node]: [walls seen] 북(4mk,10.0px)
+[WARN] [1792132806.708110168] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.205m | lat -0.001 | yaw -0.3deg | reproj 10.04px
+[INFO] [1792132806.908539925] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132806.909046495] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.205m | lat +0.003 | yaw -0.5deg | reproj 1.06px
+[INFO] [1792132807.107961545] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132807.108453493] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.204m | lat +0.005 | yaw +0.0deg | reproj 1.03px
+[INFO] [1792132807.307928781] [aruco_pnp_node]: [walls seen] 북(4mk,9.7px)
+[WARN] [1792132807.308531686] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.205m | lat +0.007 | yaw -0.1deg | reproj 9.75px
+[INFO] [1792132807.507009291] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132807.507528034] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.206m | lat +0.008 | yaw +0.2deg | reproj 1.05px
+[INFO] [1792132807.908004959] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132807.908480591] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.208m | lat +0.010 | yaw -0.0deg | reproj 0.99px
+[INFO] [1792132808.108700930] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132808.109418416] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.208m | lat +0.010 | yaw -0.0deg | reproj 0.80px
+[INFO] [1792132808.305608780] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132808.306094191] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.210m | lat +0.011 | yaw -0.2deg | reproj 0.92px
+[INFO] [1792132808.907483150] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132808.908170578] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.215m | lat +0.016 | yaw -0.2deg | reproj 1.02px
+[INFO] [1792132809.308121963] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132809.308610448] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.217m | lat +0.018 | yaw +0.2deg | reproj 1.00px
+[INFO] [1792132809.508595913] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132809.509526140] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.218m | lat +0.020 | yaw +0.0deg | reproj 0.96px
+[INFO] [1792132809.705869392] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132809.706377814] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.220m | lat +0.022 | yaw -0.6deg | reproj 1.09px
+[INFO] [1792132810.106690182] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132810.107224507] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.220m | lat +0.021 | yaw -0.2deg | reproj 1.10px
+[INFO] [1792132810.907421130] [aruco_pnp_node]: [walls seen] 북(4mk,2.0px)
+[INFO] [1792132810.907900212] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.222m | lat +0.018 | yaw +0.3deg | reproj 1.98px
+[INFO] [1792132811.105906045] [aruco_pnp_node]: [walls seen] 북(4mk,2.5px)
+[WARN] [1792132811.106423838] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.222m | lat +0.020 | yaw -1.0deg | reproj 2.46px
+[INFO] [1792132811.907965312] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132811.908478106] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.225m | lat +0.016 | yaw +0.1deg | reproj 1.05px
+[INFO] [1792132812.107133360] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132812.107688849] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.226m | lat +0.017 | yaw -0.6deg | reproj 1.38px
+[INFO] [1792132812.508781730] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132812.509310348] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.231m | lat +0.015 | yaw +0.1deg | reproj 1.30px
+[INFO] [1792132813.308691454] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132813.309184000] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.234m | lat +0.012 | yaw -0.5deg | reproj 1.25px
+[INFO] [1792132813.506267206] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132813.506830363] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.232m | lat +0.011 | yaw -0.9deg | reproj 1.34px
+[INFO] [1792132813.707785012] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132813.708265407] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.233m | lat +0.007 | yaw +0.0deg | reproj 0.86px
+[INFO] [1792132813.909054614] [aruco_pnp_node]: [walls seen] 북(4mk,0.5px)
+[INFO] [1792132813.909616977] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.231m | lat +0.005 | yaw +0.0deg | reproj 0.55px
+[INFO] [1792132814.109616466] [aruco_pnp_node]: [walls seen] 북(4mk,6.5px)
+[WARN] [1792132814.110152143] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.232m | lat +0.004 | yaw -0.1deg | reproj 6.46px
+[INFO] [1792132814.308673980] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132814.309488755] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.230m | lat +0.002 | yaw -0.0deg | reproj 1.20px
+[INFO] [1792132814.709022433] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132814.709492227] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.225m | lat -0.001 | yaw +0.3deg | reproj 1.04px
+[INFO] [1792132815.308313613] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132815.309110794] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.219m | lat -0.004 | yaw +0.0deg | reproj 0.98px
+[INFO] [1792132816.909546442] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132816.910087980] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.205m | lat -0.015 | yaw +0.2deg | reproj 1.17px
+[INFO] [1792132817.709192839] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132817.709805842] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.202m | lat -0.019 | yaw -0.8deg | reproj 1.00px
+[INFO] [1792132817.908927169] [aruco_pnp_node]: [walls seen] 북(4mk,9.0px)
+[WARN] [1792132817.909809412] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.203m | lat -0.019 | yaw -0.9deg | reproj 8.98px
+[INFO] [1792132818.311028333] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132818.311674822] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.201m | lat -0.024 | yaw +0.3deg | reproj 1.09px
+[INFO] [1792132818.510464592] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132818.511063318] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.204m | lat -0.025 | yaw +0.5deg | reproj 1.26px
+[INFO] [1792132819.910191320] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132819.911096723] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.213m | lat -0.026 | yaw +0.4deg | reproj 1.05px
+[INFO] [1792132820.510070156] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132820.510605266] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.218m | lat -0.020 | yaw -0.0deg | reproj 0.96px
+[INFO] [1792132820.709860474] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132820.710426274] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.219m | lat -0.017 | yaw -0.3deg | reproj 1.06px
+[INFO] [1792132821.509323012] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132821.510214600] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.219m | lat -0.012 | yaw -0.0deg | reproj 1.13px
+[INFO] [1792132821.710129807] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132821.710686017] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.222m | lat -0.012 | yaw +0.6deg | reproj 1.04px
+[INFO] [1792132821.909757411] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132821.910573782] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.222m | lat -0.010 | yaw -0.0deg | reproj 0.82px
+[INFO] [1792132822.308151315] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132822.308797952] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.225m | lat -0.008 | yaw -0.3deg | reproj 1.10px
+[INFO] [1792132823.110962233] [aruco_pnp_node]: [walls seen] 북(4mk,7.7px)
+[WARN] [1792132823.111552020] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.230m | lat -0.003 | yaw -1.1deg | reproj 7.68px
+[INFO] [1792132823.309431839] [aruco_pnp_node]: [walls seen] 북(4mk,8.4px)
+[WARN] [1792132823.310208537] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.232m | lat -0.003 | yaw -0.7deg | reproj 8.37px
+[INFO] [1792132823.909827147] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132823.910374512] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.236m | lat -0.004 | yaw -0.5deg | reproj 1.55px
+[INFO] [1792132824.108442514] [aruco_pnp_node]: [walls seen] 북(4mk,9.0px)
+[WARN] [1792132824.109339546] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.240m | lat -0.005 | yaw -0.6deg | reproj 9.01px
+[INFO] [1792132824.509736332] [aruco_pnp_node]: [walls seen] 북(4mk,9.8px)
+[WARN] [1792132824.510329731] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.242m | lat -0.005 | yaw -1.0deg | reproj 9.85px
+[INFO] [1792132825.508405408] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132825.509003537] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.243m | lat -0.005 | yaw -1.5deg | reproj 1.49px
+[INFO] [1792132825.914957246] [aruco_pnp_node]: [walls seen] 북(4mk,8.5px)
+[WARN] [1792132825.915689907] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.239m | lat -0.007 | yaw -0.8deg | reproj 8.46px
+[INFO] [1792132826.309505610] [aruco_pnp_node]: [walls seen] 북(4mk,9.0px)
+[WARN] [1792132826.310127040] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.234m | lat -0.008 | yaw -0.7deg | reproj 8.99px
+[INFO] [1792132826.508010942] [aruco_pnp_node]: [walls seen] 북(4mk,8.8px)
+[WARN] [1792132826.508604459] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.233m | lat -0.008 | yaw -0.6deg | reproj 8.80px
+[INFO] [1792132826.708809762] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132826.709373914] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.230m | lat -0.009 | yaw -0.5deg | reproj 0.93px
+[INFO] [1792132827.107236727] [aruco_pnp_node]: [walls seen] 북(4mk,8.8px)
+[WARN] [1792132827.107867079] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.225m | lat -0.006 | yaw -1.0deg | reproj 8.84px
+[INFO] [1792132827.309649290] [aruco_pnp_node]: [walls seen] 북(4mk,9.0px)
+[WARN] [1792132827.310313746] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.221m | lat -0.005 | yaw -0.9deg | reproj 9.03px
+[INFO] [1792132827.707287411] [aruco_pnp_node]: [walls seen] 북(4mk,10.6px)
+[WARN] [1792132827.707962805] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.211m | lat -0.003 | yaw -0.4deg | reproj 10.62px
+[INFO] [1792132828.111103568] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132828.111957694] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.204m | lat +0.000 | yaw -0.5deg | reproj 1.13px
+[INFO] [1792132828.508141041] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132828.508710462] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.197m | lat +0.001 | yaw -0.0deg | reproj 0.96px
+[INFO] [1792132828.710169516] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132828.710725195] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.196m | lat +0.003 | yaw -0.5deg | reproj 1.04px
+[INFO] [1792132828.910677480] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132828.911247090] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.194m | lat +0.004 | yaw -1.0deg | reproj 1.36px
+[INFO] [1792132829.111154040] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132829.112017996] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.191m | lat +0.001 | yaw +0.0deg | reproj 1.09px
+[INFO] [1792132829.511553798] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132829.512448326] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.190m | lat -0.001 | yaw +0.0deg | reproj 1.18px
+[INFO] [1792132830.310151706] [aruco_pnp_node]: [walls seen] 북(4mk,9.9px)
+[WARN] [1792132830.310716277] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat -0.005 | yaw -0.2deg | reproj 9.88px
+[INFO] [1792132830.713926507] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132830.715218367] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat -0.010 | yaw +0.7deg | reproj 1.46px
+[INFO] [1792132830.912000339] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132830.912664341] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat -0.011 | yaw -0.0deg | reproj 0.96px
+[INFO] [1792132831.107754510] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132831.108611311] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.173m | lat -0.013 | yaw +0.2deg | reproj 1.18px
+[INFO] [1792132831.510286640] [aruco_pnp_node]: [walls seen] 북(4mk,1.5px)
+[INFO] [1792132831.511151559] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat -0.016 | yaw -0.1deg | reproj 1.52px
+[INFO] [1792132831.915019297] [aruco_pnp_node]: [walls seen] 북(4mk,8.6px)
+[WARN] [1792132831.915926131] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat -0.017 | yaw -0.8deg | reproj 8.56px
+[INFO] [1792132832.110382346] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132832.110926009] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.176m | lat -0.020 | yaw +0.3deg | reproj 1.01px
+[INFO] [1792132832.314877763] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132832.315762027] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.179m | lat -0.021 | yaw +0.3deg | reproj 1.08px
+[INFO] [1792132832.712278244] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132832.713130870] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat -0.021 | yaw +0.3deg | reproj 1.03px
+[INFO] [1792132832.911365717] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132832.911970660] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.182m | lat -0.019 | yaw -0.8deg | reproj 1.16px
+[INFO] [1792132833.108889731] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132833.109716941] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.183m | lat -0.020 | yaw -0.0deg | reproj 0.88px
+[INFO] [1792132833.310027940] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132833.310689835] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat -0.018 | yaw -0.1deg | reproj 1.08px
+[INFO] [1792132833.508062766] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132833.508694225] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.186m | lat -0.017 | yaw +0.1deg | reproj 0.89px
+[INFO] [1792132833.910606196] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132833.911467152] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.190m | lat -0.012 | yaw -0.3deg | reproj 1.04px
+[INFO] [1792132835.110482499] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132835.111021836] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.204m | lat -0.008 | yaw +0.2deg | reproj 1.09px
+[INFO] [1792132837.111981153] [aruco_pnp_node]: [walls seen] 북(4mk,1.4px)
+[INFO] [1792132837.112590043] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.215m | lat +0.013 | yaw +0.1deg | reproj 1.38px
+[INFO] [1792132837.309411070] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132837.310061687] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.215m | lat +0.015 | yaw -0.2deg | reproj 1.13px
+[INFO] [1792132837.511821447] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132837.512443834] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.211m | lat +0.017 | yaw -0.5deg | reproj 0.89px
+[INFO] [1792132837.710390259] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132837.710928816] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.206m | lat +0.016 | yaw +0.0deg | reproj 1.07px
+[INFO] [1792132837.911066459] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132837.912020742] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.202m | lat +0.018 | yaw +0.1deg | reproj 1.26px
+[INFO] [1792132838.509201512] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132838.510042021] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.188m | lat +0.024 | yaw -0.5deg | reproj 0.77px
+[INFO] [1792132839.508884499] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132839.509489166] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.165m | lat +0.031 | yaw +0.1deg | reproj 1.06px
+[INFO] [1792132840.316658710] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132840.317314092] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.151m | lat +0.037 | yaw -0.8deg | reproj 1.22px
+[INFO] [1792132840.510518150] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132840.511575345] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.149m | lat +0.036 | yaw -0.2deg | reproj 0.82px
+[INFO] [1792132840.708116350] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132840.708692710] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.148m | lat +0.036 | yaw -0.6deg | reproj 0.95px
+[INFO] [1792132840.910189165] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132840.911016613] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.146m | lat +0.034 | yaw -0.1deg | reproj 1.04px
+[INFO] [1792132841.312640987] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132841.313190218] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.146m | lat +0.032 | yaw -0.2deg | reproj 0.95px
+[INFO] [1792132842.310596853] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132842.311190387] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.144m | lat +0.023 | yaw -0.7deg | reproj 1.16px
+[INFO] [1792132843.110692721] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132843.111335115] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.147m | lat +0.016 | yaw +0.2deg | reproj 1.07px
+[INFO] [1792132843.309423785] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132843.310017148] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.147m | lat +0.018 | yaw -0.0deg | reproj 1.18px
+[INFO] [1792132843.511490565] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132843.512149112] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.148m | lat +0.018 | yaw +0.0deg | reproj 0.97px
+[INFO] [1792132843.708840041] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132843.709387350] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.149m | lat +0.021 | yaw -0.3deg | reproj 0.88px
+[INFO] [1792132844.110679433] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132844.112051867] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.149m | lat +0.025 | yaw -0.2deg | reproj 0.93px
+[INFO] [1792132844.311595208] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132844.312367462] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.149m | lat +0.028 | yaw -0.1deg | reproj 1.18px
+[INFO] [1792132844.710563202] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132844.711117506] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.149m | lat +0.033 | yaw -0.1deg | reproj 0.96px
+[INFO] [1792132845.909113900] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132845.909716399] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.147m | lat +0.046 | yaw -0.4deg | reproj 1.01px
+[INFO] [1792132846.109813475] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132846.110400459] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.146m | lat +0.045 | yaw +0.1deg | reproj 0.91px
+[INFO] [1792132846.510509936] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132846.511171469] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.144m | lat +0.050 | yaw -0.5deg | reproj 1.14px
+[INFO] [1792132846.910154595] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132846.910711270] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.139m | lat +0.049 | yaw -0.2deg | reproj 1.04px
+[INFO] [1792132848.908977619] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132848.909708480] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.156m | lat +0.034 | yaw +0.2deg | reproj 1.08px
+[INFO] [1792132849.509988895] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132849.510551861] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.161m | lat +0.036 | yaw -0.7deg | reproj 1.24px
+[INFO] [1792132850.109620438] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132850.110165135] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.166m | lat +0.037 | yaw -0.1deg | reproj 0.91px
+[INFO] [1792132850.306976124] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132850.307521200] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.168m | lat +0.038 | yaw -0.0deg | reproj 1.01px
+[INFO] [1792132850.710289519] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132850.710833019] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.170m | lat +0.040 | yaw -0.3deg | reproj 0.86px
+[INFO] [1792132851.309418716] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132851.310048748] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat +0.046 | yaw -0.7deg | reproj 1.00px
+[INFO] [1792132851.510617588] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132851.511191230] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat +0.045 | yaw +0.2deg | reproj 1.10px
+[INFO] [1792132852.111181912] [aruco_pnp_node]: [walls seen] 북(4mk,1.7px)
+[INFO] [1792132852.111753274] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.044 | yaw +1.2deg | reproj 1.68px
+[INFO] [1792132852.310260121] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132852.310875114] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.176m | lat +0.047 | yaw -0.3deg | reproj 1.33px
+[INFO] [1792132852.509974141] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132852.510534770] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.044 | yaw +0.3deg | reproj 1.03px
+[INFO] [1792132853.110669164] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132853.111207245] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.039 | yaw +0.0deg | reproj 0.96px
+[INFO] [1792132853.310231630] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132853.310774672] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.041 | yaw -0.9deg | reproj 1.21px
+[INFO] [1792132853.510190800] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132853.510820935] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.037 | yaw -0.4deg | reproj 0.96px
+[INFO] [1792132854.114734796] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132854.115616563] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat +0.035 | yaw +0.2deg | reproj 1.04px
+[INFO] [1792132854.515047733] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132854.515617958] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.037 | yaw +0.2deg | reproj 1.21px
+[INFO] [1792132854.715311408] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132854.715894525] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.040 | yaw -0.2deg | reproj 1.05px
+[INFO] [1792132855.916911088] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132855.917486785] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat +0.045 | yaw -0.2deg | reproj 0.93px
+[INFO] [1792132856.114253312] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132856.114862990] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.186m | lat +0.046 | yaw -0.1deg | reproj 1.16px
+[INFO] [1792132856.314386173] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132856.314953649] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.187m | lat +0.048 | yaw -0.6deg | reproj 1.14px
+[INFO] [1792132856.514795968] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132856.515382508] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.187m | lat +0.049 | yaw -0.4deg | reproj 1.03px
+[INFO] [1792132857.516830619] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132857.517454021] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.192m | lat +0.057 | yaw -0.2deg | reproj 1.11px
+[INFO] [1792132857.719257810] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132857.719817332] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.193m | lat +0.060 | yaw -0.6deg | reproj 1.10px
+[INFO] [1792132858.715655941] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132858.716265572] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.193m | lat +0.070 | yaw -0.5deg | reproj 1.13px
+[INFO] [1792132858.915881082] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132858.916558964] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.191m | lat +0.073 | yaw -0.9deg | reproj 1.18px
+[INFO] [1792132859.520184824] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132859.520752693] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.191m | lat +0.078 | yaw -0.5deg | reproj 0.97px
+[INFO] [1792132860.518069065] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132860.518876201] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.187m | lat +0.083 | yaw -0.4deg | reproj 1.13px
+[INFO] [1792132860.716008885] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132860.716573253] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.186m | lat +0.083 | yaw +0.2deg | reproj 1.12px
+[INFO] [1792132861.119165081] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132861.119727870] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.086 | yaw -0.2deg | reproj 1.10px
+[INFO] [1792132861.519105236] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132861.519646543] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.086 | yaw -0.5deg | reproj 1.18px
+[INFO] [1792132861.717572782] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132861.718444336] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.177m | lat +0.085 | yaw -0.0deg | reproj 1.04px
+[INFO] [1792132861.914930034] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132861.915502317] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.176m | lat +0.086 | yaw -0.6deg | reproj 1.05px
+[INFO] [1792132862.116866154] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132862.117494462] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat +0.084 | yaw -0.7deg | reproj 1.13px
+[INFO] [1792132862.714959172] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132862.715801653] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.173m | lat +0.081 | yaw -0.2deg | reproj 1.20px
+[INFO] [1792132863.514899838] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132863.515609023] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.170m | lat +0.081 | yaw +0.3deg | reproj 1.23px
+[INFO] [1792132863.717915803] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132863.718901022] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.170m | lat +0.083 | yaw -0.5deg | reproj 0.89px
+[INFO] [1792132864.318820677] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132864.319547430] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.167m | lat +0.085 | yaw +0.0deg | reproj 0.98px
+[INFO] [1792132865.317348408] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132865.318273404] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.169m | lat +0.086 | yaw -0.7deg | reproj 1.15px
+[INFO] [1792132865.516006568] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132865.516588420] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.169m | lat +0.083 | yaw +0.2deg | reproj 1.08px
+[INFO] [1792132866.118286112] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132866.118903883] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.175m | lat +0.085 | yaw -0.5deg | reproj 0.96px
+[INFO] [1792132867.114563639] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132867.115135085] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.186m | lat +0.091 | yaw -0.8deg | reproj 1.11px
+[INFO] [1792132867.718183022] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132867.718806947] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.191m | lat +0.089 | yaw -0.0deg | reproj 0.86px
+[INFO] [1792132867.915944686] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132867.916524441] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.191m | lat +0.089 | yaw -0.0deg | reproj 1.05px
+[INFO] [1792132868.916705722] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132868.917304426] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.194m | lat +0.084 | yaw +0.1deg | reproj 1.20px
+[INFO] [1792132869.117101513] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132869.118015791] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.195m | lat +0.084 | yaw +0.2deg | reproj 1.20px
+[INFO] [1792132869.717154799] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132869.717756158] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.190m | lat +0.083 | yaw +0.2deg | reproj 1.17px
+[INFO] [1792132869.919106566] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132869.919675238] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.188m | lat +0.081 | yaw +0.5deg | reproj 1.15px
+[INFO] [1792132870.114880618] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132870.115716292] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.187m | lat +0.082 | yaw -0.0deg | reproj 1.02px
+[INFO] [1792132870.515788819] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132870.516603913] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.080 | yaw -0.1deg | reproj 1.09px
+[INFO] [1792132870.719658999] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132870.720229644] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat +0.079 | yaw -0.4deg | reproj 1.10px
+[INFO] [1792132870.914789301] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132870.915352149] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat +0.080 | yaw -0.5deg | reproj 0.95px
+[INFO] [1792132871.518267134] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132871.519158291] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat +0.077 | yaw -0.4deg | reproj 0.98px
+[INFO] [1792132871.918322042] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132871.919131175] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.179m | lat +0.078 | yaw -1.0deg | reproj 1.06px
+[INFO] [1792132872.114687097] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132872.115287389] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.180m | lat +0.078 | yaw -0.8deg | reproj 0.95px
+[INFO] [1792132872.519648506] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132872.520214660] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.079 | yaw -1.1deg | reproj 1.24px
+[INFO] [1792132872.916251163] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132872.916833556] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.178m | lat +0.078 | yaw -0.7deg | reproj 1.14px
+[INFO] [1792132873.317112553] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132873.317803312] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.181m | lat +0.079 | yaw -0.3deg | reproj 1.11px
+[INFO] [1792132874.120404382] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132874.121174924] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.185m | lat +0.088 | yaw -0.3deg | reproj 1.02px
+[INFO] [1792132874.920721123] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132874.921659065] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.186m | lat +0.102 | yaw -0.1deg | reproj 1.08px
+[INFO] [1792132875.119079711] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132875.119664420] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.106 | yaw -0.2deg | reproj 0.86px
+[INFO] [1792132875.316049348] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132875.316607356] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.111 | yaw -0.6deg | reproj 1.24px
+[INFO] [1792132875.720139313] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132875.720726907] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.117 | yaw -0.1deg | reproj 1.07px
+[INFO] [1792132875.915530791] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132875.916134580] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.122 | yaw -0.7deg | reproj 1.05px
+[INFO] [1792132876.117248688] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132876.117845070] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.184m | lat +0.124 | yaw -0.2deg | reproj 0.94px
+[INFO] [1792132876.515884776] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132876.516621745] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.187m | lat +0.129 | yaw -0.5deg | reproj 1.06px
+[INFO] [1792132877.116618007] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132877.117275471] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.190m | lat +0.135 | yaw -0.4deg | reproj 0.99px
+[INFO] [1792132877.516780229] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132877.517444555] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.190m | lat +0.135 | yaw -0.4deg | reproj 1.07px
+[INFO] [1792132877.716912704] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132877.717509333] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.189m | lat +0.133 | yaw -0.2deg | reproj 0.99px
+[INFO] [1792132878.314540947] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132878.315077794] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.179m | lat +0.117 | yaw +0.2deg | reproj 1.04px
+[INFO] [1792132878.514428346] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132878.514996944] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.173m | lat +0.111 | yaw +0.0deg | reproj 1.10px
+[INFO] [1792132878.718089071] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132878.718669582] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.168m | lat +0.103 | yaw -0.0deg | reproj 0.80px
+[INFO] [1792132878.914968224] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132878.915988471] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.162m | lat +0.095 | yaw -0.3deg | reproj 0.99px
+[INFO] [1792132879.120518538] [aruco_pnp_node]: [walls seen] 북(4mk,1.3px)
+[INFO] [1792132879.121287884] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.159m | lat +0.085 | yaw +0.3deg | reproj 1.31px
+[INFO] [1792132879.516759814] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132879.517740683] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.150m | lat +0.071 | yaw -0.5deg | reproj 1.20px
+[INFO] [1792132879.919491538] [aruco_pnp_node]: [walls seen] 북(4mk,0.8px)
+[INFO] [1792132879.920387691] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.142m | lat +0.054 | yaw +0.0deg | reproj 0.82px
+[INFO] [1792132880.514872042] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132880.515485690] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.135m | lat +0.032 | yaw +0.7deg | reproj 1.16px
+[INFO] [1792132881.314435277] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132881.314964867] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.127m | lat +0.017 | yaw -0.8deg | reproj 1.17px
+[INFO] [1792132881.514577263] [aruco_pnp_node]: [walls seen] 북(4mk,0.9px)
+[INFO] [1792132881.515346103] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.127m | lat +0.013 | yaw +0.0deg | reproj 0.93px
+[INFO] [1792132881.918400181] [aruco_pnp_node]: [walls seen] 북(4mk,1.2px)
+[INFO] [1792132881.918948911] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.122m | lat +0.008 | yaw +0.2deg | reproj 1.24px
+[INFO] [1792132882.715929825] [aruco_pnp_node]: [walls seen] 북(4mk,12.0px)
+[WARN] [1792132882.716794046] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.124m | lat +0.002 | yaw +0.2deg | reproj 12.00px
+[INFO] [1792132882.916057729] [aruco_pnp_node]: [walls seen] 북(4mk,12.1px)
+[WARN] [1792132882.916646763] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.126m | lat +0.001 | yaw +0.1deg | reproj 12.09px
+[INFO] [1792132883.516181823] [aruco_pnp_node]: [walls seen] 북(4mk,11.6px)
+[WARN] [1792132883.516868986] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.133m | lat +0.001 | yaw +0.1deg | reproj 11.60px
+[INFO] [1792132884.115874123] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132884.116427298] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.139m | lat +0.001 | yaw -0.0deg | reproj 0.96px
+[INFO] [1792132884.313754138] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132884.314301748] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.139m | lat +0.002 | yaw -0.3deg | reproj 1.03px
+[INFO] [1792132884.718360170] [aruco_pnp_node]: [walls seen] 북(4mk,11.7px)
+[WARN] [1792132884.718993316] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.144m | lat +0.002 | yaw -0.7deg | reproj 11.75px
+[INFO] [1792132885.119028467] [aruco_pnp_node]: [walls seen] 북(4mk,1.0px)
+[INFO] [1792132885.119719118] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.145m | lat +0.001 | yaw -0.2deg | reproj 1.01px
+[INFO] [1792132886.116315027] [aruco_pnp_node]: [walls seen] 북(3mk,3.2px)
+[WARN] [1792132886.116921953] [aruco_pnp_node]: [PnP target=북] 3mk | fwd 1.135m | lat -0.007 | yaw +4.4deg | reproj 3.19px
+[INFO] [1792132887.115251951] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132887.115830629] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.146m | lat -0.008 | yaw -0.2deg | reproj 1.07px
+[INFO] [1792132887.315721071] [aruco_pnp_node]: [walls seen] 북(4mk,1.1px)
+[INFO] [1792132887.316288706] [aruco_pnp_node]: [PnP target=북] 4mk | fwd 1.145m | lat -0.011 | yaw +0.3deg | reproj 1.06px
+Traceback (most recent call last):
+  File "/home/joheeho/kiosk_drone_ws/build/kiosk_vision/kiosk_vision/aruco_pnp_node.py", line 230, in main
+    rclpy.spin(node)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 247, in spin
+    executor.spin_once()
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 926, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 907, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 877, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 785, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/joheeho/kiosk_drone_ws/install/kiosk_vision/lib/kiosk_vision/aruco_pnp_node", line 33, in <module>
+    sys.exit(load_entry_point('kiosk-vision', 'console_scripts', 'aruco_pnp_node')())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/joheeho/kiosk_drone_ws/build/kiosk_vision/kiosk_vision/aruco_pnp_node.py", line 235, in main
+    rclpy.shutdown()
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 134, in shutdown
+    _shutdown(context=context)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/utilities.py", line 82, in shutdown
+    context.shutdown()
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/context.py", line 129, in shutdown
+    self.__context.shutdown()
+rclpy._rclpy_pybind11.RCLError: failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:333
+[ros2run]: Process exited with failure 1

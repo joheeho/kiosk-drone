@@ -92,6 +92,15 @@ TOL_YAW_EXIT_DEG = 6.0
 RETREAT_NEAR_FWD_M = 1.3  # m
 RETREAT_SPEED = 0.1       # m/s
 RETREAT_MAX_S = 3.0       # s
+# 고도 수직 보정(z trim, SCRUM-22 R2): 고도는 position hold(z=-takeoff_alt) 그대로 두고, 마커가
+# 화면상 위/아래로 치우친 만큼 목표 z만 느리게 옮긴다. 상하 화각 마진(standoff 1.15m에서 ~0.14m)을
+# 고도·추정 드리프트가 갉아먹어 마커가 위아래로 잘리던 문제(run6 +150s) 대응.
+# 오차는 PnP vertical(카메라 프레임)을 기체 자세로 수평 프레임 하향 성분으로 돌린 값 — 피치 2~3°가
+# 1.15m에서 4~6cm로 섞이는 것을 걸러낸다. 적분(ki)·속도 상한·클립으로 '소폭·느리게'를 보장.
+Z_TRIM_KI = 0.3          # 1/s — 하향 오차[m] -> z trim 변화율[m/s] (시정수 ~3s, PX4 z 루프보다 느리게)
+Z_TRIM_DEADBAND = 0.03   # m — 이 안의 오차는 무시(미세 떨림). 밖에선 데드밴드만큼 뺀 값을 써서 연속
+Z_TRIM_RATE_MAX = 0.05   # m/s — 목표 z 이동 속도 상한
+Z_TRIM_MAX = 0.15        # m — 목표 z 보정 총량 클립(takeoff_alt 기준 ±)
 
 
 def wrap_pi(a):
@@ -162,6 +171,10 @@ class ApproachControlNode(Node):
         self.declare_parameter('retreat_near_fwd_m', RETREAT_NEAR_FWD_M)
         self.declare_parameter('retreat_speed', RETREAT_SPEED)
         self.declare_parameter('retreat_max_s', RETREAT_MAX_S)
+        self.declare_parameter('z_trim_ki', Z_TRIM_KI)  # 0이면 보정 끔(기존 고정 고도)
+        self.declare_parameter('z_trim_deadband', Z_TRIM_DEADBAND)
+        self.declare_parameter('z_trim_rate_max', Z_TRIM_RATE_MAX)
+        self.declare_parameter('z_trim_max', Z_TRIM_MAX)
 
         self.level = int(self.get_parameter('bringup_level').value)
         self.target_wall = self.get_parameter('target_wall').value
@@ -195,6 +208,10 @@ class ApproachControlNode(Node):
         self.retreat_near_fwd = float(self.get_parameter('retreat_near_fwd_m').value)
         self.retreat_speed = float(self.get_parameter('retreat_speed').value)
         self.retreat_max_s = float(self.get_parameter('retreat_max_s').value)
+        self.z_trim_ki = float(self.get_parameter('z_trim_ki').value)
+        self.z_trim_deadband = float(self.get_parameter('z_trim_deadband').value)
+        self.z_trim_rate_max = float(self.get_parameter('z_trim_rate_max').value)
+        self.z_trim_max = float(self.get_parameter('z_trim_max').value)
 
         # 콜백 그룹 3개 + MultiThreadedExecutor(main() 참고):
         # - logic_group(상호배제): 비전 콜백(EMA·decide)과 on_timer(상태머신). 둘 다 같은
@@ -232,9 +249,13 @@ class ApproachControlNode(Node):
         self.last_target_time = None
         self.ema_lateral = None
         self.ema_yaw_err_deg = None
+        self.ema_vert = None
+        # 목표 고도 보정량[m, NED +=아래]. on_timer(로직)만 쓰고 on_setpoint_timer(스트림)는
+        # 읽기만 한다 — float 하나 대입이라 스레드 간 반쯤 갱신된 값은 없다.
+        self.z_trim = 0.0
 
         # decide()가 비전 프레임마다 한 번 계산하는 상대속도 명령 (그 사이엔 그대로 유지).
-        # (vf, vr, yaw_rate, stamp, forward_err, lateral_err, yaw_err)를 한 튜플로 묶어
+        # (vf, vr, yaw_rate, stamp, forward_err, lateral_err, yaw_err, vert_err)를 한 튜플로 묶어
         # 통째로 교체한다 — 비전 콜백과 on_timer가 다른 스레드에서 도니까, 필드를 따로
         # 두면 명령은 새 프레임 건데 오차는 이전 프레임 값인 조합으로 HOLD 판정이 날 수 있다.
         self.vision_cmd = None
@@ -261,7 +282,9 @@ class ApproachControlNode(Node):
             f'(marker_center_height={self.marker_center_height}m - camera_mount_offset={self.camera_mount_offset}m) '
             f'kp_fwd={self.kp_fwd} kp_lat={self.kp_lat} kp_yaw={self.kp_yaw} v_max={self.v_max} '
             f'yaw_rate_max={math.degrees(self.yaw_rate_max):.0f}deg/s '
-            f'cmd_hold={self.cmd_hold_s}s cmd_decay={self.cmd_decay_s}s ema_alpha={self.ema_alpha}')
+            f'cmd_hold={self.cmd_hold_s}s cmd_decay={self.cmd_decay_s}s ema_alpha={self.ema_alpha} '
+            f'z_trim(ki={self.z_trim_ki} db={self.z_trim_deadband}m rate<={self.z_trim_rate_max}m/s '
+            f'|trim|<={self.z_trim_max}m)')
 
     # ---- subscriptions ----
     def on_local_position(self, msg):
@@ -288,14 +311,17 @@ class ApproachControlNode(Node):
         R = quat_to_rotmat(msg.pose.orientation.x, msg.pose.orientation.y,
                             msg.pose.orientation.z, msg.pose.orientation.w)
         raw_yaw_err_deg = yaw_err_from_R(R)
+        raw_vert = self.level_down_offset(msg.pose.position)
         if self.ema_lateral is None:
             self.ema_lateral = raw_lateral
             self.ema_yaw_err_deg = raw_yaw_err_deg
+            self.ema_vert = raw_vert
         else:
             a = self.ema_alpha
             self.ema_lateral = a * raw_lateral + (1.0 - a) * self.ema_lateral
             # 각도는 선형 평균하면 ±180deg 경계에서 깨짐 -> wrap된 델타로 갱신
             self.ema_yaw_err_deg += a * wrap_deg_diff(raw_yaw_err_deg, self.ema_yaw_err_deg)
+            self.ema_vert = a * raw_vert + (1.0 - a) * self.ema_vert
 
         self.decide(raw_forward)
 
@@ -324,12 +350,39 @@ class ApproachControlNode(Node):
             vr = 0.0
 
         self.vision_cmd = (vf, vr, yaw_rate, self.get_clock().now(),
-                           forward_err, lateral_err, yaw_err)
+                           forward_err, lateral_err, yaw_err, self.ema_vert)
 
     # ---- helpers ----
     def current_yaw(self):
         w, x, y, z = self.att.q  # Hamilton, FRD body -> NED, order (w,x,y,z)
         return math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
+
+    def level_down_offset(self, p):
+        """카메라 프레임 타겟 위치(x 우, y 하, z 전방)를 수평(자세 보상) 프레임 하향 성분으로.
+        +면 마커 중심이 카메라보다 아래 -> 내려가야 한다. 카메라는 기체에 피치 0으로 고정
+        (x500_depth CameraJoint)이라 카메라 (x,y,z) = FRD 기체 (y,z,x). 자세 미수신이면 그대로."""
+        if self.att is None:
+            return p.y
+        w, x, y, z = self.att.q
+        # FRD -> NED 회전행렬의 3행(NED down) · 기체 벡터 — yaw와 무관, roll/pitch만 반영
+        return (2.0 * (x * z - w * y) * p.z
+                + 2.0 * (y * z + w * x) * p.x
+                + (1.0 - 2.0 * (x * x + y * y)) * p.y)
+
+    def update_z_trim(self, vc, dt):
+        """APPROACH/HOLD에서 비전이 신선할 때만 목표 고도 보정량을 적분(데드밴드·속도 상한·클립).
+        유실(REACQUIRE/SEARCH) 중엔 마지막 값 동결. 절대위치(vlp.z)는 쓰지 않는다."""
+        gate_level = FULL if self.level == LOG_ONLY else self.level
+        if (gate_level < YAW or self.z_trim_ki <= 0.0 or vc is None
+                or self.state not in ('APPROACH', 'HOLD') or self.cmd_scale(vc[3]) < 1.0):
+            return
+        e = vc[7]
+        if abs(e) <= self.z_trim_deadband:
+            return
+        e -= math.copysign(self.z_trim_deadband, e)
+        rate = clip(self.z_trim_ki * e, self.z_trim_rate_max)
+        # dt 상한: 로직 루프가 멈췄다 돌아와도 한 번에 크게 뛰지 않도록
+        self.z_trim = clip(self.z_trim + rate * min(dt, 0.1), self.z_trim_max)
 
     def target_lost(self):
         # 프레임 단위 순간 미검출(self.target_visible=False)만으로 즉시 SEARCH로 튀지
@@ -364,13 +417,16 @@ class ApproachControlNode(Node):
 
         vf, vr, yaw_rate, _ = cmd
         vc = self.vision_cmd
+        self.update_z_trim(vc, dt)
         err_str = (f'fwd_err={vc[4]:+.3f} lat_err={vc[5]:+.3f} yaw_err={math.degrees(vc[6]):+.1f}deg '
                    if vc is not None else '')
+        vert_str = f'vert_err={vc[7]:+.3f} ' if vc is not None else ''
         # cur_ned는 비교용 로그 전용 — 제어 경로(decide/상태머신/발행부)는 참조하지 않는다.
         ned_str = (f'cur_ned(log)=({self.vlp.x:.3f},{self.vlp.y:.3f},{self.vlp.z:.3f}) '
                    if self.vlp is not None else '')
         log = (f'[{LEVEL_NAMES[self.level]}][{self.state}] {err_str}'
                f'cmd_frd=(vf={vf:+.3f},vr={vr:+.3f},yaw_rate={math.degrees(yaw_rate):+.1f}deg/s) '
+               f'{vert_str}z_sp={-self.takeoff_alt + self.z_trim:.3f} '
                f'yaw={math.degrees(self.current_yaw()):+.1f}deg {ned_str}dt={dt:.3f}s')
 
         if self.level == LOG_ONLY:
@@ -469,7 +525,7 @@ class ApproachControlNode(Node):
         if self.target_lost() or vc is None:
             return self._handle_lost(now)
 
-        vf, vr, yaw_rate, stamp, forward_err, lateral_err, yaw_err = vc
+        vf, vr, yaw_rate, stamp, forward_err, lateral_err, yaw_err, _ = vc
         # HOLD 히스테리시스: 진입은 tol_*(타이트), 이미 HOLD면 *_exit(느슨)를 벗어날
         # 때까지 유지 — 데드존 안에선 v=0, 벗어나면 APPROACH로 재서보.
         if self.state == 'HOLD':
@@ -504,10 +560,10 @@ class ApproachControlNode(Node):
         self.offboard_mode_pub.publish(msg)
 
     def publish_trajectory_setpoint(self, vx, vy, yaw_rate):
-        """혼합 setpoint: 수평은 NED 속도, 고도만 position(z=-takeoff_alt, 이륙도 이걸로),
+        """혼합 setpoint: 수평은 NED 속도, 고도만 position(z=-takeoff_alt+z_trim, 이륙도 이걸로),
         yaw는 NaN + yawspeed. 수평 position이 NaN이라 PX4가 수평 위치를 붙잡지 않는다."""
         msg = TrajectorySetpoint()
-        msg.position = [math.nan, math.nan, float(-self.takeoff_alt)]
+        msg.position = [math.nan, math.nan, float(-self.takeoff_alt + self.z_trim)]
         msg.velocity = [float(vx), float(vy), math.nan]
         msg.yaw = math.nan
         msg.yawspeed = float(yaw_rate)

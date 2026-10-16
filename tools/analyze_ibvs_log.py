@@ -11,6 +11,8 @@ ROW = re.compile(
     r'cmd_frd=\(vf=([-+\d.]+),vr=([-+\d.]+),yaw_rate=([-+\d.]+)deg/s\).*?'
     r'cur_ned\(log\)=\(([-\d.]+),([-\d.]+),([-\d.]+)\) dt=([\d.]+)s')
 
+ZROW = re.compile(r'\[(\d+\.\d+)\].*vert_err=([-+\d.]+) z_sp=([-\d.]+) .*?cur_ned\(log\)=\([-\d.]+,[-\d.]+,([-\d.]+)\)')
+
 
 def main(ctrl_log, aruco_log):
     rows = [m.groups() for m in map(ROW.search, open(ctrl_log)) if m]
@@ -53,7 +55,7 @@ def main(ctrl_log, aruco_log):
     v = [float(r[4]) for r in hold]
     print(f'  yaw_err: {min(v):+.1f} .. {max(v):+.1f} deg')
     z = [float(r[10]) for r in post]
-    print(f'  고도 z: {min(z):.3f} .. {max(z):.3f} (목표 -1.258)')
+    print(f'  고도 z: {min(z):.3f} .. {max(z):.3f} (기본 목표 -1.258)')
     n = [float(r[8]) for r in post]
     e = [float(r[9]) for r in post]
     print(f'  cur_ned(로그 전용) 범위: n {max(n) - min(n):.3f}m, e {max(e) - min(e):.3f}m')
@@ -69,11 +71,29 @@ def main(ctrl_log, aruco_log):
         if m and float(m.group(1)) >= t_hold:
             mk.append(int(m.group(2)))
     low = sum(1 for n in mk if n <= 2)
+    runs = sum(1 for a, b in zip([3] + mk, mk) if a > 2 >= b)  # ≤2mk 연속 구간 수
     print('\n## 첫 HOLD 이후 검출 마커 수')
     print(f'  프레임 {len(mk)}개: ' + ', '.join(f'{k}mk {mk.count(k)}' for k in sorted(set(mk)))
-          + f' -> ≤2mk {low}개 ({low / max(len(mk), 1) * 100:.1f}%)')
+          + f' -> ≤2mk {low}개 ({low / max(len(mk), 1) * 100:.1f}%), 구간 {runs}개')
     lost = sum(1 for _, s in trans if s == 'REACQUIRE')
     print(f'  REACQUIRE 진입 {lost}회')
+
+    zrows = [(float(m.group(1)), float(m.group(2)), float(m.group(3)), float(m.group(4)))
+             for m in map(ZROW.search, open(ctrl_log)) if m and float(m.group(1)) >= t_app]
+    if zrows:  # R2 이후 로그만 (vert_err/z_sp 필드)
+        print('\n## 고도 수직 보정 (z trim, APPROACH 이후)')
+        zt = [r[0] for r in zrows]
+        vert = [r[1] for r in zrows]
+        zsp = [r[2] for r in zrows]
+        zcur = [r[3] for r in zrows]
+        rate = lambda v: max((abs(b - a) / max(tb - ta, 1e-3) for (ta, a), (tb, b)
+                              in zip(zip(zt, v), zip(zt[1:], v[1:])) if tb - ta > 0.2), default=0.0)
+        print(f'  vert_err(수평 하향): {min(vert):+.3f} .. {max(vert):+.3f} m, '
+              f'|중앙| {S.median(abs(v) for v in vert):.3f} m')
+        print(f'  z_sp: {min(zsp):.3f} .. {max(zsp):.3f} (끝 {zsp[-1]:.3f}), 최대 변화율 {rate(zsp):.3f} m/s')
+        trk = [c - z for c, z in zip(zcur, zsp)]
+        print(f'  z(실측 로그) - z_sp: {min(trk):+.3f} .. {max(trk):+.3f} m, '
+              f'|중앙| {S.median(abs(v) for v in trk):.3f} m; z 실측 최대 변화율 {rate(zcur):.3f} m/s')
 
     ts = [float(re.search(r'\[(\d+\.\d+)\]', l).group(1)) for l in open(aruco_log) if '[PnP target=' in l]
     iv = sorted(b - a for a, b in zip(ts, ts[1:]) if a >= t_app - 1)

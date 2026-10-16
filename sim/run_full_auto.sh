@@ -11,12 +11,14 @@
 # STOP_INFRA=1 이면 함께 종료한다.
 #
 # 환경변수: TARGET_WALL(동) BRINGUP_LEVEL(4) STOP_INFRA(0) WAIT_TIMEOUT(120)
+#           CTRL_ARGS("") — approach_control_node에 추가 -p 인자 (예: "-p z_trim_ki:=0.0")
 set -euo pipefail
 
 TARGET_WALL="${TARGET_WALL:-동}"
 BRINGUP_LEVEL="${BRINGUP_LEVEL:-4}"
 STOP_INFRA="${STOP_INFRA:-0}"
 WAIT_TIMEOUT="${WAIT_TIMEOUT:-120}"
+read -r -a CTRL_ARGS_ARR <<< "${CTRL_ARGS:-}"
 WORLD=kiosk_4walls
 
 SIM_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -133,7 +135,7 @@ sleep 3
 
 echo "== 5) approach_control_node (bringup_level=${BRINGUP_LEVEL}) =="
 ros2 run kiosk_vision approach_control_node --ros-args -p "bringup_level:=${BRINGUP_LEVEL}" \
-    -p "target_wall:=${TARGET_WALL}" \
+    -p "target_wall:=${TARGET_WALL}" "${CTRL_ARGS_ARR[@]}" \
     > "${LOG_DIR}/approach_control.log" 2>&1 &
 PIDS+=($!)
 
