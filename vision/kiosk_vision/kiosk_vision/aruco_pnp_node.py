@@ -6,6 +6,8 @@ pose만 /target/pose 로 발행한다 (판단부: 타겟 벽이 안 보이면 �
 import numpy as np
 import cv2
 import rclpy
+from rclpy.executors import ExternalShutdownException
+from rclpy.impl.implementation_singleton import rclpy_implementation as _rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import Image, CameraInfo
@@ -228,11 +230,20 @@ def main(args=None):
     node = ArucoPnPNode()
     try:
         rclpy.spin(node)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
+    except _rclpy.RCLError:
+        # approach_control_node.main()과 같은 처리(R1-07): SIGINT 시 시그널 핸들러가 context를
+        # 먼저 내리면 spin이 wait set 재생성에서 RCLError로 터질 수 있다. 종료 중일 때만 정상
+        # 종료로 취급하고, 살아있는 context에서 난 RCLError는 그대로 올린다.
+        # (실측 run7 aruco.log: 이번엔 ExternalShutdownException 미처리 -> 아래 shutdown()도 실패, exit 1)
+        if rclpy.ok():
+            raise
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        # shutdown() 대신 try_shutdown(): 이미 내려간 context에 shutdown()을 부르면
+        # 'rcl_shutdown already called' RCLError로 다시 exit 1 (같은 로그에서 확인).
+        rclpy.try_shutdown()
 
 
 if __name__ == '__main__':
