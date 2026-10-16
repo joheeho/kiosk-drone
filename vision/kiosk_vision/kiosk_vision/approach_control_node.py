@@ -101,6 +101,9 @@ Z_TRIM_KI = 0.3          # 1/s — 하향 오차[m] -> z trim 변화율[m/s] (�
 Z_TRIM_DEADBAND = 0.03   # m — 이 안의 오차는 무시(미세 떨림). 밖에선 데드밴드만큼 뺀 값을 써서 연속
 Z_TRIM_RATE_MAX = 0.05   # m/s — 목표 z 이동 속도 상한
 Z_TRIM_MAX = 0.15        # m — 목표 z 보정 총량 클립(takeoff_alt 기준 ±)
+# HOLD 이탈 램프(SCRUM-22 R2): HOLD(명령 0) -> APPROACH 재서보 순간 kp×오차로 계단 인가되던 명령을
+# 이 시간에 걸쳐 0 -> 1 선형으로 올린다. 임계값(tol_*_exit)은 그대로 — 전이 판정은 바꾸지 않는다.
+HOLD_EXIT_RAMP_S = 1.0   # s
 
 
 def wrap_pi(a):
@@ -175,6 +178,7 @@ class ApproachControlNode(Node):
         self.declare_parameter('z_trim_deadband', Z_TRIM_DEADBAND)
         self.declare_parameter('z_trim_rate_max', Z_TRIM_RATE_MAX)
         self.declare_parameter('z_trim_max', Z_TRIM_MAX)
+        self.declare_parameter('hold_exit_ramp_s', HOLD_EXIT_RAMP_S)  # 0이면 램프 끔(기존 계단)
 
         self.level = int(self.get_parameter('bringup_level').value)
         self.target_wall = self.get_parameter('target_wall').value
@@ -212,6 +216,7 @@ class ApproachControlNode(Node):
         self.z_trim_deadband = float(self.get_parameter('z_trim_deadband').value)
         self.z_trim_rate_max = float(self.get_parameter('z_trim_rate_max').value)
         self.z_trim_max = float(self.get_parameter('z_trim_max').value)
+        self.hold_exit_ramp_s = float(self.get_parameter('hold_exit_ramp_s').value)
 
         # 콜백 그룹 3개 + MultiThreadedExecutor(main() 참고):
         # - logic_group(상호배제): 비전 콜백(EMA·decide)과 on_timer(상태머신). 둘 다 같은
@@ -271,6 +276,7 @@ class ApproachControlNode(Node):
         self._reacquire_center_yaw = None
         self._reacquire_sweep_dir = 1.0
         self._reacquire_retreat = False
+        self._hold_exit_since = None  # HOLD -> APPROACH 전이 시각 (램프 진행 중일 때만)
         self._last_tick_time = None
 
         self.create_timer(DT, self.on_timer, callback_group=logic_group)
@@ -284,7 +290,7 @@ class ApproachControlNode(Node):
             f'yaw_rate_max={math.degrees(self.yaw_rate_max):.0f}deg/s '
             f'cmd_hold={self.cmd_hold_s}s cmd_decay={self.cmd_decay_s}s ema_alpha={self.ema_alpha} '
             f'z_trim(ki={self.z_trim_ki} db={self.z_trim_deadband}m rate<={self.z_trim_rate_max}m/s '
-            f'|trim|<={self.z_trim_max}m)')
+            f'|trim|<={self.z_trim_max}m) hold_exit_ramp={self.hold_exit_ramp_s}s')
 
     # ---- subscriptions ----
     def on_local_position(self, msg):
@@ -471,6 +477,19 @@ class ApproachControlNode(Node):
         if self.offboard_setpoint_counter <= ARM_TICK:
             self.offboard_setpoint_counter += 1
 
+    def hold_exit_ramp(self, now):
+        """HOLD 이탈 직후 명령 배율 0 -> 1 (hold_exit_ramp_s 동안 선형). 램프 밖이면 1."""
+        if self._hold_exit_since is None:
+            return 1.0
+        if self.hold_exit_ramp_s <= 0.0:
+            self._hold_exit_since = None
+            return 1.0
+        r = (now - self._hold_exit_since).nanoseconds * 1e-9 / self.hold_exit_ramp_s
+        if r >= 1.0:
+            self._hold_exit_since = None
+            return 1.0
+        return max(0.0, r)
+
     def _handle_lost(self, now):
         """타겟 유실 시 곧바로 전체 SEARCH로 튀지 않고 REACQUIRE 3단계를 거친다:
         ①grace(제자리 대기) — 단 standoff 근처 유실이면 대신 후퇴(RETREAT_*)
@@ -523,6 +542,7 @@ class ApproachControlNode(Node):
     def run_state_machine(self, now):
         vc = self.vision_cmd  # 비전 콜백이 다른 스레드에서 갈아끼우므로 한 번만 읽어 쓴다
         if self.target_lost() or vc is None:
+            self._hold_exit_since = None
             return self._handle_lost(now)
 
         vf, vr, yaw_rate, stamp, forward_err, lateral_err, yaw_err, _ = vc
@@ -541,9 +561,15 @@ class ApproachControlNode(Node):
 
         if all(checks):
             self.state = 'HOLD'
+            self._hold_exit_since = None
             return (0.0, 0.0, 0.0, now)
+        if self.state == 'HOLD':
+            self._hold_exit_since = now  # 이탈 순간: 0에서 램프 시작
         self.state = 'APPROACH'
-        return (vf, vr, yaw_rate, stamp)
+        # on_timer(20Hz)가 매 틱 다시 계산하므로 비전 프레임(≈2Hz) 사이에서도 램프가 매끄럽다.
+        # stamp는 그대로 — 비전 유실 hold/decay(cmd_scale)는 발행부에서 곱으로 따로 걸린다.
+        s = self.hold_exit_ramp(now)
+        return (vf * s, vr * s, yaw_rate * s, stamp)
 
     # ---- px4 command helpers (offboard_control.py 예제와 동일 패턴) ----
     def publish_offboard_heartbeat(self):
